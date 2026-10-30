@@ -88,8 +88,18 @@ namespace Shotgun
 
             internal static void Postfix(LootTableData lootTableData, int __state)
             {
-                if (lootTableData?.m_BaseEntries == null || lootTableData.m_BaseEntries.Count == __state) return;
+                if (lootTableData?.m_BaseEntries == null || !AddedShotgunEntry(lootTableData, __state)) return;
                 lootTableData.FilterEntries();
+            }
+
+
+            private static bool AddedShotgunEntry(LootTableData lootTableData, int firstAdded)
+            {
+                for (int i = firstAdded; i < lootTableData.m_BaseEntries.Count; i++)
+                {
+                    if (lootTableData.m_BaseEntries[i].m_Item?.AssetGUID?.StartsWith(ShotgunItemPrefabName, StringComparison.Ordinal) == true) return true;
+                }
+                return false;
             }
         }
     }
