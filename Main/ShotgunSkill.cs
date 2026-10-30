@@ -14,6 +14,7 @@ namespace Shotgun
 
         #region FiligranisSkills Compat
 
+        private static Assembly mFSAssembly;
         private static Type mFSkillType;
 
         internal delegate (int points, int tier) GetPointsAndTiersDelegate(string skillName);
@@ -26,7 +27,8 @@ namespace Shotgun
 
         internal static void Init()
         {
-            Type fskillType = AccessTools.TypeByName("FiligranisSkills.FiligranisSkills, FiligranisSkills");
+            mFSAssembly = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.GetName().Name == "FiligranisSkills");
+            Type fskillType = mFSAssembly?.GetType("FiligranisSkills.FiligranisSkills");
             if (fskillType == null)
             {
                 MelonLogger.Warning("FiligranisSkills not found, Shotgun skill will not be available");
@@ -61,7 +63,7 @@ namespace Shotgun
                 return;
             }
 
-            Type skillDefType = AccessTools.TypeByName("FiligranisSkills.SkillDefinition, FiligranisSkills");
+            Type skillDefType = mFSAssembly.GetType("FiligranisSkills.SkillDefinition");
             ConstructorInfo constructor = AccessTools.Constructor(skillDefType, new Type[]
             {
                 typeof(string),
