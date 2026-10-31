@@ -1,6 +1,6 @@
 # Scrapshot implementation and balance
 
-Updated: 2026-10-31. Status: **partial** - runtime/recipe source and Blender artwork are implemented; Unity prefab authoring/import, asset-package rebuilding, compilation, and game acceptance are deferred. The embedded package still contains the earlier content. Follow the [source handoff](../unity/SourceArt/README.md).
+Updated: 2026-10-31. Status: **partial** - runtime/recipe source and Blender artwork are implemented; Unity prefab authoring/import, asset-package rebuilding and game acceptance remain pending. Runtime C# compilation passed on 2026-10-31 using the current embedded package; that compilation artifact does not contain the new assets. The embedded package still contains the earlier content. Follow the [source handoff](../unity/SourceArt/README.md).
 
 ## Role
 

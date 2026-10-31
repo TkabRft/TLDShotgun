@@ -2,7 +2,7 @@
 
 Baseline checked: 2026-10-31. Shotgun values below come from current source and item definitions. Vanilla references come from the installed game's serialized assets, read on the same date. They describe the standard rifle and revolver; named variants require separate comparisons.
 
-Status: **partial** - ammunition runtime source, recipe definitions, 40 g source weights, and Blender artwork are implemented. Unity prefab authoring/import, asset-package rebuilding, compilation, and game acceptance are deferred. The embedded package still contains the previous assets. Follow the [source handoff](../unity/SourceArt/README.md) before producing a playable build.
+Status: **partial** - ammunition runtime source, recipe definitions, 40 g source weights, and Blender artwork are implemented. Unity prefab authoring/import, asset-package rebuilding and game acceptance remain pending. Runtime C# compilation passed on 2026-10-31 using the current embedded package; that compilation artifact does not contain the new assets. The embedded package still contains the previous assets. Follow the [source handoff](../unity/SourceArt/README.md) before producing a playable build.
 
 ## Weight rule
 

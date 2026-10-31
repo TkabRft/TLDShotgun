@@ -1,6 +1,6 @@
 # Shotgun finds and restoration
 
-Status: partial вЂ” runtime source is implemented and syntax checked; compilation, asset-package authoring/build, and game acceptance are deferred by request.
+Status: partial - runtime source is implemented and C# compilation passed on 2026-10-31. Asset-package integration and game acceptance remain pending.
 
 ## Find controls
 
