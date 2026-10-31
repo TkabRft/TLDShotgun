@@ -9,7 +9,7 @@ namespace Shotgun
 {
     internal static class ShotgunPellets
     {
-        internal enum ShotgunAmmo { None, Slug, Buckshot, Birdshot }
+        internal enum ShotgunAmmo { None = 0, Slug = 1, Buckshot = 2, Birdshot = 3, Scrapshot = 4 }
 
         internal const int BulletLayerMask = 0x180e1b41;
         internal const int GearLayer = 17;
@@ -51,83 +51,18 @@ namespace Shotgun
             if (!gun.TryGetSelectedAmmo(out ammoData)) return ShotgunAmmo.None;
             if (ammoData == null) return ShotgunAmmo.None;
 
-            string ammoName = ammoData.name;
-            if (ammoName.Contains("Slug")) return ShotgunAmmo.Slug;
-            if (ammoName.Contains("Buckshot")) return ShotgunAmmo.Buckshot;
-            if (ammoName.Contains("Birdshot")) return ShotgunAmmo.Birdshot;
-            return ShotgunAmmo.None;
+            return ShotgunAmmoCatalog.Find(ammoData.name)?.Kind ?? ShotgunAmmo.None;
         }
 
+        internal static bool IsPelletAmmo(ShotgunAmmo ammo) =>
+            ammo == ShotgunAmmo.Buckshot || ammo == ShotgunAmmo.Birdshot || ammo == ShotgunAmmo.Scrapshot;
 
-        internal static bool IsPelletAmmo(ShotgunAmmo ammo) => ammo == ShotgunAmmo.Buckshot || ammo == ShotgunAmmo.Birdshot;
-
-
-        internal static int GetPelletCount(ShotgunAmmo ammo)
-        {
-            switch (ammo)
-            {
-                case ShotgunAmmo.Buckshot: return Settings.Instance.BuckshotPelletCount;
-                case ShotgunAmmo.Birdshot: return Settings.Instance.BirdshotPelletCount;
-                default: return 1;
-            }
-        }
-
-
-        internal static float GetPelletSpread(ShotgunAmmo ammo)
-        {
-            switch (ammo)
-            {
-                case ShotgunAmmo.Buckshot: return Settings.Instance.BuckshotPelletSpread / 2;
-                case ShotgunAmmo.Birdshot: return Settings.Instance.BirdshotPelletSpread / 2;
-                default: return 0f;
-            }
-        }
-
-
-        internal static float GetFalloffPerMeter(ShotgunAmmo ammo)
-        {
-            switch (ammo)
-            {
-                case ShotgunAmmo.Slug: return Settings.Instance.SlugDamageFalloff;
-                case ShotgunAmmo.Buckshot: return Settings.Instance.BuckshotDamageFalloff;
-                case ShotgunAmmo.Birdshot: return Settings.Instance.BirdshotDamageFalloff;
-                default: return 0f;
-            }
-        }
-
-
-        internal static float GetMinimumDamage(ShotgunAmmo ammo)
-        {
-            switch (ammo)
-            {
-                case ShotgunAmmo.Slug: return Settings.Instance.SlugMinimumDamage;
-                case ShotgunAmmo.Buckshot: return Settings.Instance.BuckshotMinimumDamage;
-                case ShotgunAmmo.Birdshot: return Settings.Instance.BirdshotMinimumDamage;
-                default: return 0f;
-            }
-        }
-
-
-        internal static int GetBleedPelletThreshold(ShotgunAmmo ammo)
-        {
-            switch (ammo)
-            {
-                case ShotgunAmmo.Buckshot: return Settings.Instance.BuckshotBleedPellets;
-                case ShotgunAmmo.Birdshot: return Settings.Instance.BirdshotBleedPellets;
-                default: return 0;
-            }
-        }
-
-
-        internal static int GetCriticalPelletThreshold(ShotgunAmmo ammo)
-        {
-            switch (ammo)
-            {
-                case ShotgunAmmo.Buckshot: return Settings.Instance.BuckshotCriticalPellets;
-                case ShotgunAmmo.Birdshot: return Settings.Instance.BirdshotCriticalPellets;
-                default: return 0;
-            }
-        }
+        internal static int GetPelletCount(ShotgunAmmo ammo) => ShotgunAmmoCatalog.Read(ammo).Pellets;
+        internal static float GetPelletSpread(ShotgunAmmo ammo) => ShotgunAmmoCatalog.Read(ammo).Spread / 2f;
+        internal static float GetFalloffPerMeter(ShotgunAmmo ammo) => ShotgunAmmoCatalog.Read(ammo).Falloff;
+        internal static float GetMinimumDamage(ShotgunAmmo ammo) => ShotgunAmmoCatalog.Read(ammo).MinimumDamage;
+        internal static int GetBleedPelletThreshold(ShotgunAmmo ammo) => ShotgunAmmoCatalog.Read(ammo).BleedPellets;
+        internal static int GetCriticalPelletThreshold(ShotgunAmmo ammo) => ShotgunAmmoCatalog.Read(ammo).CriticalPellets;
 
 
         private static bool MeetsPelletThreshold(int pellets, int threshold) => threshold > 0 && pellets >= threshold;

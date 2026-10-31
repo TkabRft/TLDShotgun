@@ -85,7 +85,7 @@ namespace Shotgun
         }
 
 
-        internal static readonly string[] ShotgunAmmoTypes = { "Slug", "Buckshot", "Birdshot" };
+        internal static readonly string[] ShotgunAmmoTypes = ShotgunAmmoCatalog.Definitions.Select(d => d.Name).ToArray();
 
         internal bool GetShotgun(ConfigurationReferences refs)
         {

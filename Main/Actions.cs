@@ -30,22 +30,13 @@ namespace Shotgun
             vp_FPSShooter shooter = Main.Instance.Configuration.Refs.Shotgun.WeaponView.FPSShooter;
             shooter.ProjectileCount = 1;
             shooter.ProjectileSpread = 0f;
-            if (ammoName.Contains("Slug"))
-            {
-                gun.m_DamageHP = Settings.Instance.SlugBaseDamage;
-                gun.m_AccuracyRange = Settings.Instance.SlugAccuracyRange;
-            }
-            else if (ammoName.Contains("Buckshot"))
-            {
-                gun.m_DamageHP = Settings.Instance.BuckshotBaseDamage;
-                gun.m_AccuracyRange = Settings.Instance.BuckshotAccuracyRange;
-            }
-            else if (ammoName.Contains("Birdshot"))
-            {
-                gun.m_DamageHP = Settings.Instance.BirdshotBaseDamage;
-                gun.m_AccuracyRange = Settings.Instance.BirdshotAccuracyRange;
-            }
+            var definition = ShotgunAmmoCatalog.Find(ammoName);
+            if (definition == null) return;
+            var stats = definition.Read(Settings.Instance);
+            gun.m_DamageHP = stats.Damage;
+            gun.m_AccuracyRange = stats.Range;
         }
+
 
         internal static void ResetShotgunTriggers(Animator moddedAnimator)
         {

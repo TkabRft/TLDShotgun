@@ -130,6 +130,34 @@ namespace Shotgun
         public int BirdshotCriticalPellets = 0;
 
 
+        [Section("Scrapshot Settings")]
+        [Name("Scrapshot Base Damage Per Pellet")]
+        [Slider(1, 25)]
+        public int ScrapshotBaseDamage = 13;
+        [Name("Scrapshot Accuracy Range")]
+        [Slider(5, 40)]
+        public int ScrapshotAccuracyRange = 25;
+        [Name("Scrapshot Damage Falloff Per Meter")]
+        [Slider(0.1f, 10f)]
+        public float ScrapshotDamageFalloff = 1f;
+        [Name("Scrapshot Minimum Damage Per Pellet")]
+        [Slider(0f, 15f)]
+        public float ScrapshotMinimumDamage = 5f;
+        [Name("Scrapshot Full Cone Spread")]
+        [Slider(0.2f, 8f)]
+        public float ScrapshotPelletSpread = 2.2f;
+        [Name("Scrapshot Pellet Count")]
+        [Slider(1, 12)]
+        public int ScrapshotPelletCount = 6;
+        [Name("Scrapshot Pellets To Bleed")]
+        [Description("Hits on one animal per shell. 0 disables bleeding eligibility.")]
+        [Slider(0, 12)]
+        public int ScrapshotBleedPellets = 3;
+        [Name("Scrapshot Pellets For Critical Roll")]
+        [Description("In-range hits on one animal per shell. 0 disables critical rolls.")]
+        [Slider(0, 12)]
+        public int ScrapshotCriticalPellets = 6;
+
         [Section("Recoil Settings")]
         [Name("Recoil Pitch Kick")]
         [Description("Strength of the upward camera jerk when the shotgun fires, at Shotgun skill level 1. Scales down linearly to zero at level 5. Set to 0 to disable. Default: 12")]
