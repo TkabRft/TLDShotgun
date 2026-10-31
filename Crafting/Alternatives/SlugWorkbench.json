@@ -1,0 +1,33 @@
+{
+  "Name": "Shotgun_Alternative_SlugWorkbench",
+  "RequiredGear": [
+    {
+      "Item": "GEAR_DoubleBarrelAmmoCasing",
+      "Count": 1,
+      "Units": "Count"
+    },
+    {
+      "Item": "GEAR_Bullet",
+      "Count": 1,
+      "Units": "Count"
+    }
+  ],
+  "RequiredPowder": [
+    {
+      "Powder": "POWDER_Gunpowder",
+      "QuantityInKilograms": 0.01
+    }
+  ],
+  "RequiredLiquid": [],
+  "RequiredTool": "",
+  "OptionalTools": [],
+  "RequiredCraftingLocation": "Workbench",
+  "RequiresLitFire": false,
+  "RequiresLight": true,
+  "CraftedResult": "GEAR_DoubleBarrelAmmoSingleSlug",
+  "CraftedResultCount": 1,
+  "DurationMinutes": 5,
+  "CraftingAudio": "Play_HarvestingAmmo",
+  "AppliedSkill": "Gunsmithing",
+  "ImprovedSkill": "Gunsmithing"
+}

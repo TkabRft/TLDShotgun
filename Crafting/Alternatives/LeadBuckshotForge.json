@@ -1,0 +1,23 @@
+{
+  "Name": "Shotgun_Alternative_LeadBuckshotForge",
+  "RequiredGear": [
+    {
+      "Item": "GEAR_ScrapLead",
+      "Count": 1,
+      "Units": "Count"
+    }
+  ],
+  "RequiredPowder": [],
+  "RequiredLiquid": [],
+  "RequiredTool": "",
+  "OptionalTools": [],
+  "RequiredCraftingLocation": "Forge",
+  "RequiresLitFire": true,
+  "RequiresLight": true,
+  "CraftedResult": "GEAR_DoubleBarrelLeadBuckshot",
+  "CraftedResultCount": 6,
+  "DurationMinutes": 60,
+  "CraftingAudio": "Play_HarvestingAmmo",
+  "AppliedSkill": "Gunsmithing",
+  "ImprovedSkill": "Gunsmithing"
+}

@@ -24,6 +24,19 @@ namespace Shotgun
         public KeyCode DoubleFireKeyCode = KeyCode.LeftAlt;
 
 
+        [Section("Crafting Locations")]
+        [Name("Allow Vanilla Bullets At Ordinary Forges")]
+        [Description("Adds a forge alternative without changing vanilla bullet casting. Takes effect on the next game load. Default: Off")]
+        public bool AllowVanillaBulletsAtForge = false;
+
+        [Name("Allow Lead Shot At Ordinary Forges")]
+        [Description("Adds forge alternatives for lead buckshot and birdshot portions. Takes effect on the next game load. Default: Off")]
+        public bool AllowLeadShotAtForge = false;
+
+        [Name("Allow Lead Shotgun Shells At Workbenches")]
+        [Description("Adds workbench alternatives for slugs, buckshot, and birdshot. Vanilla rifle/revolver cartridges are unchanged. Takes effect on the next game load. Default: Off")]
+        public bool AllowLeadShellsAtWorkbench = false;
+
         [Section("Slug Settings")]
         [Name("Slug Base Damage")]
         [Description("Base damage dealt by slugs within accuracy range. Default: 120")]

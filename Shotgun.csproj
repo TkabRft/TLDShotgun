@@ -66,6 +66,7 @@
   <ItemGroup>
     <EmbeddedResource Include="DoubleBarrel.modcomponent" />
     <EmbeddedResource Include="Spawns\groupspawns.txt" LogicalName="Shotgun.groupspawns.txt" />
+    <EmbeddedResource Include="Crafting\Alternatives\*.json" LogicalName="Shotgun.Crafting.%(Filename)%(Extension)" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(NoDeploy)' != 'true'">
