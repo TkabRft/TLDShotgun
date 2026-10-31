@@ -6,7 +6,7 @@ The editable [Ammunition.blend](Ammunition.blend) contains one isolated asset sc
 
 The single shell retains the original shell geometry, UVs, and proportions. The carton uses the original box dimensions as its baseline, with new thin folded panels, creases, rough edges, and six copies of the unchanged shell geometry. Small dimensional differences come from cardboard thickness and dents. The original FBX/textures and existing asset GUIDs remain unchanged; only the five new model paths are replaced. The displayed pile counts are decorative and independent of material quantities and combat pellet settings.
 
-See [the box preview](previews/ShotgunScrapshotBox.png) and the other five-model previews in `previews/`. FBX files are Unity source inputs under `Assets/Shotgun/Imports/`; corresponding GLBs in `exports/` are self-contained interchange/inspection copies. The six inventory/HUD PNGs are transparent 256 x 256 renders. Explicit opaque Standard materials under `Assets/Shotgun/Materials/` reference the four new base-colour textures. The Unity authoring command assigns those materials by exact imported slot name, including both carton and shell slots.
+See [the box preview](previews/ShotgunScrapshotBox.png) and the other five-model previews in `previews/`. FBX files are Unity source inputs under `Assets/Shotgun/Imports/`; corresponding GLBs in `exports/` are self-contained inputs for the Unity-free builder. The six inventory/HUD PNGs are transparent 256 x 256 renders. Explicit opaque Standard materials under `Assets/Shotgun/Materials/` reference the four new base-colour textures. Both build paths assign materials by exact slot name, including the carton and shell slots.
 
 ## Live authoring phases
 
@@ -30,12 +30,12 @@ Run `python source/validate_art.py` to verify current file hashes, material/text
 
 Run `python validate_ammunition.py` for non-compiling recipe/material/weight/artwork checks and boundary cases evaluated from the pure spawn expressions in the C# source. This does not replace compilation or in-game tests.
 
-## Deferred Unity authoring and build handoff
+## Unity-free package build
 
-1. Open the existing project with its pinned Unity editor and SDK package. Do not upgrade either to resolve an import problem.
-2. Run **Tools > Shotgun > Prepare Ammunition Source Assets**. The editor script consumes the manifest, creates the three material prefabs and scrapshot single/box prefabs, synchronizes all shell recipes/harvest yields, imports the icons as sprites, and registers the prefab/icon addresses in the existing shotgun group and SDK item pack. Existing prefab paths are saved in place. This is source authoring, not an Addressables/package build.
-3. Review the new prefab visuals, collider bounds, inspect orientation, material appearance, open carton contents, and SDK references in Unity. Confirm all imported material slot names resolve to the supplied opaque Unity materials. Check for missing original source GUID references before exporting; this checkout historically ignores most `.meta` files. The new ammunition inputs have explicit metadata exceptions.
-4. Export using the existing ModComponent SDK workflow. Verify the exported material/recipe JSON, all new prefab and HUD addresses, 40 g ammo units, and six-round stacks. Replace the embedded package only after checking the output.
-5. After replacing the embedded asset package, recompile and validate the runtime mod. Confirm embedded-package refresh on the next load, including an installation that already extracted the older package.
+`no-unity-build.json` is the declarative build input. It pins the immutable checked-in `DoubleBarrel.modcomponent` by SHA-256 and selects compatible object/material/catalog templates. The workspace ModBuild pipeline consumes the five GLBs, four textures, six icons and current ModComponent JSON directly. No Unity Editor, Hub, editor module or container is used or downloaded. The earlier SDK editor utility is retained as source-authoring guidance; it is not part of this build path.
 
-Steps 1–5 have not been run for this change. The checked-in `DoubleBarrel.modcomponent` still contains the previous assets and recipes; it cannot provide the new material/scrapshot prefabs. The current DLL is a compilation artifact, not a game-ready package for the new ammunition.
+The generated package adds five prefabs and 60 native Unity objects, including a separate HUD Sprite. It preserves all 244 original non-container objects byte-for-byte, including shaders' references, existing clips and sounds. New GameObjects have mesh renderers, filters and bounds-derived box colliders. Textures use BC1 for opaque materials and BC3 for transparent icons. Original GUIDs and game IDs are unchanged; deterministic 64-bit internal path IDs have collision checks.
+
+The builder replaces packaging JSON with the current material, recipe, harvest, localization and weight definitions; it updates Addressables entries, preload dependencies, size, hash and nonzero CRC. It reopens the package and checks local/external references against both bundles before compilation. The runtime DLL embeds the generated package under the existing resource name. The checked-in template is left unchanged and is never silently substituted for a missing generated result.
+
+Structural validation and compilation pass. The generated runtime snapshot contains the new materials, scrapshot, open carton and icons. In game, inspect orientation, collider/interaction behaviour, shader appearance and carton contents; check crafting/disassembly, inventory/HUD icons, weights, firing/reloading, save/load, spawn persistence and milling restoration. Existing extracted packages refresh by content hash even when the DLL version is unchanged.

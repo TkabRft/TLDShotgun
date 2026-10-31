@@ -2,7 +2,7 @@
 
 Baseline checked: 2026-10-31. Shotgun values below come from current source and item definitions. Vanilla references come from the installed game's serialized assets, read on the same date. They describe the standard rifle and revolver; named variants require separate comparisons.
 
-Status: **partial** - ammunition runtime source, recipe definitions, 40 g source weights, and Blender artwork are implemented. Unity prefab authoring/import, asset-package rebuilding and game acceptance remain pending. Runtime C# compilation passed on 2026-10-31 using the current embedded package; that compilation artifact does not contain the new assets. The embedded package still contains the previous assets. Follow the [source handoff](../unity/SourceArt/README.md) before producing a playable build.
+Status: **implemented**, with game acceptance pending. The generated package includes the three projectile-material prefabs, scrapshot single/box prefabs, inventory/HUD icons, current recipes and 40 g ammunition units. The Unity-free pipeline reopens the package, verifies references/catalog/CRC and compiles a DLL containing those exact bytes. The checked-in older package remains an immutable template, not the full build output. See the [source handoff](../unity/SourceArt/README.md).
 
 ## Weight rule
 
@@ -19,7 +19,7 @@ Status: **partial** - ammunition runtime source, recipe definitions, 40 g source
 
 Current empty-casing weights: shotgun 0.010 kg; vanilla rifle 0.010 kg; vanilla revolver 0.005 kg. The finished shell's weight includes its casing; do not add another casing weight when calculating carried live ammunition.
 
-Shotgun boxes contain six ammunition units. The selected box total is therefore 0.240 kg, with no additional packaging mass proposed. Confirm inventory stack and loaded-ammunition accounting when implementing the target; do not assume a box field represents the entire stack's mass.
+Shotgun boxes contain six ammunition units, giving a 0.240 kg total without additional packaging mass. Packaging validation checks 0.040 kg per unit and six units per box. Confirm inventory stack and loaded-ammunition accounting in game; a box field does not represent the entire stack's mass.
 
 Weapon-only references: standard rifle 4.00 kg, standard revolver 1.50 kg, current shotgun 3.00 kg. The shotgun's weapon weight has not been rebalanced here.
 
@@ -117,4 +117,4 @@ Mod sources: [settings](../Settings/Settings.cs), [ammo parameter selection](../
 
 Vanilla provenance: `Assets/Prefabs/Gear/Ammo/GearItemData_RifleAmmoSingle.asset` and `GearItemData_RevolverAmmoSingle.asset` for 20 g and 10 g unit weights; their casing data assets for empty weights; standard weapon data/prefabs under `Assets/Prefabs/Gear/Weapons/`; `PistolBullet.prefab` and `RevolverBullet.prefab` under `Assets/AssetStore/UltimateFPSCamera/Prefabs/`; and `BLUEPRINT_GEAR_Bullet_A`, `BLUEPRINT_GEAR_RifleAmmoSingle_A`, and `BLUEPRINT_GEAR_RevolverAmmoSingle_A` under `Assets/ScriptableObjects/Gear/Blueprints/`. These are serialized asset observations, not implementation bodies inferred from IL2CPP reference stubs. The project's reference-package pin is not proof of the installed game's version.
 
-Before shipping, run the deferred Unity authoring/import and asset-package export, verify all new addresses and embedded output, compile the runtime mod, and check inventory/loaded-shell/stack weights on new and existing saves. Current packaging JSON and existing shell-prefab source weights have been updated; new prefabs are created by the supplied Unity authoring command. Named rifle/revolver variants, skill bonuses, and optional combat integrations still need focused in-game comparisons; see [TODO.md](TODO.md).
+The full asset/package/runtime build passes structural checks without Unity Editor. Before distribution, check inventory/loaded-shell/stack weights on new and existing saves, material consumption/recovery, crafting locations and UI, icons, firing/reloading and saved ammo. Named rifle/revolver variants, skill bonuses, and optional combat integrations still need focused in-game comparisons; see [TODO.md](TODO.md).

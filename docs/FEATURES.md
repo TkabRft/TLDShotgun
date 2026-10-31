@@ -7,7 +7,7 @@ Read this file first, then open only the owner documentation and source relevant
 - The player overview, controls, installation requirements, and credits are in [`../README.md`](../README.md).
 - Runtime C# lives in `Main/`, `Settings/`, `Util/`, and `ToolBox/`. Spawn source data is in `Spawns/`.
 - [`../Shotgun.csproj`](../Shotgun.csproj) targets `net6.0`, declares `STBlade.Modding.TLD.Il2CppAssemblies.Windows` `2.51.0`, and produces `DoubleBarrel.dll`. The C# namespace remains `Shotgun`.
-- The DLL embeds `DoubleBarrel.modcomponent` and `Spawns/groupspawns.txt` (resource name `Shotgun.groupspawns.txt`). Runtime initialization extracts the embedded asset package through MehToolBox.
+- The DLL embeds `DoubleBarrel.modcomponent` (resource name `Shotgun.DoubleBarrel.modcomponent`) and `Spawns/groupspawns.txt` (resource name `Shotgun.groupspawns.txt`). Runtime initialization atomically refreshes its own embedded package by SHA-256, including when the mod version is unchanged.
 - `unity/` is the source asset project. The editor version is recorded in `unity/ProjectSettings/ProjectVersion.txt`; package inputs are in `unity/Packages/`.
 - Existing generated packages and bundles are still tracked. They are required inputs or existing upstream content, not permission to commit every rebuild. The current clone uses partial fetching and a local artifact guard; see [storage notes](STORAGE-NOTES.md).
 
@@ -54,13 +54,13 @@ The ammunition and restoration pages own their mechanic details and pending acce
 Use the workspace build rules. From the mod root, the runtime build command is:
 
 ```powershell
-dotnet build ./Shotgun.csproj -c Release -p:NoDeploy=true --nologo --verbosity quiet
+dotnet build ./Shotgun.csproj -c Release -p:NoDeploy=true -p:ModBuildCodeOnly=true --nologo --verbosity quiet
 ```
 
-`NoDeploy=true` is required because the project's default post-build target copies files into the game installation. Supply dependency paths as MSBuild properties when needed; local path and log-capture conventions belong to the workspace instructions.
+This is an explicit diagnostic C# build; it does not refresh a playable Release. Full builds use the workspace's ModBuild entry point, which converts assets first and passes `AssetPackagePath` plus the validated hash. A pre-compilation guard rejects an unvalidated/missing/changed package. `NoDeploy=true` is required because the default post-build target copies files into the game installation. Supply dependency paths as MSBuild properties when needed; commands, profiles and log conventions belong to the workspace instructions.
 
 `ModReferencesPath` optionally selects a separate directory containing the managed mod dependency DLLs; it defaults to the game's `Mods` folder. This supports compilation without installing those dependencies. A missing FiligranisSkills DLL is omitted from compile references; the existing reflection-based runtime integration remains optional.
 
-C# compilation does not regenerate Unity bundles or the embedded `.modcomponent`. Validate the relevant asset pipeline for asset changes. Compilation also does not prove in-game acceptance; name the remaining focused game checks. Documentation-only edits need neither compilation nor a local release.
+C# compilation alone does not regenerate bundles or the `.modcomponent`. The full template-based UnityPy pipeline consumes `unity/SourceArt/no-unity-build.json` and the authored GLB/PNG inputs, validates the catalog/CRC and all bundle references, and verifies the exact embedded package after compilation. Existing shaders, controllers, clips and sound banks remain in the compatible template. Own audio resources use the hash-based `Main/EmbeddedAudio.cs` adapter before the Addressables fallback. Game acceptance remains separate; name the focused game checks. Documentation-only edits need neither compilation nor a local release.
 
 code-synced: 2026-10-31

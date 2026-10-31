@@ -1,6 +1,6 @@
 # Shotgun finds and restoration
 
-Status: partial - runtime source is implemented and C# compilation passed on 2026-10-31. Asset-package integration and game acceptance remain pending.
+Status: implemented in the rebuilt runtime DLL. The complete ammunition asset package is embedded and structurally verified. Game acceptance of spawn persistence and successful ruined-gun milling recovery remains pending.
 
 ## Find controls
 

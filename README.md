@@ -77,6 +77,6 @@ If you don't see your name here tell me and I will fix! You know how forgetful I
 
 ## Development
 
-The new ammunition and restoration changes are prepared in source, and runtime C# compilation has passed. Unity prefab authoring/import, asset-package rebuilding, and in-game validation remain pending; the currently embedded package still contains the older content. The current compilation artifact is not a playable build of the new ammunition. See the [ammunition source handoff](unity/SourceArt/README.md) before producing a playable build of these changes.
+The new ammunition and restoration changes are included in the rebuilt runtime package. It contains the three projectile materials, scrapshot shells and open cardboard box, their inventory/HUD icons, updated recipes and 40 g shells. The template-based asset pipeline builds from GLB/PNG source without Unity Editor. Package, catalog, CRC and embedded-resource checks pass; in-game testing remains pending. See the [ammunition source handoff](unity/SourceArt/README.md) for asset inputs and validation boundaries.
 
 Start with the [developer router](docs/FEATURES.md) for source locations and validation guidance. [Storage notes](docs/STORAGE-NOTES.md) describe the local partial-clone setup and build-output guard.

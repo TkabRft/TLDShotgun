@@ -1,6 +1,6 @@
 # Scrapshot implementation and balance
 
-Updated: 2026-10-31. Status: **partial** - runtime/recipe source and Blender artwork are implemented; Unity prefab authoring/import, asset-package rebuilding and game acceptance remain pending. Runtime C# compilation passed on 2026-10-31 using the current embedded package; that compilation artifact does not contain the new assets. The embedded package still contains the earlier content. Follow the [source handoff](../unity/SourceArt/README.md).
+Status: **implemented**, with game acceptance pending. Runtime code, recipes, projectile portions, scrapshot single/box prefabs and inventory/HUD icons are included in the rebuilt DLL. The Unity-free pipeline verifies package contents, object references, catalog and CRC before embedding. Follow the [source handoff](../unity/SourceArt/README.md).
 
 ## Role
 
@@ -41,7 +41,7 @@ Disassembly recovers a casing and matching scrap buckshot portion per shell usin
 - At damage scale 1, full patterns deal 78 at 25 m, 48 at 30 m, and 30 at 35 m. These are calculations, not measured game results.
 - Both barrels consume two shells and resolve separate thresholds, for up to 156 base damage. Mixed-barrel loading is separate TODO work.
 - Scrapshot is crafting-only initially. It appends to the existing load order as enum value 4, with distinct single-shell, six-shell-box, and HUD addresses. Existing load IDs/indices remain intact.
-- Unmarked grey reused-shell artwork, an unprinted crumpled cardboard carton open at one end with six shells visible inside, inventory/HUD icons, three projectile-pile models, and editable Blender source are supplied. The artwork passed FBX/GLB reverse-import and standalone Blender-file checks; see the [asset handoff and previews](../unity/SourceArt/README.md). Unity's authoring command creates/registers the new prefabs before the deferred SDK export.
+- Unmarked grey reused-shell artwork, an unprinted crumpled cardboard carton open at one end with six shells visible inside, inventory/HUD icons, three projectile-pile models, and editable Blender source are supplied. The artwork passed FBX/GLB reverse-import and standalone Blender-file checks; see the [asset handoff and previews](../unity/SourceArt/README.md). The Unity-free builder creates/registers these prefabs and icons directly in a generated package while preserving the original content.
 
 ## Pending acceptance
 
