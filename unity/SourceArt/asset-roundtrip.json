@@ -1,0 +1,62 @@
+{
+  "ShotgunLeadBuckshot": {
+    "fbx": {
+      "max_dimension_error_m": 3.725290298461914e-09,
+      "triangles": 3960,
+      "textures_loaded": 2
+    },
+    "glb": {
+      "max_dimension_error_m": 0.0,
+      "triangles": 3960,
+      "textures_loaded": 1
+    }
+  },
+  "ShotgunLeadBirdshot": {
+    "fbx": {
+      "max_dimension_error_m": 3.725290298461914e-09,
+      "triangles": 8500,
+      "textures_loaded": 2
+    },
+    "glb": {
+      "max_dimension_error_m": 0.0,
+      "triangles": 8500,
+      "textures_loaded": 1
+    }
+  },
+  "ShotgunScrapBuckshot": {
+    "fbx": {
+      "max_dimension_error_m": 3.259629011154175e-09,
+      "triangles": 440,
+      "textures_loaded": 2
+    },
+    "glb": {
+      "max_dimension_error_m": 0.0,
+      "triangles": 440,
+      "textures_loaded": 1
+    }
+  },
+  "ShotgunScrapshotShell": {
+    "fbx": {
+      "max_dimension_error_m": 2.2351741790771484e-08,
+      "triangles": 552,
+      "textures_loaded": 2
+    },
+    "glb": {
+      "max_dimension_error_m": 0.0,
+      "triangles": 552,
+      "textures_loaded": 1
+    }
+  },
+  "ShotgunScrapshotBox": {
+    "fbx": {
+      "max_dimension_error_m": 2.9802322387695312e-08,
+      "triangles": 6784,
+      "textures_loaded": 4
+    },
+    "glb": {
+      "max_dimension_error_m": 0.0,
+      "triangles": 6784,
+      "textures_loaded": 2
+    }
+  }
+}

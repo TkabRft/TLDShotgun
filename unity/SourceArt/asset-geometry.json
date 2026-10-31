@@ -1,0 +1,73 @@
+{
+  "ShotgunLeadBuckshot": {
+    "dimensions_m": [
+      0.02304000034928322,
+      0.02088000439107418,
+      0.01281600072979927
+    ],
+    "triangles": 3960,
+    "vertices": 1998,
+    "nonmanifold_edges": 0,
+    "mesh_count": 1,
+    "materials": [
+      "ShotgunCastLead"
+    ]
+  },
+  "ShotgunLeadBirdshot": {
+    "dimensions_m": [
+      0.03185148537158966,
+      0.028204990550875664,
+      0.00901000015437603
+    ],
+    "triangles": 8500,
+    "vertices": 4420,
+    "nonmanifold_edges": 0,
+    "mesh_count": 1,
+    "materials": [
+      "ShotgunCastLead"
+    ]
+  },
+  "ShotgunScrapBuckshot": {
+    "dimensions_m": [
+      0.028757277876138687,
+      0.02054985798895359,
+      0.003613575827330351
+    ],
+    "triangles": 440,
+    "vertices": 240,
+    "nonmanifold_edges": 0,
+    "mesh_count": 1,
+    "materials": [
+      "ShotgunCutSteel"
+    ]
+  },
+  "ShotgunScrapshotShell": {
+    "dimensions_m": [
+      0.043629154562950134,
+      0.04362913966178894,
+      0.12764769792556763
+    ],
+    "triangles": 552,
+    "vertices": 278,
+    "nonmanifold_edges": 0,
+    "mesh_count": 1,
+    "materials": [
+      "ShotgunScrapshotShell"
+    ]
+  },
+  "ShotgunScrapshotBox": {
+    "dimensions_m": [
+      0.246440589427948,
+      0.1439327895641327,
+      0.13609114289283752
+    ],
+    "triangles": 6784,
+    "vertices": 3416,
+    "nonmanifold_edges": 0,
+    "mesh_count": 2,
+    "materials": [
+      "ShotgunScrapshotBox",
+      "ShotgunScrapshotShell"
+    ]
+  }
+}

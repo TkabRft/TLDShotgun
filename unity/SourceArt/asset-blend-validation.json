@@ -1,0 +1,89 @@
+{
+  "scene": "TLDShotgun_Ammo_Workshop",
+  "units": "metres",
+  "meshes": {
+    "ShotgunLeadBuckshot": {
+      "dimensions_m": [
+        0.02304000034928322,
+        0.02088000439107418,
+        0.01281600072979927
+      ],
+      "triangles": 3960,
+      "vertices": 1998,
+      "nonmanifold_edges": 0,
+      "mesh_count": 1,
+      "materials": [
+        "ShotgunCastLead"
+      ]
+    },
+    "ShotgunLeadBirdshot": {
+      "dimensions_m": [
+        0.03185148537158966,
+        0.028204990550875664,
+        0.00901000015437603
+      ],
+      "triangles": 8500,
+      "vertices": 4420,
+      "nonmanifold_edges": 0,
+      "mesh_count": 1,
+      "materials": [
+        "ShotgunCastLead"
+      ]
+    },
+    "ShotgunScrapBuckshot": {
+      "dimensions_m": [
+        0.028757277876138687,
+        0.02054985798895359,
+        0.003613575827330351
+      ],
+      "triangles": 440,
+      "vertices": 240,
+      "nonmanifold_edges": 0,
+      "mesh_count": 1,
+      "materials": [
+        "ShotgunCutSteel"
+      ]
+    },
+    "ShotgunScrapshotShell": {
+      "dimensions_m": [
+        0.043629154562950134,
+        0.04362913966178894,
+        0.12764769792556763
+      ],
+      "triangles": 552,
+      "vertices": 278,
+      "nonmanifold_edges": 0,
+      "mesh_count": 1,
+      "materials": [
+        "ShotgunScrapshotShell"
+      ]
+    },
+    "ShotgunScrapshotBox": {
+      "dimensions_m": [
+        0.246440589427948,
+        0.1439327895641327,
+        0.13609114289283752
+      ],
+      "triangles": 6784,
+      "vertices": 3416,
+      "nonmanifold_edges": 0,
+      "mesh_count": 2,
+      "materials": [
+        "ShotgunScrapshotBox",
+        "ShotgunScrapshotShell"
+      ]
+    }
+  },
+  "packed_textures": {
+    "ShotgunCastLead_BaseColor.png": "6b98ab20e29a0ec0cb32aa5f6c03813ddda2c1cadd2d7aa455a94a9e79d9d7d0",
+    "ShotgunCutSteel_BaseColor.png": "e5a4d3b4c3bda19a6fbfc4ec5105b037be8885ff8aa17d8e3dac991b1f479435",
+    "ShotgunScrapshotShell_BaseColor.png": "32839bb6b1b6297a8ccfc931dd8d088bb2a986026c16dfb677932f145e15adc8",
+    "ShotgunScrapshotBox_BaseColor.png": "aaf1d4e397ece26eb6519093583c3c7d7ca6f4adf99414ff3e8098617c6e7567"
+  },
+  "sphere_clearances_m": {
+    "ShotgunLeadBuckshot": 3.6358454782053386e-05,
+    "ShotgunLeadBirdshot": 4.170365150194108e-05
+  },
+  "visible_box_shells": 6,
+  "blend_sha256": "a32d3d66f8d19cb8defcba3153dafef162fe119fcf19fd247d49862eb2dbefdd"
+}

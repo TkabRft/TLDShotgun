@@ -1,0 +1,41 @@
+# Ammunition source authoring
+
+code-synced: 2026-10-31
+
+The editable [Ammunition.blend](Ammunition.blend) contains one isolated asset scene, five named asset collections, six mesh objects, four packed textures, and an icon-lighting setup. The separate models are cast lead buckshot, finer lead birdshot, irregular cut scrap metal, an unmarked grey shell, and an unprinted improvised cardboard carton. The carton is open at one end with a bent-back flap and **six actual shell meshes** visible inside. No added lettering or floating text is present.
+
+The single shell retains the original shell geometry, UVs, and proportions. The carton uses the original box dimensions as its baseline, with new thin folded panels, creases, rough edges, and six copies of the unchanged shell geometry. Small dimensional differences come from cardboard thickness and dents. The original FBX/textures and existing asset GUIDs remain unchanged; only the five new model paths are replaced. The displayed pile counts are decorative and independent of material quantities and combat pellet settings.
+
+See [the box preview](previews/ShotgunScrapshotBox.png) and the other five-model previews in `previews/`. FBX files are Unity source inputs under `Assets/Shotgun/Imports/`; corresponding GLBs in `exports/` are self-contained interchange/inspection copies. The six inventory/HUD PNGs are transparent 256 x 256 renders. Explicit opaque Standard materials under `Assets/Shotgun/Materials/` reference the four new base-colour textures. The Unity authoring command assigns those materials by exact imported slot name, including both carton and shell slots.
+
+## Live authoring phases
+
+Use the workspace Blender MCP instructions. `author_ammunition.py` is now a safe loader, not an automatic background scene rebuild. Importing the builder changes nothing. Load `source/ammunition_assets.py` into a namespace and keep that namespace in `bpy.app.driver_namespace`. The functions select only `TLDShotgun_Ammo_Workshop`; unrelated scenes are preserved.
+
+For a fresh task scene, deliberately call `texture_phase()`, `pile_phase()`, and `shell_box_phase()` in order, inspecting the results between phases. Existing populated collections reject accidental rebuilding. To resume a saved project, load the module and attach to the named scene/collections; do not rerun geometry constructors. The source builder intentionally contains no added lettering pipeline.
+
+Call `render_asset(name)` for a 512 px preview and `render_asset(name, 256, True)` for its inventory icon. `export_phase()` exports explicit mesh selections with metre units to FBX and GLB. `roundtrip_phase()` imports each format into temporary scenes and checks fresh objects, dimensions, triangle counts, UVs, and texture loading. Temporary imports are removed without touching the source scene.
+
+`save_library(path)` stages only the task scene and its dependencies. In a separate Blender process, `source/verify_blend.py -- --normalize` converts that staged library into the normal standalone `Ammunition.blend`, reopens it, and verifies scene scope, finite geometry/UVs, closed meshes, packed-texture hashes, and six distinct shells inside the carton. Without `--normalize`, the verifier only reopens/checks the final file. Normalization is an intentional overwrite step, not a connection check.
+
+`source/prepare_art_materials.py` writes only the four new Unity materials and their texture metadata. It preserves existing metadata GUIDs. It neither invokes Unity nor builds a package.
+
+## Validation and limits
+
+`asset-geometry.json`, `asset-roundtrip.json`, and `asset-blend-validation.json` record the final checks. All source meshes have zero nonmanifold edges. Triangle counts are 3,960 / 8,500 / 440 for the three portions, 552 for a single shell, and 6,784 for the open carton with six shells. All ten FBX/GLB round trips passed; maximum dimension error was below 0.000001 m. Four packed texture hashes match the source PNGs. The six-shell carton visual does not create extra inventory items or change its 240 g stack weight.
+
+Run `python source/validate_art.py` to verify current file hashes, material/texture GUID references, PNG headers, and the recorded geometry/interchange reports. These checks do not establish Unity shader appearance or game acceptance.
+
+`prepare_ammunition_data.py` regenerates the new material definitions, updated ammo packaging JSON, six optional recipe templates, localization additions, and `ammunition-definitions.json`. It also updates existing source-prefab weights and replaces the old Bullet references for buckshot/birdshot. Existing recipe names, prefab IDs, and translations are preserved. Edit the generator when changing recipe data, then regenerate and review the result.
+
+Run `python validate_ammunition.py` for non-compiling recipe/material/weight/artwork checks and boundary cases evaluated from the pure spawn expressions in the C# source. This does not replace compilation or in-game tests.
+
+## Deferred Unity authoring and build handoff
+
+1. Open the existing project with its pinned Unity editor and SDK package. Do not upgrade either to resolve an import problem.
+2. Run **Tools > Shotgun > Prepare Ammunition Source Assets**. The editor script consumes the manifest, creates the three material prefabs and scrapshot single/box prefabs, synchronizes all shell recipes/harvest yields, imports the icons as sprites, and registers the prefab/icon addresses in the existing shotgun group and SDK item pack. Existing prefab paths are saved in place. This is source authoring, not an Addressables/package build.
+3. Review the new prefab visuals, collider bounds, inspect orientation, material appearance, open carton contents, and SDK references in Unity. Confirm all imported material slot names resolve to the supplied opaque Unity materials. Check for missing original source GUID references before exporting; this checkout historically ignores most `.meta` files. The new ammunition inputs have explicit metadata exceptions.
+4. Export using the existing ModComponent SDK workflow. Verify the exported material/recipe JSON, all new prefab and HUD addresses, 40 g ammo units, and six-round stacks. Replace the embedded package only after checking the output.
+5. Compile and validate the runtime mod only when building is authorized again. Confirm embedded-package refresh on the next load, including an installation that already extracted the older package.
+
+Steps 1–5 have not been run for this change. The checked-in `DoubleBarrel.modcomponent` still contains the previous assets and recipes; it cannot provide the new material/scrapshot prefabs. No game-ready package was produced.
