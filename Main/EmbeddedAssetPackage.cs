@@ -1,37 +1,39 @@
-using System.Security.Cryptography;
+using HarmonyLib;
 using MelonLoader;
 
 namespace Shotgun;
 
 internal static class EmbeddedAssetPackage
 {
-    // Package content changes during local testing without changing the mod version.
-    // Refresh only our own package, atomically; do not alter saves or other mods.
-    internal static void Refresh(string modsDirectory)
+    private static ModComponentPackageBridge? bridge;
+
+    internal static void Install(string modsDirectory)
     {
-        const string resource = "Shotgun.DoubleBarrel.modcomponent";
-        using var stream = typeof(Main).Assembly.GetManifestResourceStream(resource)
-            ?? throw new InvalidOperationException("Missing embedded asset package: " + resource);
-        using var hash = SHA256.Create();
-        byte[] expected = hash.ComputeHash(stream);
-        string path = Path.Combine(modsDirectory, Utility.Utility.ModComponentFileName);
-        if (File.Exists(path))
-        {
-            using var existing = File.OpenRead(path);
-            if (expected.SequenceEqual(hash.ComputeHash(existing))) return;
-        }
-        stream.Position = 0;
-        string temporary = path + ".DoubleBarrel.tmp";
+        if (bridge != null) return;
+        var candidate = new ModComponentPackageBridge(typeof(ModComponent.Public).Assembly, modsDirectory,
+            () => typeof(Main).Assembly.GetManifestResourceStream(ModComponentPackageBridge.ResourceName)
+                ?? throw new InvalidDataException("Missing embedded shotgun asset package."),
+            message => MelonLogger.Msg(message), message => MelonLogger.Warning(message));
+        var harmony = new HarmonyLib.Harmony("Shotgun.EmbeddedPackage");
         try
         {
-            using (var output = new FileStream(temporary, FileMode.Create, FileAccess.Write, FileShare.None))
-                stream.CopyTo(output);
-            File.Move(temporary, path, true);
-            MelonLogger.Msg("Updated embedded shotgun assets: " + Convert.ToHexString(expected));
+            harmony.Patch(candidate.StandaloneMethod, prefix: new HarmonyMethod(typeof(EmbeddedAssetPackage), nameof(LoadStandalone)));
+            harmony.Patch(candidate.InitializeMethod, postfix: new HarmonyMethod(typeof(EmbeddedAssetPackage), nameof(LoadEmbedded)));
+            harmony.Patch(candidate.DependencyReadMethod, postfix: new HarmonyMethod(typeof(EmbeddedAssetPackage), nameof(RegisterIdentity)));
+            bridge = candidate;
         }
-        finally
+        catch
         {
-            if (File.Exists(temporary)) File.Delete(temporary);
+            harmony.UnpatchSelf();
+            throw;
         }
+    }
+
+    private static bool LoadStandalone(string __0) => bridge?.ShouldLoadStandalone(__0) ?? true;
+    private static void LoadEmbedded() => bridge?.Load();
+    private static void RegisterIdentity() => bridge?.RegisterDependencyIdentity();
+    internal static void Update()
+    {
+        if (bridge?.Loaded == true) bridge.CompleteMigration(ModComponent.Public.IsReady());
     }
 }

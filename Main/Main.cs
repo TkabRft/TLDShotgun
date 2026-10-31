@@ -47,7 +47,7 @@ namespace Shotgun
                 Directory.CreateDirectory(basePath);
                 Settings = new();
                 Versioning.IsVersionCorrect(basePath, Version);
-                EmbeddedAssetPackage.Refresh(modsPath);
+                EmbeddedAssetPackage.Install(modsPath);
                 MelonLogger.Msg("EarlyInitialize Complete");
             }
             catch (Exception e)
@@ -68,6 +68,8 @@ namespace Shotgun
 
             ShotgunSkill.Init();
         }
+
+        public override void OnUpdate() => EmbeddedAssetPackage.Update();
 
 
         public override void OnSceneWasInitialized(int buildIndex, string sceneName)
