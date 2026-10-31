@@ -1,0 +1,23 @@
+{
+  "Name": "Scrap Buckshot",
+  "RequiredGear": [
+    {
+      "Item": "GEAR_ScrapMetal",
+      "Count": 1,
+      "Units": "Count"
+    }
+  ],
+  "RequiredPowder": [],
+  "RequiredLiquid": [],
+  "RequiredTool": "GEAR_SimpleTools",
+  "OptionalTools": [],
+  "RequiredCraftingLocation": "Workbench",
+  "RequiresLitFire": false,
+  "RequiresLight": true,
+  "CraftedResult": "GEAR_DoubleBarrelScrapBuckshot",
+  "CraftedResultCount": 6,
+  "DurationMinutes": 30,
+  "CraftingAudio": "Play_HarvestingAmmo",
+  "AppliedSkill": "Gunsmithing",
+  "ImprovedSkill": "Gunsmithing"
+}

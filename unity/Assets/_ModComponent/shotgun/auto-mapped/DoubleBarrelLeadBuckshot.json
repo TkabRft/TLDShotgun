@@ -1,0 +1,45 @@
+{
+  "ModGenericComponent": {
+    "DisplayNameLocalizationId": "GAMEPLAY_DoubleBarrelLeadBuckshotName",
+    "DescriptionLocalizatonId": "GAMEPLAY_DoubleBarrelLeadBuckshotDescription",
+    "InventoryActionLocalizationId": "",
+    "WeightKG": 0.02,
+    "DaysToDecay": 0,
+    "MaxHP": 100.0,
+    "InitialCondition": "Perfect",
+    "InventoryCategory": "Material",
+    "PickUpAudio": "Play_SndInvBulletCasing",
+    "PutBackAudio": "Play_SndInvBulletCasing",
+    "StowAudio": "Play_SndInvBulletCasing",
+    "WornOutAudio": "Play_SndInvBulletCasing",
+    "InspectOnPickup": true,
+    "InspectDistance": 0.2,
+    "InspectAngles": [
+      20.0,
+      90.0,
+      0.0
+    ],
+    "InspectOffset": [
+      0.0,
+      0.03,
+      0.0
+    ],
+    "InspectScale": [
+      2.0,
+      2.0,
+      2.0
+    ],
+    "NormalModel": "",
+    "InspectModel": ""
+  },
+  "ModStackableBehaviour": {
+    "SingleUnitTextId": "GAMEPLAY_DoubleBarrel_ShotPortionSingular",
+    "MultipleUnitTextId": "GAMEPLAY_DoubleBarrel_ShotPortionPlural",
+    "StackSprite": "",
+    "UnitsPerItem": 1,
+    "ChanceFull": 100.0,
+    "ShareStackWithGear": [],
+    "InstantiateStackItem": "GEAR_DoubleBarrelLeadBuckshot",
+    "StackConditionDifferenceConstraint": 0.01
+  }
+}
