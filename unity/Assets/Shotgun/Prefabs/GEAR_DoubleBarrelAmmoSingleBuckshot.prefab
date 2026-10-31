@@ -129,7 +129,7 @@ MonoBehaviour:
   - YieldCounts: 1
     YieldNames: {fileID: 11400000, guid: 451151ba75d8ceb41ac4aed9ff13a22e, type: 2}
   - YieldCounts: 1
-    YieldNames: {fileID: 11400000, guid: 8da687a0ff9e9804da5b6bcfb18152cd, type: 2}
+    YieldNames: {fileID: 11400000, guid: cb2bc8bc88a05e11a38c1eeafdd25bdc, type: 2}
   RequiredToolNames: []
 --- !u!114 &-7307626846154213222
 MonoBehaviour:
@@ -148,7 +148,7 @@ MonoBehaviour:
   - GearItem: {fileID: 11400000, guid: 451151ba75d8ceb41ac4aed9ff13a22e, type: 2}
     Count: 1
     Units: 0
-  - GearItem: {fileID: 11400000, guid: 8da687a0ff9e9804da5b6bcfb18152cd, type: 2}
+  - GearItem: {fileID: 11400000, guid: cb2bc8bc88a05e11a38c1eeafdd25bdc, type: 2}
     Count: 1
     Units: 0
   RequiredPowder:

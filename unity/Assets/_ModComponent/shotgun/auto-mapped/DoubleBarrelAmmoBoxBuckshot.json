@@ -52,7 +52,7 @@
     ],
     "YieldNames": [
       "GEAR_DoubleBarrelAmmoCasing",
-      "GEAR_Bullet"
+      "GEAR_DoubleBarrelLeadBuckshot"
     ],
     "RequiredToolNames": []
   }
