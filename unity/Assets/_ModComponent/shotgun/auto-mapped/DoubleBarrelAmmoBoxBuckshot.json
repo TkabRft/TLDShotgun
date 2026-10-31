@@ -3,7 +3,7 @@
     "DisplayNameLocalizationId": "GAMEPLAY_DoubleBarrel_AmmoBoxBuckshotName",
     "DescriptionLocalizatonId": "GAMEPLAY_DoubleBarrel_AmmoBoxBuckshotDescription",
     "InventoryActionLocalizationId": "",
-    "WeightKG": 0.02,
+    "WeightKG": 0.04,
     "DaysToDecay": 0,
     "MaxHP": 100.0,
     "InitialCondition": "Perfect",

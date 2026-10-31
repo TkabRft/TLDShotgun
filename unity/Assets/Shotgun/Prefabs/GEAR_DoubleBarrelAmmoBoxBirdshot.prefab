@@ -72,7 +72,7 @@ MonoBehaviour:
   DisplayNameLocalizationId: GAMEPLAY_DoubleBarrel_AmmoBoxBirdshotName
   DescriptionLocalizatonId: GAMEPLAY_DoubleBarrel_AmmoBoxBirdshotDescription
   InventoryActionLocalizationId: 
-  WeightKG: 0.02
+  WeightKG: 0.04
   DaysToDecay: 0
   MaxHP: 100
   InitialCondition: 1
