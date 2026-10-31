@@ -18,6 +18,7 @@
     <ManagedPath>$(TheLongDarkPath)/MelonLoader/Managed</ManagedPath>
     <Il2CppPath>$(TheLongDarkPath)/MelonLoader/Il2CppAssemblies</Il2CppPath>
     <ModsPath>$(TheLongDarkPath)/Mods</ModsPath>
+    <ModReferencesPath Condition="'$(ModReferencesPath)' == ''">$(ModsPath)</ModReferencesPath>
     <AssemblySearchPaths>$(AssemblySearchPaths);$(MelonLoaderPath);$(ManagedPath);$(Il2CppPath);$(ModsPath);</AssemblySearchPaths>
     <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
     <RunAnalyzersDuringLiveAnalysis>false</RunAnalyzersDuringLiveAnalysis>
@@ -44,22 +45,22 @@
   <ItemGroup>
     <PackageReference Include="STBlade.Modding.TLD.Il2CppAssemblies.Windows" Version="2.51.0" />
     <Reference Include="ModSettings">
-      <HintPath>$(ModsPath)\ModSettings.dll</HintPath>
+      <HintPath>$(ModReferencesPath)\ModSettings.dll</HintPath>
     </Reference>
     <Reference Include="ModData">
-      <HintPath>$(ModsPath)\ModData.dll</HintPath>
+      <HintPath>$(ModReferencesPath)\ModData.dll</HintPath>
     </Reference>
     <Reference Include="ModComponent">
-      <HintPath>$(ModsPath)\ModComponent.dll</HintPath>
+      <HintPath>$(ModReferencesPath)\ModComponent.dll</HintPath>
     </Reference>
-    <Reference Include="FiligranisSkills">
-      <HintPath>$(ModsPath)\FiligranisSkills.dll</HintPath>
+    <Reference Include="FiligranisSkills" Condition="Exists('$(ModReferencesPath)\FiligranisSkills.dll')">
+      <HintPath>$(ModReferencesPath)\FiligranisSkills.dll</HintPath>
     </Reference>
     <Reference Include="MehToolBox">
-      <HintPath>$(ModsPath)\MehToolBox.dll</HintPath>
+      <HintPath>$(ModReferencesPath)\MehToolBox.dll</HintPath>
     </Reference>
     <Reference Include="AudioManager">
-      <HintPath>$(ModsPath)\AudioManager.dll</HintPath>
+      <HintPath>$(ModReferencesPath)\AudioManager.dll</HintPath>
     </Reference>
   </ItemGroup>
 

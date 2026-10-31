@@ -59,6 +59,8 @@ dotnet build ./Shotgun.csproj -c Release -p:NoDeploy=true --nologo --verbosity q
 
 `NoDeploy=true` is required because the project's default post-build target copies files into the game installation. Supply dependency paths as MSBuild properties when needed; local path and log-capture conventions belong to the workspace instructions.
 
+`ModReferencesPath` optionally selects a separate directory containing the managed mod dependency DLLs; it defaults to the game's `Mods` folder. This supports compilation without installing those dependencies. A missing FiligranisSkills DLL is omitted from compile references; the existing reflection-based runtime integration remains optional.
+
 C# compilation does not regenerate Unity bundles or the embedded `.modcomponent`. Validate the relevant asset pipeline for asset changes. Compilation also does not prove in-game acceptance; name the remaining focused game checks. Documentation-only edits need neither compilation nor a local release.
 
 code-synced: 2026-10-31

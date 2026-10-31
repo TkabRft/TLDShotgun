@@ -1,6 +1,7 @@
 obj/
 .vs/
 bin/
+/Release/
 clips/
 IgnoreMe/
 .aider*
