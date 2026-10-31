@@ -26,10 +26,12 @@ namespace Shotgun
 
         internal static void Init()
         {
-            Type fskillType = AccessTools.TypeByName("FiligranisSkills.FiligranisSkills, FiligranisSkills");
+            Assembly? skillsAssembly = AppDomain.CurrentDomain.GetAssemblies()
+                .FirstOrDefault(assembly => assembly.GetName().Name == "FiligranisSkills");
+            Type? fskillType = skillsAssembly?.GetType("FiligranisSkills.FiligranisSkills", false);
             if (fskillType == null)
             {
-                MelonLogger.Warning("FiligranisSkills not found, Shotgun skill will not be available");
+                MelonLogger.Msg("FiligranisSkills is absent; the optional Shotgun skill is disabled.");
                 return;
             }
 
@@ -61,7 +63,12 @@ namespace Shotgun
                 return;
             }
 
-            Type skillDefType = AccessTools.TypeByName("FiligranisSkills.SkillDefinition, FiligranisSkills");
+            Type? skillDefType = mFSkillType.Assembly.GetType("FiligranisSkills.SkillDefinition", false);
+            if (skillDefType == null)
+            {
+                MelonLogger.Error("FiligranisSkills.SkillDefinition was not found; optional skill registration skipped.");
+                return;
+            }
             ConstructorInfo constructor = AccessTools.Constructor(skillDefType, new Type[]
             {
                 typeof(string),
