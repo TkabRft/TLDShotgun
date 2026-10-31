@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "namespace": "DoubleBarrel",
+  "validators": ["shotgun-ammunition"],
+  "basePackage": "DoubleBarrel.modcomponent",
+  "baseSha256": "1000a4d12fcda90ad2af4fade3d2e4c934231205536a0f2ce3c67a4a53c378a3",
+  "bundleEntry": "bundle/shotgun_assets_all.bundle",
+  "catalogEntry": "bundle/catalog_shotgun.json",
+  "assetRoot": "Assets/Shotgun",
+  "templates": {"Mesh": "ShotgunAmmoSingleMesh", "Material": "Shotgun_Material_AmmoSingle"},
+  "authoringItems": "unity/SourceArt/ammunition-definitions.json",
+  "exports": "unity/SourceArt/exports",
+  "icons": "unity/Assets/Shotgun/Icons",
+  "data": "unity/Assets/_ModComponent/shotgun",
+  "textureSettings": {"opaqueFormat": "BC1", "alphaFormat": "BC3", "materialMipmaps": true, "iconMipmaps": false},
+  "materials": [
+    {"name": "ShotgunCastLead", "texture": "unity/Assets/Shotgun/Textures/ShotgunCastLead_BaseColor.png", "metallic": 0.30, "roughness": 0.68},
+    {"name": "ShotgunCutSteel", "texture": "unity/Assets/Shotgun/Textures/ShotgunCutSteel_BaseColor.png", "metallic": 0.45, "roughness": 0.62},
+    {"name": "ShotgunScrapshotShell", "texture": "unity/Assets/Shotgun/Textures/ShotgunScrapshotShell_BaseColor.png", "metallic": 0.15, "roughness": 0.70},
+    {"name": "ShotgunScrapshotBox", "texture": "unity/Assets/Shotgun/Textures/ShotgunScrapshotBox_BaseColor.png", "metallic": 0, "roughness": 0.82}
+  ],
+  "prefabTemplateAddress": "GEAR_DoubleBarrelAmmoSingleBuckshot",
+  "iconTemplateAddress": "ico_GearItem__DoubleBarrelAmmoSingleBuckshot",
+  "spriteTemplateAddress": "ico_DoubleBarrelBuckshotHUD",
+  "additionalSprites": [{"name": "ico_DoubleBarrelScrapshotHUD", "file": "ico_DoubleBarrelScrapshotHUD.png"}],
+  "animations": [],
+  "audio": []
+}

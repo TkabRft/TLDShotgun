@@ -60,6 +60,6 @@ def main():
     if '--record' in sys.argv:dest.write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
     assert json.loads(dest.read_text())==manifest,'Changed final art inputs; rerun affected verification before --record'
     print(f'PASS: {len(manifest)} source-art file hashes, 5 FBX/GLB pairs, 6 RGBA icons, 4 Unity material/texture references, 6 visible carton shells.')
-    print('Unity import/package rebuild and runtime acceptance remain deferred.')
+    print('Source-art checks only; generated-package validation and game acceptance are separate checks.')
 
 if __name__=='__main__':main()

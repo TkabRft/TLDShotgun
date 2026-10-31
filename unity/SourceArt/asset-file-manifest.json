@@ -55,6 +55,6 @@
   "SourceArt/previews/ShotgunScrapshotShell.png": "562cce02c895a6fdaf6653db4c1bd6b91fe2cd3c34a430f12881bd0739d92081",
   "SourceArt/source/ammunition_assets.py": "a64bbd3eb847ecdd95612b5178fc3310cb9ed2b05e36c53a27e846df1a934277",
   "SourceArt/source/prepare_art_materials.py": "fc9e9ce18f6e8f14bd9a13922766a290b79876dca260ed05f6791a9bf62ec287",
-  "SourceArt/source/validate_art.py": "0ff2ee8ca27be32e41fc9ccfd4864ae52cfdbb8920a992f5c3aad7662d38d369",
+  "SourceArt/source/validate_art.py": "f214d1a843a76a04d2a2bb74a1c29d6a9a45061170a6a602a838364601d7ae37",
   "SourceArt/source/verify_blend.py": "2862def17477223426f990f704895e5d2a3fdcd61e91389a97b581439222dfd5"
 }
