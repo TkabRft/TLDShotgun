@@ -675,7 +675,7 @@ namespace Shotgun
             ammoRefs.AmmoSingle.AmmoItem.m_AmmoForGunType = GunTypeCustom;
             ammoRefs.AmmoSingle.AmmoItem.m_LoadedHudIconSpriteName = "";
             ammoRefs.AmmoSingle.AmmoItem.m_EmptyHudIconSpriteName = "";
-            ammoRefs.AmmoBox.GearItem.m_GearItemData.name = $"GEAR_DoubleBarrelAmmoSingle{ammoType}";
+            ammoRefs.AmmoSingle.GearItem.m_GearItemData.name = $"GEAR_DoubleBarrelAmmoSingle{ammoType}";
             CustomAddressablesPatch.customAddressablePaths[$"ModdedGearItemData_DoubleBarrelAmmoSingle{ammoType}"] = ammoRefs.AmmoSingle.GearItem.m_GearItemData;
             ammoRefs.AmmoSingle.GearItem.m_AmmoItem = ammoRefs.AmmoSingle.AmmoItem;
         }
