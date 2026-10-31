@@ -1,0 +1,898 @@
+{
+  "Items": [
+    {
+      "name": "GEAR_DoubleBarrelLeadBuckshot",
+      "material": true,
+      "components": {
+        "ModGenericComponent": {
+          "DisplayNameLocalizationId": "GAMEPLAY_DoubleBarrelLeadBuckshotName",
+          "DescriptionLocalizatonId": "GAMEPLAY_DoubleBarrelLeadBuckshotDescription",
+          "InventoryActionLocalizationId": "",
+          "WeightKG": 0.02,
+          "DaysToDecay": 0,
+          "MaxHP": 100.0,
+          "InitialCondition": "Perfect",
+          "InventoryCategory": "Material",
+          "PickUpAudio": "Play_SndInvBulletCasing",
+          "PutBackAudio": "Play_SndInvBulletCasing",
+          "StowAudio": "Play_SndInvBulletCasing",
+          "WornOutAudio": "Play_SndInvBulletCasing",
+          "InspectOnPickup": true,
+          "InspectDistance": 0.2,
+          "InspectAngles": [
+            20.0,
+            90.0,
+            0.0
+          ],
+          "InspectOffset": [
+            0.0,
+            0.03,
+            0.0
+          ],
+          "InspectScale": [
+            2.0,
+            2.0,
+            2.0
+          ],
+          "NormalModel": "",
+          "InspectModel": ""
+        },
+        "ModStackableBehaviour": {
+          "SingleUnitTextId": "GAMEPLAY_DoubleBarrel_ShotPortionSingular",
+          "MultipleUnitTextId": "GAMEPLAY_DoubleBarrel_ShotPortionPlural",
+          "StackSprite": "",
+          "UnitsPerItem": 1,
+          "ChanceFull": 100.0,
+          "ShareStackWithGear": [],
+          "InstantiateStackItem": "GEAR_DoubleBarrelLeadBuckshot",
+          "StackConditionDifferenceConstraint": 0.01
+        }
+      },
+      "recipe": {
+        "Name": "Lead Buckshot",
+        "RequiredGear": [
+          {
+            "Item": "GEAR_ScrapLead",
+            "Count": 1,
+            "Units": "Count"
+          }
+        ],
+        "RequiredPowder": [],
+        "RequiredLiquid": [],
+        "RequiredTool": "",
+        "OptionalTools": [],
+        "RequiredCraftingLocation": "AmmoWorkbench",
+        "RequiresLitFire": true,
+        "RequiresLight": true,
+        "CraftedResult": "GEAR_DoubleBarrelLeadBuckshot",
+        "CraftedResultCount": 6,
+        "DurationMinutes": 60,
+        "CraftingAudio": "Play_HarvestingAmmo",
+        "AppliedSkill": "Gunsmithing",
+        "ImprovedSkill": "Gunsmithing"
+      },
+      "model": "ShotgunLeadBuckshot.fbx",
+      "icon": "ico_GearItem__DoubleBarrelLeadBuckshot.png"
+    },
+    {
+      "name": "GEAR_DoubleBarrelLeadBirdshot",
+      "material": true,
+      "components": {
+        "ModGenericComponent": {
+          "DisplayNameLocalizationId": "GAMEPLAY_DoubleBarrelLeadBirdshotName",
+          "DescriptionLocalizatonId": "GAMEPLAY_DoubleBarrelLeadBirdshotDescription",
+          "InventoryActionLocalizationId": "",
+          "WeightKG": 0.02,
+          "DaysToDecay": 0,
+          "MaxHP": 100.0,
+          "InitialCondition": "Perfect",
+          "InventoryCategory": "Material",
+          "PickUpAudio": "Play_SndInvBulletCasing",
+          "PutBackAudio": "Play_SndInvBulletCasing",
+          "StowAudio": "Play_SndInvBulletCasing",
+          "WornOutAudio": "Play_SndInvBulletCasing",
+          "InspectOnPickup": true,
+          "InspectDistance": 0.2,
+          "InspectAngles": [
+            20.0,
+            90.0,
+            0.0
+          ],
+          "InspectOffset": [
+            0.0,
+            0.03,
+            0.0
+          ],
+          "InspectScale": [
+            2.0,
+            2.0,
+            2.0
+          ],
+          "NormalModel": "",
+          "InspectModel": ""
+        },
+        "ModStackableBehaviour": {
+          "SingleUnitTextId": "GAMEPLAY_DoubleBarrel_ShotPortionSingular",
+          "MultipleUnitTextId": "GAMEPLAY_DoubleBarrel_ShotPortionPlural",
+          "StackSprite": "",
+          "UnitsPerItem": 1,
+          "ChanceFull": 100.0,
+          "ShareStackWithGear": [],
+          "InstantiateStackItem": "GEAR_DoubleBarrelLeadBirdshot",
+          "StackConditionDifferenceConstraint": 0.01
+        }
+      },
+      "recipe": {
+        "Name": "Lead Birdshot",
+        "RequiredGear": [
+          {
+            "Item": "GEAR_ScrapLead",
+            "Count": 1,
+            "Units": "Count"
+          }
+        ],
+        "RequiredPowder": [],
+        "RequiredLiquid": [],
+        "RequiredTool": "",
+        "OptionalTools": [],
+        "RequiredCraftingLocation": "AmmoWorkbench",
+        "RequiresLitFire": true,
+        "RequiresLight": true,
+        "CraftedResult": "GEAR_DoubleBarrelLeadBirdshot",
+        "CraftedResultCount": 12,
+        "DurationMinutes": 60,
+        "CraftingAudio": "Play_HarvestingAmmo",
+        "AppliedSkill": "Gunsmithing",
+        "ImprovedSkill": "Gunsmithing"
+      },
+      "model": "ShotgunLeadBirdshot.fbx",
+      "icon": "ico_GearItem__DoubleBarrelLeadBirdshot.png"
+    },
+    {
+      "name": "GEAR_DoubleBarrelScrapBuckshot",
+      "material": true,
+      "components": {
+        "ModGenericComponent": {
+          "DisplayNameLocalizationId": "GAMEPLAY_DoubleBarrelScrapBuckshotName",
+          "DescriptionLocalizatonId": "GAMEPLAY_DoubleBarrelScrapBuckshotDescription",
+          "InventoryActionLocalizationId": "",
+          "WeightKG": 0.02,
+          "DaysToDecay": 0,
+          "MaxHP": 100.0,
+          "InitialCondition": "Perfect",
+          "InventoryCategory": "Material",
+          "PickUpAudio": "Play_SndInvBulletCasing",
+          "PutBackAudio": "Play_SndInvBulletCasing",
+          "StowAudio": "Play_SndInvBulletCasing",
+          "WornOutAudio": "Play_SndInvBulletCasing",
+          "InspectOnPickup": true,
+          "InspectDistance": 0.2,
+          "InspectAngles": [
+            20.0,
+            90.0,
+            0.0
+          ],
+          "InspectOffset": [
+            0.0,
+            0.03,
+            0.0
+          ],
+          "InspectScale": [
+            2.0,
+            2.0,
+            2.0
+          ],
+          "NormalModel": "",
+          "InspectModel": ""
+        },
+        "ModStackableBehaviour": {
+          "SingleUnitTextId": "GAMEPLAY_DoubleBarrel_ShotPortionSingular",
+          "MultipleUnitTextId": "GAMEPLAY_DoubleBarrel_ShotPortionPlural",
+          "StackSprite": "",
+          "UnitsPerItem": 1,
+          "ChanceFull": 100.0,
+          "ShareStackWithGear": [],
+          "InstantiateStackItem": "GEAR_DoubleBarrelScrapBuckshot",
+          "StackConditionDifferenceConstraint": 0.01
+        }
+      },
+      "recipe": {
+        "Name": "Scrap Buckshot",
+        "RequiredGear": [
+          {
+            "Item": "GEAR_ScrapMetal",
+            "Count": 1,
+            "Units": "Count"
+          }
+        ],
+        "RequiredPowder": [],
+        "RequiredLiquid": [],
+        "RequiredTool": "GEAR_SimpleTools",
+        "OptionalTools": [],
+        "RequiredCraftingLocation": "Workbench",
+        "RequiresLitFire": false,
+        "RequiresLight": true,
+        "CraftedResult": "GEAR_DoubleBarrelScrapBuckshot",
+        "CraftedResultCount": 6,
+        "DurationMinutes": 30,
+        "CraftingAudio": "Play_HarvestingAmmo",
+        "AppliedSkill": "Gunsmithing",
+        "ImprovedSkill": "Gunsmithing"
+      },
+      "model": "ShotgunScrapBuckshot.fbx",
+      "icon": "ico_GearItem__DoubleBarrelScrapBuckshot.png"
+    },
+    {
+      "name": "GEAR_DoubleBarrelAmmoSingleSlug",
+      "material": false,
+      "components": {
+        "ModAmmoComponent": {
+          "DisplayNameLocalizationId": "GAMEPLAY_DoubleBarrel_AmmoSingleSlugName",
+          "DescriptionLocalizatonId": "GAMEPLAY_DoubleBarrel_AmmoSingleSlugDescription",
+          "InventoryActionLocalizationId": "",
+          "WeightKG": 0.04,
+          "DaysToDecay": 0,
+          "MaxHP": 100.0,
+          "InitialCondition": "Perfect",
+          "InventoryCategory": "Tool",
+          "PickUpAudio": "Play_SndInvBulletCasing",
+          "PutBackAudio": "Play_SndInvBulletCasing",
+          "StowAudio": "Play_SndInvBulletCasing",
+          "WornOutAudio": "Play_SndInvBulletCasing",
+          "InspectOnPickup": true,
+          "InspectDistance": 1.0,
+          "InspectAngles": [
+            20.0,
+            90.0,
+            0.0
+          ],
+          "InspectOffset": [
+            0.0,
+            0.03,
+            0.0
+          ],
+          "InspectScale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "NormalModel": "",
+          "InspectModel": "",
+          "AmmoForGunType": "Rifle"
+        },
+        "ModStackableBehaviour": {
+          "SingleUnitTextId": "GAMEPLAY_DoubleBarrel_AmmoUnitSingular",
+          "MultipleUnitTextId": "GAMEPLAY_DoubleBarrel_AmmoUnitPlural",
+          "StackSprite": "",
+          "UnitsPerItem": 1,
+          "ChanceFull": 100.0,
+          "ShareStackWithGear": [
+            "GEAR_DoubleBarrelAmmoBoxSlug"
+          ],
+          "InstantiateStackItem": "GEAR_DoubleBarrelAmmoBoxSlug",
+          "StackConditionDifferenceConstraint": 0.01
+        },
+        "ModHarvestableBehaviour": {
+          "Audio": "Play_HarvestingAmmo",
+          "Minutes": 5,
+          "YieldCounts": [
+            1,
+            1
+          ],
+          "YieldNames": [
+            "GEAR_DoubleBarrelAmmoCasing",
+            "GEAR_Bullet"
+          ],
+          "RequiredToolNames": []
+        }
+      },
+      "recipe": {
+        "Name": "Shotgun Slug",
+        "RequiredGear": [
+          {
+            "Item": "GEAR_DoubleBarrelAmmoCasing",
+            "Count": 1,
+            "Units": "Count"
+          },
+          {
+            "Item": "GEAR_Bullet",
+            "Count": 1,
+            "Units": "Count"
+          }
+        ],
+        "RequiredPowder": [
+          {
+            "Powder": "POWDER_Gunpowder",
+            "QuantityInKilograms": 0.01
+          }
+        ],
+        "RequiredLiquid": [],
+        "RequiredTool": "",
+        "OptionalTools": [],
+        "RequiredCraftingLocation": "AmmoWorkbench",
+        "RequiresLitFire": false,
+        "RequiresLight": true,
+        "CraftedResult": "GEAR_DoubleBarrelAmmoSingleSlug",
+        "CraftedResultCount": 1,
+        "DurationMinutes": 5,
+        "CraftingAudio": "Play_HarvestingAmmo",
+        "AppliedSkill": "Gunsmithing",
+        "ImprovedSkill": "Gunsmithing"
+      },
+      "template": "GEAR_DoubleBarrelAmmoSingleBuckshot",
+      "model": "",
+      "icon": "ico_GearItem__DoubleBarrelAmmoSingleSlug.png"
+    },
+    {
+      "name": "GEAR_DoubleBarrelAmmoBoxSlug",
+      "material": false,
+      "components": {
+        "ModAmmoComponent": {
+          "DisplayNameLocalizationId": "GAMEPLAY_DoubleBarrel_AmmoBoxSlugName",
+          "DescriptionLocalizatonId": "GAMEPLAY_DoubleBarrel_AmmoBoxSlugDescription",
+          "InventoryActionLocalizationId": "",
+          "WeightKG": 0.04,
+          "DaysToDecay": 0,
+          "MaxHP": 100.0,
+          "InitialCondition": "Perfect",
+          "InventoryCategory": "Tool",
+          "PickUpAudio": "Play_SndInvBulletCasing",
+          "PutBackAudio": "Play_SndInvBulletCasing",
+          "StowAudio": "Play_SndInvBulletCasing",
+          "WornOutAudio": "Play_SndInvBulletCasing",
+          "InspectOnPickup": true,
+          "InspectDistance": 1.0,
+          "InspectAngles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "InspectOffset": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "InspectScale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "NormalModel": "",
+          "InspectModel": "",
+          "AmmoForGunType": "Rifle"
+        },
+        "ModStackableBehaviour": {
+          "SingleUnitTextId": "GAMEPLAY_DoubleBarrel_AmmoUnitSingular",
+          "MultipleUnitTextId": "GAMEPLAY_DoubleBarrel_AmmoUnitPlural",
+          "StackSprite": "",
+          "UnitsPerItem": 6,
+          "ChanceFull": 100.0,
+          "ShareStackWithGear": [],
+          "InstantiateStackItem": "",
+          "StackConditionDifferenceConstraint": 0.01
+        },
+        "ModHarvestableBehaviour": {
+          "Audio": "Play_HarvestingAmmo",
+          "Minutes": 5,
+          "YieldCounts": [
+            1,
+            1
+          ],
+          "YieldNames": [
+            "GEAR_DoubleBarrelAmmoCasing",
+            "GEAR_Bullet"
+          ],
+          "RequiredToolNames": []
+        }
+      },
+      "recipe": null,
+      "template": "GEAR_DoubleBarrelAmmoBoxBuckshot",
+      "model": "",
+      "icon": "ico_GearItem__DoubleBarrelAmmoBoxSlug.png"
+    },
+    {
+      "name": "GEAR_DoubleBarrelAmmoSingleBuckshot",
+      "material": false,
+      "components": {
+        "ModAmmoComponent": {
+          "DisplayNameLocalizationId": "GAMEPLAY_DoubleBarrel_AmmoSingleBuckshotName",
+          "DescriptionLocalizatonId": "GAMEPLAY_DoubleBarrel_AmmoSingleBuckshotDescription",
+          "InventoryActionLocalizationId": "",
+          "WeightKG": 0.04,
+          "DaysToDecay": 0,
+          "MaxHP": 100.0,
+          "InitialCondition": "Perfect",
+          "InventoryCategory": "Tool",
+          "PickUpAudio": "Play_SndInvBulletCasing",
+          "PutBackAudio": "Play_SndInvBulletCasing",
+          "StowAudio": "Play_SndInvBulletCasing",
+          "WornOutAudio": "Play_SndInvBulletCasing",
+          "InspectOnPickup": true,
+          "InspectDistance": 1.0,
+          "InspectAngles": [
+            20.0,
+            90.0,
+            0.0
+          ],
+          "InspectOffset": [
+            0.0,
+            0.03,
+            0.0
+          ],
+          "InspectScale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "NormalModel": "",
+          "InspectModel": "",
+          "AmmoForGunType": "Rifle"
+        },
+        "ModStackableBehaviour": {
+          "SingleUnitTextId": "GAMEPLAY_DoubleBarrel_AmmoUnitSingular",
+          "MultipleUnitTextId": "GAMEPLAY_DoubleBarrel_AmmoUnitPlural",
+          "StackSprite": "",
+          "UnitsPerItem": 1,
+          "ChanceFull": 100.0,
+          "ShareStackWithGear": [
+            "GEAR_DoubleBarrelAmmoBoxBuckshot"
+          ],
+          "InstantiateStackItem": "GEAR_DoubleBarrelAmmoBoxBuckshot",
+          "StackConditionDifferenceConstraint": 0.01
+        },
+        "ModHarvestableBehaviour": {
+          "Audio": "Play_HarvestingAmmo",
+          "Minutes": 5,
+          "YieldCounts": [
+            1,
+            1
+          ],
+          "YieldNames": [
+            "GEAR_DoubleBarrelAmmoCasing",
+            "GEAR_DoubleBarrelLeadBuckshot"
+          ],
+          "RequiredToolNames": []
+        }
+      },
+      "recipe": {
+        "Name": "Shotgun Buckshot Round",
+        "RequiredGear": [
+          {
+            "Item": "GEAR_DoubleBarrelAmmoCasing",
+            "Count": 1,
+            "Units": "Count"
+          },
+          {
+            "Item": "GEAR_DoubleBarrelLeadBuckshot",
+            "Count": 1,
+            "Units": "Count"
+          }
+        ],
+        "RequiredPowder": [
+          {
+            "Powder": "POWDER_Gunpowder",
+            "QuantityInKilograms": 0.01
+          }
+        ],
+        "RequiredLiquid": [],
+        "RequiredTool": "",
+        "OptionalTools": [],
+        "RequiredCraftingLocation": "AmmoWorkbench",
+        "RequiresLitFire": false,
+        "RequiresLight": true,
+        "CraftedResult": "GEAR_DoubleBarrelAmmoSingleBuckshot",
+        "CraftedResultCount": 1,
+        "DurationMinutes": 5,
+        "CraftingAudio": "Play_HarvestingAmmo",
+        "AppliedSkill": "Gunsmithing",
+        "ImprovedSkill": "Gunsmithing"
+      },
+      "template": "GEAR_DoubleBarrelAmmoSingleBuckshot",
+      "model": "",
+      "icon": "ico_GearItem__DoubleBarrelAmmoSingleBuckshot.png"
+    },
+    {
+      "name": "GEAR_DoubleBarrelAmmoBoxBuckshot",
+      "material": false,
+      "components": {
+        "ModAmmoComponent": {
+          "DisplayNameLocalizationId": "GAMEPLAY_DoubleBarrel_AmmoBoxBuckshotName",
+          "DescriptionLocalizatonId": "GAMEPLAY_DoubleBarrel_AmmoBoxBuckshotDescription",
+          "InventoryActionLocalizationId": "",
+          "WeightKG": 0.04,
+          "DaysToDecay": 0,
+          "MaxHP": 100.0,
+          "InitialCondition": "Perfect",
+          "InventoryCategory": "Tool",
+          "PickUpAudio": "Play_SndInvBulletCasing",
+          "PutBackAudio": "Play_SndInvBulletCasing",
+          "StowAudio": "Play_SndInvBulletCasing",
+          "WornOutAudio": "Play_SndInvBulletCasing",
+          "InspectOnPickup": true,
+          "InspectDistance": 1.0,
+          "InspectAngles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "InspectOffset": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "InspectScale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "NormalModel": "",
+          "InspectModel": "",
+          "AmmoForGunType": "Rifle"
+        },
+        "ModStackableBehaviour": {
+          "SingleUnitTextId": "GAMEPLAY_DoubleBarrel_AmmoUnitSingular",
+          "MultipleUnitTextId": "GAMEPLAY_DoubleBarrel_AmmoUnitPlural",
+          "StackSprite": "",
+          "UnitsPerItem": 6,
+          "ChanceFull": 100.0,
+          "ShareStackWithGear": [],
+          "InstantiateStackItem": "",
+          "StackConditionDifferenceConstraint": 0.01
+        },
+        "ModHarvestableBehaviour": {
+          "Audio": "Play_HarvestingAmmo",
+          "Minutes": 5,
+          "YieldCounts": [
+            1,
+            1
+          ],
+          "YieldNames": [
+            "GEAR_DoubleBarrelAmmoCasing",
+            "GEAR_DoubleBarrelLeadBuckshot"
+          ],
+          "RequiredToolNames": []
+        }
+      },
+      "recipe": null,
+      "template": "GEAR_DoubleBarrelAmmoBoxBuckshot",
+      "model": "",
+      "icon": "ico_GearItem__DoubleBarrelAmmoBoxBuckshot.png"
+    },
+    {
+      "name": "GEAR_DoubleBarrelAmmoSingleBirdshot",
+      "material": false,
+      "components": {
+        "ModAmmoComponent": {
+          "DisplayNameLocalizationId": "GAMEPLAY_DoubleBarrel_AmmoSingleBirdshotName",
+          "DescriptionLocalizatonId": "GAMEPLAY_DoubleBarrel_AmmoSingleBirdshotDescription",
+          "InventoryActionLocalizationId": "",
+          "WeightKG": 0.04,
+          "DaysToDecay": 0,
+          "MaxHP": 100.0,
+          "InitialCondition": "Perfect",
+          "InventoryCategory": "Tool",
+          "PickUpAudio": "Play_SndInvBulletCasing",
+          "PutBackAudio": "Play_SndInvBulletCasing",
+          "StowAudio": "Play_SndInvBulletCasing",
+          "WornOutAudio": "Play_SndInvBulletCasing",
+          "InspectOnPickup": true,
+          "InspectDistance": 1.0,
+          "InspectAngles": [
+            20.0,
+            90.0,
+            0.0
+          ],
+          "InspectOffset": [
+            0.0,
+            0.03,
+            0.0
+          ],
+          "InspectScale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "NormalModel": "",
+          "InspectModel": "",
+          "AmmoForGunType": "Rifle"
+        },
+        "ModStackableBehaviour": {
+          "SingleUnitTextId": "GAMEPLAY_DoubleBarrel_AmmoUnitSingular",
+          "MultipleUnitTextId": "GAMEPLAY_DoubleBarrel_AmmoUnitPlural",
+          "StackSprite": "",
+          "UnitsPerItem": 1,
+          "ChanceFull": 100.0,
+          "ShareStackWithGear": [
+            "GEAR_DoubleBarrelAmmoBoxBirdshot"
+          ],
+          "InstantiateStackItem": "GEAR_DoubleBarrelAmmoBoxBirdshot",
+          "StackConditionDifferenceConstraint": 0.01
+        },
+        "ModHarvestableBehaviour": {
+          "Audio": "Play_HarvestingAmmo",
+          "Minutes": 5,
+          "YieldCounts": [
+            1,
+            1
+          ],
+          "YieldNames": [
+            "GEAR_DoubleBarrelAmmoCasing",
+            "GEAR_DoubleBarrelLeadBirdshot"
+          ],
+          "RequiredToolNames": []
+        }
+      },
+      "recipe": {
+        "Name": "Shotgun Birdshot Round",
+        "RequiredGear": [
+          {
+            "Item": "GEAR_DoubleBarrelAmmoCasing",
+            "Count": 1,
+            "Units": "Count"
+          },
+          {
+            "Item": "GEAR_DoubleBarrelLeadBirdshot",
+            "Count": 1,
+            "Units": "Count"
+          }
+        ],
+        "RequiredPowder": [
+          {
+            "Powder": "POWDER_Gunpowder",
+            "QuantityInKilograms": 0.01
+          }
+        ],
+        "RequiredLiquid": [],
+        "RequiredTool": "",
+        "OptionalTools": [],
+        "RequiredCraftingLocation": "AmmoWorkbench",
+        "RequiresLitFire": false,
+        "RequiresLight": true,
+        "CraftedResult": "GEAR_DoubleBarrelAmmoSingleBirdshot",
+        "CraftedResultCount": 1,
+        "DurationMinutes": 5,
+        "CraftingAudio": "Play_HarvestingAmmo",
+        "AppliedSkill": "Gunsmithing",
+        "ImprovedSkill": "Gunsmithing"
+      },
+      "template": "GEAR_DoubleBarrelAmmoSingleBuckshot",
+      "model": "",
+      "icon": "ico_GearItem__DoubleBarrelAmmoSingleBirdshot.png"
+    },
+    {
+      "name": "GEAR_DoubleBarrelAmmoBoxBirdshot",
+      "material": false,
+      "components": {
+        "ModAmmoComponent": {
+          "DisplayNameLocalizationId": "GAMEPLAY_DoubleBarrel_AmmoBoxBirdshotName",
+          "DescriptionLocalizatonId": "GAMEPLAY_DoubleBarrel_AmmoBoxBirdshotDescription",
+          "InventoryActionLocalizationId": "",
+          "WeightKG": 0.04,
+          "DaysToDecay": 0,
+          "MaxHP": 100.0,
+          "InitialCondition": "Perfect",
+          "InventoryCategory": "Tool",
+          "PickUpAudio": "Play_SndInvBulletCasing",
+          "PutBackAudio": "Play_SndInvBulletCasing",
+          "StowAudio": "Play_SndInvBulletCasing",
+          "WornOutAudio": "Play_SndInvBulletCasing",
+          "InspectOnPickup": true,
+          "InspectDistance": 1.0,
+          "InspectAngles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "InspectOffset": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "InspectScale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "NormalModel": "",
+          "InspectModel": "",
+          "AmmoForGunType": "Rifle"
+        },
+        "ModStackableBehaviour": {
+          "SingleUnitTextId": "GAMEPLAY_DoubleBarrel_AmmoUnitSingular",
+          "MultipleUnitTextId": "GAMEPLAY_DoubleBarrel_AmmoUnitPlural",
+          "StackSprite": "",
+          "UnitsPerItem": 6,
+          "ChanceFull": 100.0,
+          "ShareStackWithGear": [],
+          "InstantiateStackItem": "",
+          "StackConditionDifferenceConstraint": 0.01
+        },
+        "ModHarvestableBehaviour": {
+          "Audio": "Play_HarvestingAmmo",
+          "Minutes": 5,
+          "YieldCounts": [
+            1,
+            1
+          ],
+          "YieldNames": [
+            "GEAR_DoubleBarrelAmmoCasing",
+            "GEAR_DoubleBarrelLeadBirdshot"
+          ],
+          "RequiredToolNames": []
+        }
+      },
+      "recipe": null,
+      "template": "GEAR_DoubleBarrelAmmoBoxBuckshot",
+      "model": "",
+      "icon": "ico_GearItem__DoubleBarrelAmmoBoxBirdshot.png"
+    },
+    {
+      "name": "GEAR_DoubleBarrelAmmoSingleScrapshot",
+      "material": false,
+      "components": {
+        "ModAmmoComponent": {
+          "DisplayNameLocalizationId": "GAMEPLAY_DoubleBarrel_AmmoSingleScrapshotName",
+          "DescriptionLocalizatonId": "GAMEPLAY_DoubleBarrel_AmmoSingleScrapshotDescription",
+          "InventoryActionLocalizationId": "",
+          "WeightKG": 0.04,
+          "DaysToDecay": 0,
+          "MaxHP": 100.0,
+          "InitialCondition": "Perfect",
+          "InventoryCategory": "Tool",
+          "PickUpAudio": "Play_SndInvBulletCasing",
+          "PutBackAudio": "Play_SndInvBulletCasing",
+          "StowAudio": "Play_SndInvBulletCasing",
+          "WornOutAudio": "Play_SndInvBulletCasing",
+          "InspectOnPickup": true,
+          "InspectDistance": 1.0,
+          "InspectAngles": [
+            20.0,
+            90.0,
+            0.0
+          ],
+          "InspectOffset": [
+            0.0,
+            0.03,
+            0.0
+          ],
+          "InspectScale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "NormalModel": "",
+          "InspectModel": "",
+          "AmmoForGunType": "Rifle"
+        },
+        "ModStackableBehaviour": {
+          "SingleUnitTextId": "GAMEPLAY_DoubleBarrel_AmmoUnitSingular",
+          "MultipleUnitTextId": "GAMEPLAY_DoubleBarrel_AmmoUnitPlural",
+          "StackSprite": "",
+          "UnitsPerItem": 1,
+          "ChanceFull": 100.0,
+          "ShareStackWithGear": [
+            "GEAR_DoubleBarrelAmmoBoxScrapshot"
+          ],
+          "InstantiateStackItem": "GEAR_DoubleBarrelAmmoBoxScrapshot",
+          "StackConditionDifferenceConstraint": 0.01
+        },
+        "ModHarvestableBehaviour": {
+          "Audio": "Play_HarvestingAmmo",
+          "Minutes": 5,
+          "YieldCounts": [
+            1,
+            1
+          ],
+          "YieldNames": [
+            "GEAR_DoubleBarrelAmmoCasing",
+            "GEAR_DoubleBarrelScrapBuckshot"
+          ],
+          "RequiredToolNames": []
+        }
+      },
+      "recipe": {
+        "Name": "Shotgun Scrapshot Shell",
+        "RequiredGear": [
+          {
+            "Item": "GEAR_DoubleBarrelAmmoCasing",
+            "Count": 1,
+            "Units": "Count"
+          },
+          {
+            "Item": "GEAR_DoubleBarrelScrapBuckshot",
+            "Count": 1,
+            "Units": "Count"
+          }
+        ],
+        "RequiredPowder": [
+          {
+            "Powder": "POWDER_Gunpowder",
+            "QuantityInKilograms": 0.01
+          }
+        ],
+        "RequiredLiquid": [],
+        "RequiredTool": "",
+        "OptionalTools": [],
+        "RequiredCraftingLocation": "Workbench",
+        "RequiresLitFire": false,
+        "RequiresLight": true,
+        "CraftedResult": "GEAR_DoubleBarrelAmmoSingleScrapshot",
+        "CraftedResultCount": 1,
+        "DurationMinutes": 5,
+        "CraftingAudio": "Play_HarvestingAmmo",
+        "AppliedSkill": "Gunsmithing",
+        "ImprovedSkill": "Gunsmithing"
+      },
+      "template": "GEAR_DoubleBarrelAmmoSingleBuckshot",
+      "model": "ShotgunScrapshotShell.fbx",
+      "icon": "ico_GearItem__DoubleBarrelAmmoSingleScrapshot.png"
+    },
+    {
+      "name": "GEAR_DoubleBarrelAmmoBoxScrapshot",
+      "material": false,
+      "components": {
+        "ModAmmoComponent": {
+          "DisplayNameLocalizationId": "GAMEPLAY_DoubleBarrel_AmmoBoxScrapshotName",
+          "DescriptionLocalizatonId": "GAMEPLAY_DoubleBarrel_AmmoBoxScrapshotDescription",
+          "InventoryActionLocalizationId": "",
+          "WeightKG": 0.04,
+          "DaysToDecay": 0,
+          "MaxHP": 100.0,
+          "InitialCondition": "Perfect",
+          "InventoryCategory": "Tool",
+          "PickUpAudio": "Play_SndInvBulletCasing",
+          "PutBackAudio": "Play_SndInvBulletCasing",
+          "StowAudio": "Play_SndInvBulletCasing",
+          "WornOutAudio": "Play_SndInvBulletCasing",
+          "InspectOnPickup": true,
+          "InspectDistance": 1.0,
+          "InspectAngles": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "InspectOffset": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "InspectScale": [
+            1.0,
+            1.0,
+            1.0
+          ],
+          "NormalModel": "",
+          "InspectModel": "",
+          "AmmoForGunType": "Rifle"
+        },
+        "ModStackableBehaviour": {
+          "SingleUnitTextId": "GAMEPLAY_DoubleBarrel_AmmoUnitSingular",
+          "MultipleUnitTextId": "GAMEPLAY_DoubleBarrel_AmmoUnitPlural",
+          "StackSprite": "",
+          "UnitsPerItem": 6,
+          "ChanceFull": 100.0,
+          "ShareStackWithGear": [],
+          "InstantiateStackItem": "",
+          "StackConditionDifferenceConstraint": 0.01
+        },
+        "ModHarvestableBehaviour": {
+          "Audio": "Play_HarvestingAmmo",
+          "Minutes": 5,
+          "YieldCounts": [
+            1,
+            1
+          ],
+          "YieldNames": [
+            "GEAR_DoubleBarrelAmmoCasing",
+            "GEAR_DoubleBarrelScrapBuckshot"
+          ],
+          "RequiredToolNames": []
+        }
+      },
+      "recipe": null,
+      "template": "GEAR_DoubleBarrelAmmoBoxBuckshot",
+      "model": "ShotgunScrapshotBox.fbx",
+      "icon": "ico_GearItem__DoubleBarrelAmmoBoxScrapshot.png"
+    }
+  ]
+}
