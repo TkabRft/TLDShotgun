@@ -6,6 +6,10 @@ namespace Shotgun
 {
     internal class AnimationEventProxy : MonoBehaviour
     {
+        private const string ShellDropSound = "GAMEPLAY_DoubleBarrel_ShellDrop_Hard";
+        private const float SoftSurfaceShellDropVolume = 0.25f;
+        private static readonly HashSet<string> sSoftSurfaces = new() { "Snow", "Dirt", "Straw", "Rug", "Cloth", "Flesh" };
+
         internal void OnAimComplete()
         {
             PlayerAnimation playerAnimation = GameManager.GetPlayerAnimationComponent();
@@ -204,7 +208,18 @@ namespace Shotgun
             if (clip == null)
                 return;
 
-            refs.AudioShot._audioSource.PlayOneShot(clip.audioClip);
+            float volumeScale = sound == ShellDropSound ? GetShellDropVolumeScale() : 1f;
+            refs.AudioShot._audioSource.PlayOneShot(clip.audioClip, volumeScale);
+        }
+
+        private static float GetShellDropVolumeScale()
+        {
+            Transform playerTransform = GameManager.GetPlayerTransform();
+            if (playerTransform == null)
+                return 1f;
+
+            string surface = Il2Cpp.Utils.GetMaterialTagUnderPosition(playerTransform.position);
+            return sSoftSurfaces.Contains(surface) ? SoftSurfaceShellDropVolume : 1f;
         }
 
 
