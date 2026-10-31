@@ -26,6 +26,16 @@ namespace Shotgun
 
         internal static bool IsAllowedInCustomGame { get; private set; } = true;
 
+        internal static bool AllowsWorldItems()
+        {
+            if (IsCustomGame() && !IsAllowedInCustomGame) return false;
+            GameModeConfig mode = ExperienceModeManager.s_CurrentGameMode;
+            if (mode?.m_ActiveTags == null) return false;
+            foreach (GameplayTag tag in mode.m_ActiveTags)
+                if (TagName(tag) is NoFirearmsTagName or NoShotgunTagName) return false;
+            return true;
+        }
+
 
         internal static Il2CppInterop.Runtime.InteropTypes.Arrays.Il2CppReferenceArray<GameplayTag>? BanTags(DisableObjectForGameMode rifleBan)
         {

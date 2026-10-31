@@ -131,11 +131,11 @@ namespace Shotgun
             return false;
         }
 
-        internal static List<Member> Pick(Group g, string level, System.Random rng)
+        internal static List<Member> Pick(Group g, string level, System.Random rng, int? requestedCount = null)
         {
             List<Member> pool = g.Members.Where(m => SceneInGame(m.Scene)).ToList();
             List<Member> picked = new();
-            int count = Math.Min(PicksFor(g, level), pool.Count);
+            int count = Math.Min(requestedCount ?? PicksFor(g, level), pool.Count);
             for (int i = 0; i < count; i++)
             {
                 int index = rng.Next(pool.Count);
@@ -147,20 +147,40 @@ namespace Shotgun
 
         internal static List<Member> PickedForThisGame(Group g) => Pick(g, CurrentLevel(), RngFor(g.Name));
 
+        private static readonly Dictionary<string, HashSet<string>> sAttempts = new(StringComparer.OrdinalIgnoreCase);
+        internal static void ResetAttempts() => sAttempts.Clear();
+        internal static void ForgetScene(string scene) => sAttempts.Remove(scene);
+
         private static void SpawnScene(string scene)
         {
             EnsureLoaded();
+            string level = CurrentLevel();
+            // Initialize the saved-scene policy before taking a reference to the attempts
+            // set: changing saves clears the sets as part of policy initialization.
+            bool legacy = ShotgunSpawnPolicy.UseLegacy(scene);
+            if (!sAttempts.TryGetValue(scene, out var attempts)) sAttempts[scene] = attempts = new();
             foreach (Group g in sGroups)
             {
                 if (!g.Members.Any(m => string.Equals(m.Scene, scene, StringComparison.OrdinalIgnoreCase))) continue;
-                foreach (Member m in PickedForThisGame(g).Where(m => string.Equals(m.Scene, scene, StringComparison.OrdinalIgnoreCase)))
+                bool gunGroup = g.Name == "SG_Shotgun";
+                IEnumerable<Member> selected = gunGroup && !legacy ? ShotgunSpawnPolicy.PickForScene(g, scene, level)
+                    : Pick(g, level, RngFor(g.Name)).Where(m => string.Equals(m.Scene, scene, StringComparison.OrdinalIgnoreCase));
+                foreach (Member m in selected)
                 {
+                    string key = ShotgunSpawnPolicy.MemberKey(g.Name, m);
+                    if (attempts.Contains(key)) continue;
+                    ShotgunSpawnPolicy.Outcome outcome = gunGroup && !legacy
+                        ? ShotgunSpawnPolicy.ForMember(g.Name, m, level) : ShotgunSpawnPolicy.Outcome.Usable;
+                    if (outcome == ShotgunSpawnPolicy.Outcome.Empty) { attempts.Add(key); continue; }
+                    if (!ShotgunAvailability.AllowsWorldItems()) continue;
                     GameObject prefab = Addressables.LoadAssetAsync<GameObject>(m.Prefab).WaitForCompletion();
                     if (prefab == null) { MelonLogger.Warning($"GroupSpawner: no prefab {m.Prefab}"); continue; }
                     GameObject gear = UnityEngine.Object.Instantiate(prefab, m.Position, m.Rotation);
                     gear.name = prefab.name;
+                    if (outcome == ShotgunSpawnPolicy.Outcome.Ruined) ShotgunRestoration.MarkRuined(gear);
                     DisableObjectForXPMode xp = gear.GetComponent<DisableObjectForXPMode>();
                     if (xp != null) UnityEngine.Object.Destroy(xp);
+                    attempts.Add(key);
                 }
             }
         }

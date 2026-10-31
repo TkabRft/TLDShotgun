@@ -1,10 +1,13 @@
 ﻿using ModSettings;
 using Il2Cpp;
 using UnityEngine;
+using System.Reflection;
 
 
 namespace Shotgun
 {
+    internal enum ShotgunResourceLevel { Low, Medium, High, VeryHigh }
+
     internal class Settings : JsonModSettings
     {
         internal static Settings Instance;
@@ -36,6 +39,29 @@ namespace Shotgun
         [Name("Allow Lead Shotgun Shells At Workbenches")]
         [Description("Adds workbench alternatives for slugs, buckshot, and birdshot. Vanilla rifle/revolver cartridges are unchanged. Takes effect on the next game load. Default: Off")]
         public bool AllowLeadShellsAtWorkbench = false;
+
+        [Section("Shotgun Finds")]
+        [Name("Spawn Usable Shotguns")]
+        public bool SpawnUsableShotguns = true;
+
+        [Name("Usable Shotgun Chance")]
+        [Description("Absolute percentage at each selected gun location. Disabled or resource-ineligible chances become empty slots. Changes affect unvisited areas only.")]
+        [Slider(0, 100)]
+        public int UsableShotgunChance = 50;
+
+        [Name("Minimum Resources For Usable Shotguns")]
+        public ShotgunResourceLevel UsableShotgunMinimumResources = ShotgunResourceLevel.High;
+
+        [Name("Spawn Ruined Shotguns")]
+        public bool SpawnRuinedShotguns = true;
+
+        [Name("Ruined Shotgun Chance")]
+        [Description("Absolute percentage at each selected gun location. Restore at a milling machine. Combined usable/ruined chances cannot exceed 100%. Changes affect unvisited areas only.")]
+        [Slider(0, 100)]
+        public int RuinedShotgunChance = 50;
+
+        [Name("Minimum Resources For Ruined Shotguns")]
+        public ShotgunResourceLevel RuinedShotgunMinimumResources = ShotgunResourceLevel.Medium;
 
         [Section("Slug Settings")]
         [Name("Slug Base Damage")]
@@ -320,14 +346,33 @@ namespace Shotgun
         protected void Initialize()
         {
             Instance = this;
+            ValidateSpawnChances();
             AddToModSettings("Shotgun");
             RefreshGUI();
         }
 
         protected override void OnConfirm()
         {
+            ValidateSpawnChances();
             base.OnConfirm();
             ShotgunSkill.ApplyAnimatorParams(Main.Instance?.Configuration?.Refs?.ModdedAnimator);
+        }
+
+        internal void ValidateSpawnChances()
+        {
+            UsableShotgunChance = Math.Clamp(UsableShotgunChance, 0, 100);
+            RuinedShotgunChance = Math.Clamp(RuinedShotgunChance, 0, 100 - UsableShotgunChance);
+        }
+
+        protected override void OnChange(FieldInfo field, object oldValue, object newValue)
+        {
+            base.OnChange(field, oldValue, newValue);
+            if (field.Name == nameof(UsableShotgunChance))
+                RuinedShotgunChance = Math.Min(RuinedShotgunChance, 100 - UsableShotgunChance);
+            else if (field.Name == nameof(RuinedShotgunChance))
+                UsableShotgunChance = Math.Min(UsableShotgunChance, 100 - RuinedShotgunChance);
+            else return;
+            RefreshGUI();
         }
     }
 }

@@ -72,12 +72,18 @@ namespace Shotgun
 
         public override void OnSceneWasInitialized(int buildIndex, string sceneName)
         {
+            if (sceneName is "MainMenu" or "Boot") ShotgunSpawnPolicy.Reset();
             ShotgunAvailability.ApplyToCurrentMode();
             if (!mResourceLocatorInitialized)
             {
                 Addressables.AddResourceLocator(new ModdedResourceLocator().Cast<IResourceLocator>());
                 mResourceLocatorInitialized = true;
             }
+        }
+
+        public override void OnSceneWasUnloaded(int buildIndex, string sceneName)
+        {
+            GroupSpawner.ForgetScene(sceneName);
         }
 
         internal void LateInitialize()

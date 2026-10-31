@@ -625,6 +625,7 @@ namespace Shotgun
                 ConfigureShotgunFirstPersonItem(refs);
                 ConfigureShotgunStruggleBonus(refs);
                 ConfigureShotgunCleanable(refs);
+                ShotgunRestoration.Configure(refs);
                 ConfigureShotgunFPSItem(refs);
                 ConfigureShotgunFPHRoot(refs);
                 ConfigureShotgunFirstPersonWeapon(refs);
