@@ -910,6 +910,7 @@ namespace Shotgun
 
         internal void RegisterAudioClip(ConfigurationReferences refs, string addressableKey)
         {
+            if (ModBuild.EmbeddedAudio.TryRegister(refs.ClipManager, addressableKey)) return;
             AudioClip clip = Addressables.LoadAssetAsync<AudioClip>(addressableKey).WaitForCompletion();
             if (clip == null)
             {
