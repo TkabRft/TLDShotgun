@@ -77,6 +77,6 @@ If you don't see your name here tell me and I will fix! You know how forgetful I
 
 ## Development
 
-The new ammunition and restoration changes are included in the rebuilt runtime package. It contains the three projectile materials, scrapshot shells and open cardboard box, their inventory/HUD icons, updated recipes and 40 g shells. The template-based asset pipeline builds from GLB/PNG source without Unity Editor. Package, catalog, CRC and embedded-resource checks pass; in-game testing remains pending. See the [ammunition source handoff](unity/SourceArt/README.md) for asset inputs and validation boundaries.
+The rebuilt runtime package contains the three projectile materials, scrapshot shells and open cardboard box, their inventory/HUD icons, updated recipes and 40 g shells. The package reads directly from the DLL through ModComponent; it no longer creates a separate `DoubleBarrel.modcomponent`. ModComponent's standard working cache remains. After successful loading, known archives extracted by earlier builds are removed; modified or unknown files are preserved. The Unity-free build and consumer lookup/lifecycle checks pass; in-game testing remains pending. See the [ammunition source handoff](unity/SourceArt/README.md) for asset inputs and validation boundaries.
 
 Start with the [developer router](docs/FEATURES.md) for source locations and validation guidance. [Storage notes](docs/STORAGE-NOTES.md) describe the local partial-clone setup and build-output guard.

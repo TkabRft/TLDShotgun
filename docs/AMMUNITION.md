@@ -4,6 +4,8 @@ Baseline checked: 2026-10-31. Shotgun values below come from current source and 
 
 Status: **implemented**, with game acceptance pending. The generated package includes the three projectile-material prefabs, scrapshot single/box prefabs, inventory/HUD icons, current recipes and 40 g ammunition units. The Unity-free pipeline reopens the package, verifies references/catalog/CRC and compiles a DLL containing those exact bytes. The checked-in older package remains an immutable template, not the full build output. See the [source handoff](../unity/SourceArt/README.md).
 
+The initial generated package failed game registration because of case-sensitive JSON lookup and retained old definitions/recipes. The corrected builder replaces complete data sections and validates all 18 gear definitions through ModComponent lookup semantics, including an isolated test of the real JsonHandler source. Nine current default blueprints remain. The runtime now streams the package from the DLL; see [embedded asset loading](ASSET-LOADING.md). Game acceptance of the correction is pending.
+
 ## Weight rule
 
 **Every finished shotgun shell must weigh twice one vanilla rifle round: 2 x 0.020 kg = 0.040 kg (40 g).** Apply this to slugs, buckshot, birdshot, and scrapshot, regardless of crafting route. Empty casings are separate items and retain their current weight unless explicitly rebalanced later.

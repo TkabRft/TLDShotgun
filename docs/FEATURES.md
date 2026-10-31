@@ -7,7 +7,7 @@ Read this file first, then open only the owner documentation and source relevant
 - The player overview, controls, installation requirements, and credits are in [`../README.md`](../README.md).
 - Runtime C# lives in `Main/`, `Settings/`, `Util/`, and `ToolBox/`. Spawn source data is in `Spawns/`.
 - [`../Shotgun.csproj`](../Shotgun.csproj) targets `net6.0`, declares `STBlade.Modding.TLD.Il2CppAssemblies.Windows` `2.51.0`, and produces `DoubleBarrel.dll`. The C# namespace remains `Shotgun`.
-- The DLL embeds `DoubleBarrel.modcomponent` (resource name `Shotgun.DoubleBarrel.modcomponent`) and `Spawns/groupspawns.txt` (resource name `Shotgun.groupspawns.txt`). Runtime initialization atomically refreshes its own embedded package by SHA-256, including when the mod version is unchanged.
+- The DLL embeds `DoubleBarrel.modcomponent` (resource name `Shotgun.DoubleBarrel.modcomponent`) and `Spawns/groupspawns.txt` (resource name `Shotgun.groupspawns.txt`). Runtime initialization streams the package into ModComponent without writing a standalone archive; the framework's standard working cache remains. See [embedded asset loading](ASSET-LOADING.md).
 - `unity/` is the source asset project. The editor version is recorded in `unity/ProjectSettings/ProjectVersion.txt`; package inputs are in `unity/Packages/`.
 - Existing generated packages and bundles are still tracked. They are required inputs or existing upstream content, not permission to commit every rebuild. The current clone uses partial fetching and a local artifact guard; see [storage notes](STORAGE-NOTES.md).
 
@@ -22,7 +22,7 @@ Paths below are relative to the mod root.
 | Ruined/usable finds, milling restoration, and spawn persistence | [Restoration](RESTORATION.md), `Main/ShotgunSpawnPolicy.cs`, `Main/ShotgunRestoration.cs` |
 | Projectile materials, optional recipe registration, and asset preparation | `Main/ShotgunCrafting.cs`, [source authoring handoff](../unity/SourceArt/README.md) |
 | Proposed scrapshot stats, crafting recipe, and balance rationale | [Scrapshot design](SCRAPSHOT-DESIGN.md) |
-| Initialization, embedded assets, resource registration, scene lifecycle | `Main/Main.cs`, `Util/General.cs` |
+| Initialization, embedded assets, resource registration, scene lifecycle | [Embedded asset loading](ASSET-LOADING.md), `Main/Main.cs`, `Util/General.cs` |
 | Weapon and item configuration | `Main/Configuration.cs`, then the specific patch in `Main/Patches.cs` |
 | Firing both barrels | `Main/DoubleFire.cs` |
 | Pellets, damage, and associated effects | `Main/ShotgunPellets.cs` |
@@ -63,4 +63,4 @@ This is an explicit diagnostic C# build; it does not refresh a playable Release.
 
 C# compilation alone does not regenerate bundles or the `.modcomponent`. The full template-based UnityPy pipeline consumes `unity/SourceArt/no-unity-build.json` and the authored GLB/PNG inputs, validates the catalog/CRC and all bundle references, and verifies the exact embedded package after compilation. Existing shaders, controllers, clips and sound banks remain in the compatible template. Own audio resources use the hash-based `Main/EmbeddedAudio.cs` adapter before the Addressables fallback. Game acceptance remains separate; name the focused game checks. Documentation-only edits need neither compilation nor a local release.
 
-code-synced: 2026-10-31
+code-synced: 2026-11-01
