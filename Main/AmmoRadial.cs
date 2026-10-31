@@ -98,7 +98,7 @@ namespace Shotgun
                 string ammoType = GetAmmoType(ammo);
                 Sprite icon = GetIcon(ammoType);
                 if (icon != null) ApplyIcon(arm, icon, greyOut);
-                arm.m_NameWhenHoveredOver = ammoType ?? ammo.DisplayName;
+                arm.m_NameWhenHoveredOver = ammo.DisplayName;
                 if (arm.m_StackLabel != null) arm.m_StackLabel.text = count.ToString();
             }
 
