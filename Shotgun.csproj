@@ -10,6 +10,7 @@
     <Nullable>enable</Nullable>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AssemblyName>DoubleBarrel</AssemblyName>
+    <AssetPackagePath Condition="'$(AssetPackagePath)' == ''">DoubleBarrel.modcomponent</AssetPackagePath>
     <DebugType>none</DebugType>
   </PropertyGroup>
 
@@ -65,10 +66,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="DoubleBarrel.modcomponent" />
+    <EmbeddedResource Include="$(AssetPackagePath)" LogicalName="Shotgun.DoubleBarrel.modcomponent" />
     <EmbeddedResource Include="Spawns\groupspawns.txt" LogicalName="Shotgun.groupspawns.txt" />
     <EmbeddedResource Include="Crafting\Alternatives\*.json" LogicalName="Shotgun.Crafting.%(Filename)%(Extension)" />
   </ItemGroup>
+
+  <Target Name="RequireFreshAssetPackage" BeforeTargets="CoreCompile"
+          Condition="'$(ModBuildCodeOnly)' != 'true'">
+    <Error Condition="'$(ModBuildValidatedPackageHash)' == ''"
+           Text="Use the workspace ModBuild pipeline for a full build, or explicitly pass ModBuildCodeOnly=true for diagnostics. A legacy embedded package is not a complete build." />
+    <Error Condition="!Exists('$(AssetPackagePath)')" Text="The generated asset package is missing." />
+    <GetFileHash Files="$(AssetPackagePath)" Algorithm="SHA256">
+      <Output TaskParameter="Items" ItemName="_CheckedAssetPackage" />
+    </GetFileHash>
+    <Error Condition="'%(_CheckedAssetPackage.FileHash)' != '$(ModBuildValidatedPackageHash)'"
+           Text="The generated asset package changed after validation." />
+  </Target>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(NoDeploy)' != 'true'">
     <Exec Command="COPY &quot;$(TargetPath)&quot; &quot;$(ModsPath)&quot;" />
