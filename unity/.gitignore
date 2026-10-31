@@ -7,3 +7,24 @@ UserSettings
 .vsconfig
 *.meta
 Assets/_ModComponent/DataAssets/
+
+# Source metadata for the new ammunition authoring inputs.
+!Assets/Editor.meta
+!Assets/Editor/*.meta
+!Assets/Shotgun/References.meta
+!Assets/Shotgun/References/*.meta
+!Assets/Shotgun/Prefabs/GEAR_DoubleBarrelAmmo*.prefab.meta
+!Assets/Shotgun/Prefabs/GEAR_DoubleBarrelLead*.prefab.meta
+!Assets/Shotgun/Prefabs/GEAR_DoubleBarrelScrapBuckshot.prefab.meta
+!Assets/Shotgun/Imports/ShotgunLead*.fbx.meta
+!Assets/Shotgun/Imports/ShotgunScrap*.fbx.meta
+!Assets/Shotgun/Icons/*Scrapshot*.png.meta
+!Assets/Shotgun/Icons/*LeadBuckshot.png.meta
+!Assets/Shotgun/Icons/*LeadBirdshot.png.meta
+!Assets/Shotgun/Icons/*ScrapBuckshot.png.meta
+!Assets/Shotgun/Textures/ShotgunCastLead_BaseColor.png.meta
+!Assets/Shotgun/Textures/ShotgunCutSteel_BaseColor.png.meta
+!Assets/Shotgun/Textures/ShotgunScrapshot*_BaseColor.png.meta
+!Assets/Shotgun/Materials/ShotgunCastLead.mat.meta
+!Assets/Shotgun/Materials/ShotgunCutSteel.mat.meta
+!Assets/Shotgun/Materials/ShotgunScrapshot*.mat.meta
