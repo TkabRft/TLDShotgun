@@ -890,8 +890,7 @@ namespace Shotgun
 
         internal void ConfigureShotgunAudio(ConfigurationReferences refs)
         {
-            refs.ClipManager = AudioMgr.AudioMaster.NewClipManager();
-            refs.AudioShot = AudioMgr.AudioMaster.CreatePlayerShot(AudioMgr.AudioMaster.SourceType.SFX);
+            ShotgunAudio.Begin(refs);
 
             RegisterAudioClip(refs, "GAMEPLAY_DoubleBarrel_Discharge");
             RegisterAudioClip(refs, "GAMEPLAY_DoubleBarrel_Insert");
@@ -903,15 +902,13 @@ namespace Shotgun
 
         internal void RegisterAudioClip(ConfigurationReferences refs, string addressableKey)
         {
-            if (ModBuild.EmbeddedAudio.TryRegister(refs.ClipManager, addressableKey)) return;
-            AudioClip clip = Addressables.LoadAssetAsync<AudioClip>(addressableKey).WaitForCompletion();
-            if (clip == null)
+            if (refs.ClipManager == null) { ShotgunAudio.Failure(addressableKey, "missing ClipManager"); return; }
+            try
             {
-                MelonLogger.Error($"Failed to load audio clip: {addressableKey}");
-                return;
+                AudioClip clip = ModBuild.EmbeddedAudio.LoadPcm(addressableKey);
+                ShotgunAudio.Register(addressableKey, clip);
             }
-            refs.ClipManager.LoadAudioclip(addressableKey, clip);
-            MelonLogger.Msg($"Registered audio clip: {addressableKey}");
+            catch (Exception e) { ShotgunAudio.Failure(addressableKey, e.Message); }
         }
 
 

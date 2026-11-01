@@ -16,7 +16,7 @@
 
 ![ammo wheel](media/ammo_wheel.jpg)
 
-Aiming uses the game's hold/toggle preference.
+Aiming uses the game's hold/toggle preference. Shotgun sounds follow the SFX and master volume settings; all six sounds ship inside DoubleBarrel.dll, with no separate sound download.
 
 If aiming or weapon switching stops responding, enable **Aim Diagnostics** in Mod Settings and include the resulting MelonLoader log with your report. It is off by default.
 

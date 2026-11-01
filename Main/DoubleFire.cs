@@ -14,16 +14,19 @@ namespace Shotgun
         {
             internal static void Prefix(vp_FPSShooter __instance, out int __state)
             {
-                GunItem gunItem = __instance.m_Weapon?.m_GunItem;
-                __state = gunItem != null && gunItem.m_GunType == GunTypeCustom ? gunItem.m_Clip.Count : -1;
+                GunItem? gunItem = __instance.m_Weapon?.m_GunItem;
+                __state = gunItem != null && gunItem.m_GunType == GunTypeCustom && gunItem.m_Clip != null ? gunItem.m_Clip.Count : -1;
             }
 
             internal static void Postfix(vp_FPSShooter __instance, int __state)
             {
+                if (__state < 0) return;
+                GunItem? gunItem = __instance.m_Weapon?.m_GunItem;
+                if (gunItem == null || gunItem.m_Clip == null
+                    || !ShotgunAudio.SuccessfulShot(__state, gunItem.m_Clip.Count, gunItem.m_IsJammed, gunItem.m_HasMisfired)) return;
+                ShotgunAudio.Play(ShotgunAudio.Discharge);
                 if (FiringSecondBarrel || __state < 2) return;
                 if (!Input.GetKey(Settings.Instance.DoubleFireKeyCode)) return;
-                GunItem gunItem = __instance.m_Weapon.m_GunItem;
-                if (gunItem.m_Clip.Count != __state - 1 || gunItem.m_IsJammed || gunItem.m_HasMisfired) return;
 
                 FiringSecondBarrel = true;
                 try

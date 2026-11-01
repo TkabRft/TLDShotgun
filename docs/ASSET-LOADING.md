@@ -117,6 +117,17 @@ selection. Test newly spawned and previously saved shotguns, including harvestin
 kit wear, ruined recovery, condition and loaded ammunition after save/load. These
 game checks remain pending.
 
+The same user test reported intermittent aiming delay/control lock and silence
+for discharge and reload sounds. Those are separate from prefab registration.
+The original audio resource bank is unchanged, but the former registration log
+did not check audio-data readiness. See [weapon animation and audio](WEAPON-ANIMATION-AUDIO.md)
+for the guarded completion bridge, local player source, successful-shot audio and
+their game-acceptance boundary. A further game test confirmed that all six clips
+remained `Unloaded` after `LoadAudioData` and 30 seconds of polling. The current
+build embeds the six original PCM16 WAV files and creates clips from their
+samples in memory, with native `SetData`/`GetData` verification. It does not use
+the non-loading FSB clips or extract WAV files. Audible playback remains pending user acceptance; the structural checks alone do not establish it.
+
 ## Legacy archive migration
 
 After embedded registration succeeds and `ModComponent.Public.IsReady()` confirms

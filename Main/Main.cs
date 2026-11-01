@@ -69,7 +69,11 @@ namespace Shotgun
             ShotgunSkill.Init();
         }
 
-        public override void OnUpdate() => EmbeddedAssetPackage.Update();
+        public override void OnUpdate()
+        {
+            EmbeddedAssetPackage.Update();
+            ShotgunAudio.Tick();
+        }
 
         public override void OnLateUpdate() => ShotgunAim.Tick();
 
@@ -80,6 +84,7 @@ namespace Shotgun
             {
                 ShotgunSpawnPolicy.Reset();
                 ShotgunAim.Reset("menu");
+                ShotgunAudio.Reset();
             }
             ShotgunAvailability.ApplyToCurrentMode();
             if (!mResourceLocatorInitialized)

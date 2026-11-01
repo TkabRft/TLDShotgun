@@ -30,7 +30,7 @@ Paths below are relative to the mod root.
 | Ammo wheel and selection | `Main/AmmoRadial.cs`, `Main/AmmoSwapPrompt.cs` |
 | Ammo HUD | `Main/CustomAmmoHUD.cs` |
 | Weapon actions and animation callbacks | `Main/Actions.cs`, `Main/AnimationEventProxy.cs` |
-| Aim transitions and missed completion events | [Weapon animation and audio](WEAPON-ANIMATION-AUDIO.md), `Main/ShotgunAim.cs` |
+| Aim transitions, missed completion events and own weapon sounds | [Weapon animation and audio](WEAPON-ANIMATION-AUDIO.md), `Main/ShotgunAim.cs`, `Main/ShotgunAudio.cs` |
 | Availability, custom difficulty, persistence | `Main/ShotgunAvailability.cs`, `Main/ShotgunAvailabilityPatches.cs` |
 | Spawn parsing and group selection | `Main/GroupSpawner.cs`, `Spawns/groupspawns.txt` |
 | Shotgun skill and FiligranisSkills integration | `Main/ShotgunSkill.cs` |
@@ -63,6 +63,6 @@ This is an explicit diagnostic C# build; it does not refresh a playable Release.
 
 `ModReferencesPath` optionally selects a separate directory containing the managed mod dependency DLLs; it defaults to the game's `Mods` folder. This supports compilation without installing those dependencies. A missing FiligranisSkills DLL is omitted from compile references; the existing reflection-based runtime integration remains optional.
 
-C# compilation alone does not regenerate bundles or the `.modcomponent`. The full template-based UnityPy pipeline consumes `unity/SourceArt/no-unity-build.json` and the authored GLB/PNG inputs, validates the catalog/CRC and all bundle references, and verifies the exact embedded package after compilation. Existing shaders, controllers, clips and sound banks remain in the compatible template. Own audio resources use the hash-based `Main/EmbeddedAudio.cs` adapter before the Addressables fallback. Game acceptance remains separate; name the focused game checks. Documentation-only edits need neither compilation nor a local release.
+C# compilation alone does not regenerate bundles or the `.modcomponent`. The full template-based UnityPy pipeline consumes `unity/SourceArt/no-unity-build.json` and the authored GLB/PNG inputs, validates the catalog/CRC and all bundle references, and verifies the exact embedded package after compilation. Existing shaders, controllers, clips and sound banks remain in the compatible template. TLDShotgun embeds its six PCM16 WAV resources separately and creates verified clips in memory through `Main/EmbeddedAudio.cs`; it does not extract sound files or fall back to bundled FSB clips. Game acceptance remains separate; name the focused game checks. Documentation-only edits need neither compilation nor a local release.
 
 code-synced: 2026-11-01

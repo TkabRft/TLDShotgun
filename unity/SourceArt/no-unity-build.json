@@ -24,5 +24,12 @@
   "spriteTemplateAddress": "ico_DoubleBarrelBuckshotHUD",
   "additionalSprites": [{"name": "ico_DoubleBarrelScrapshotHUD", "file": "ico_DoubleBarrelScrapshotHUD.png"}],
   "animations": [],
-  "audio": []
+  "audio": [
+    {"id": "GAMEPLAY_DoubleBarrel_Discharge", "file": "unity/Assets/Shotgun/Sounds/GAMEPLAY_DoubleBarrel_Discharge.wav"},
+    {"id": "GAMEPLAY_DoubleBarrel_Insert", "file": "unity/Assets/Shotgun/Sounds/GAMEPLAY_DoubleBarrel_Insert.wav"},
+    {"id": "GAMEPLAY_DoubleBarrel_Remove", "file": "unity/Assets/Shotgun/Sounds/GAMEPLAY_DoubleBarrel_Remove.wav"},
+    {"id": "GAMEPLAY_DoubleBarrel_Open", "file": "unity/Assets/Shotgun/Sounds/GAMEPLAY_DoubleBarrel_Open.wav"},
+    {"id": "GAMEPLAY_DoubleBarrel_Close", "file": "unity/Assets/Shotgun/Sounds/GAMEPLAY_DoubleBarrel_Close.wav"},
+    {"id": "GAMEPLAY_DoubleBarrel_ShellDrop_Hard", "file": "unity/Assets/Shotgun/Sounds/GAMEPLAY_DoubleBarrel_ShellDrop_Hard.wav"}
+  ]
 }
