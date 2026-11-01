@@ -65,7 +65,7 @@ namespace Shotgun
         internal GearItem? GearItem { get; set; }
         internal AmmoItem? AmmoItem { get; set; }
         internal StackableItem? StackableItem { get; set; }
-        internal Harvestable? Harvestable { get; set; }
+        internal Harvest? Harvest { get; set; }
     }
 
     internal class CasingPrefabRefs

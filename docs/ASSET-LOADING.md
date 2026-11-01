@@ -55,6 +55,39 @@ when the mod version remains unchanged. FiligranisSkills lookup uses exact assem
 and type names; absence disables only that optional skill and does not scan every
 interop type or suppress unrelated warnings.
 
+## Weapon initialization and inventory actions
+
+Package registration precedes weapon setup. After `vp_FPSCamera.LoadAllFPSWeapons`,
+`Main.LateInitialize` calls `Configuration.PrepareShotgun` to obtain the vanilla
+templates, add and configure the shotgun's `GunItem`, `FirstPersonItem` and
+`Cleanable`, and register its first-person weapon. A failure while obtaining
+templates leaves the shotgun as a generic inventory item, without weapon actions.
+The existing rifle-cycling patch also requires a configured `GunItem`.
+
+Local commit `0fb3def` incorrectly made `Harvestable` mandatory on vanilla rifle
+ammunition. A game log confirmed that `Null GEAR_RifleAmmoSingle.Harvestable`
+aborted setup before weapon components were created. The first rollback restored
+optional vanilla lookups but was incomplete: the next game test stopped at
+`Null GEAR_DoubleBarrelAmmoSingleSlug.Harvestable`.
+
+ModComponent 7.0.0's `HarvestableMapper` maps `ModHarvestableBehaviour` to the game
+component **`Harvest`**, which derives from `HarvestBase`. `Harvestable` is a
+different component. `AmmoPrefabRefs` and all four single/box lookups now use
+`Harvest`. Vanilla ammunition's component remains optional and is not consumed by
+shotgun configuration; the shotgun's own ammunition requires the actual `Harvest`
+component. Both the pinned 2.51 API and the tested game's 2.59 interop assemblies
+expose this type. No API package change is needed.
+
+Validation compares the compiled getter/delegate component queries and reference
+type with the component created by the installed ModComponent mapper. The previous
+DLL is rejected as a negative control; the corrected DLL matches all four lookups,
+including optional vanilla and required shotgun predicates. All eight embedded
+single/box definitions retain their matching disassembly projectiles, 40 g units
+and six-unit boxes. The corrected runtime snapshot was published only after these
+checks passed.
+That initialization repair left weapon controls, cycling and save contracts
+unchanged; no inventory reset or save migration was introduced.
+
 ## Legacy archive migration
 
 After embedded registration succeeds and `ModComponent.Public.IsReady()` confirms
