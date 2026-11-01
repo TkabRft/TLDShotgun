@@ -1,6 +1,6 @@
 {
   "Assets/Editor/PrepareAmmunitionAssets.cs": "d882fd7fd5116e0dc69a075328b70aa2d23024e3e7392916bb99b78b9e158499",
-  "Assets/Shotgun/Icons/ico_DoubleBarrelScrapshotHUD.png": "539ec54136c1bf447f07dfd256846ad57c7e71dd1b10814e9e2ba1cc3b8f89f6",
+  "Assets/Shotgun/Icons/ico_DoubleBarrelScrapshotHUD.png": "76379c1e00e490d6954034e7025bc5c63c0c161c0400f4ea9d453bd18d6fd499",
   "Assets/Shotgun/Icons/ico_DoubleBarrelScrapshotHUD.png.meta": "3c4dbffd6f9e653d7a547b23736e928640a842dee04cb36339bd9ff07ab7e3f4",
   "Assets/Shotgun/Icons/ico_GearItem__DoubleBarrelAmmoBoxScrapshot.png": "5588e2b6915d45a4c57858be35c563c479d9bf4a77e9954b4af07829ec5b82f4",
   "Assets/Shotgun/Icons/ico_GearItem__DoubleBarrelAmmoBoxScrapshot.png.meta": "52843a0828da1a4f66a613b59e21a8a2a285b366d7bd12f18b28c9fe83022202",
@@ -53,8 +53,10 @@
   "SourceArt/previews/ShotgunScrapBuckshot.png": "a90870f0b62e7cbd296a1531d7214f737eab853205e67aeaa46f6a0238011392",
   "SourceArt/previews/ShotgunScrapshotBox.png": "25f3207638101c62c48825bc1fb37848c3fa4fd2aea878efcd128c34a7148552",
   "SourceArt/previews/ShotgunScrapshotShell.png": "562cce02c895a6fdaf6653db4c1bd6b91fe2cd3c34a430f12881bd0739d92081",
-  "SourceArt/source/ammunition_assets.py": "a64bbd3eb847ecdd95612b5178fc3310cb9ed2b05e36c53a27e846df1a934277",
+  "SourceArt/source/ammunition_assets.py": "b040f469f4891e96a99d8e8c55d7f393b6a9261f8177a1d29b0452d71259100e",
   "SourceArt/source/prepare_art_materials.py": "fc9e9ce18f6e8f14bd9a13922766a290b79876dca260ed05f6791a9bf62ec287",
-  "SourceArt/source/validate_art.py": "f214d1a843a76a04d2a2bb74a1c29d6a9a45061170a6a602a838364601d7ae37",
+  "SourceArt/source/render_scrapshot_hud.py": "59bea839bb7f24532d51f04cae08e515a33aaef316f8462d4752b6c79d720dc1",
+  "SourceArt/source/ScrapshotHUD.svg": "89c0af22284f6200218f49217bfe59621d84ca4af85b54f7929cb96f73ed21ed",
+  "SourceArt/source/validate_art.py": "149c4809020f905a3c09e90c093d0cf3de8b5b0c5d6fb2b60cc0de4530a275a7",
   "SourceArt/source/verify_blend.py": "2862def17477223426f990f704895e5d2a3fdcd61e91389a97b581439222dfd5"
 }

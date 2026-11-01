@@ -108,6 +108,17 @@ the preserved clips but are ignored by the proxy to avoid double playback.
 Reload sounds retain their animation events, gated to the current shotgun
 animator and weapon. `PlayOneShot` preserves overlapping discharge tails.
 
+## HUD artwork
+
+Scrapshot's loaded HUD is a white/alpha 183 x 436 shell silhouette with three
+negative-space cut-metal shapes, using the buckshot Sprite parameters. Inventory
+renders remain 256 x 256. The BC3 texture is 184 x 436 with one transparent column
+on the right; the explicit Sprite rect remains 183 x 436. The first revision's
+183-pixel BC3 texture caused Unity's RGBA32 fallback warning in the user log.
+The new writer checks block alignment and validates logical Sprite rect bounds.
+GUIDs, keys, visible geometry, UV transform and UI layout code are unchanged. The
+[source-art guide](../unity/SourceArt/README.md) owns regeneration and validation.
+
 ## Validation and game acceptance
 
 The existing isolated harness compiles the production aim, audio and double-fire

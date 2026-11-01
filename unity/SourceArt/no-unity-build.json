@@ -22,7 +22,7 @@
   "prefabTemplateAddress": "GEAR_DoubleBarrelAmmoSingleBuckshot",
   "iconTemplateAddress": "ico_GearItem__DoubleBarrelAmmoSingleBuckshot",
   "spriteTemplateAddress": "ico_DoubleBarrelBuckshotHUD",
-  "additionalSprites": [{"name": "ico_DoubleBarrelScrapshotHUD", "file": "ico_DoubleBarrelScrapshotHUD.png"}],
+  "additionalSprites": [{"name": "ico_DoubleBarrelScrapshotHUD", "file": "ico_DoubleBarrelScrapshotHUD.png", "rect": [0, 0, 183, 436]}],
   "animations": [],
   "audio": [
     {"id": "GAMEPLAY_DoubleBarrel_Discharge", "file": "unity/Assets/Shotgun/Sounds/GAMEPLAY_DoubleBarrel_Discharge.wav"},

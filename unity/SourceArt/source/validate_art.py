@@ -31,7 +31,8 @@ def main():
     assert len(icons)==6
     for icon in icons:
         png=icon.read_bytes();assert png[:8]==b'\x89PNG\r\n\x1a\n'
-        assert struct.unpack('>II',png[16:24])==(256,256) and png[25]==6
+        expected=(184,436) if icon.name=='ico_DoubleBarrelScrapshotHUD.png' else (256,256)
+        assert struct.unpack('>II',png[16:24])==expected and png[25]==6
         files += [icon,Path(str(icon)+'.meta')]
     guids=[]
     for name in MATS:
@@ -54,7 +55,7 @@ def main():
     assert blend['visible_box_shells']==6
     assert blend['blend_sha256']==digest(ART/'Ammunition.blend')
     for name,value in blend['packed_textures'].items():assert digest(ASSETS/'Textures'/name)==value
-    files += [p for p in (ART/'source').glob('*.py')]+[ART/'author_ammunition.py']
+    files += [p for p in (ART/'source').glob('*.py')]+[ART/'author_ammunition.py',ART/'source/ScrapshotHUD.svg']
     manifest={p.relative_to(UNITY).as_posix():digest(p) for p in sorted(set(files))}
     dest=ART/'asset-file-manifest.json'
     if '--record' in sys.argv:dest.write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')

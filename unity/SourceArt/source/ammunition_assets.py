@@ -279,7 +279,7 @@ def frame(name,resolution=512):
 def render_asset(name,resolution=512,icon=False):
     s=frame(name,resolution);s.render.filepath=str(ASSETS/'Icons'/dict(CATALOG)[name] if icon else ART/'previews'/(name+'.png'))
     bpy.ops.render.render(write_still=True)
-    if icon and name.endswith('Shell'):bpy.data.images['Render Result'].save_render(str(ASSETS/'Icons/ico_DoubleBarrelScrapshotHUD.png'),scene=s)
+    # HUD has a separate flat symbol authoring path: source/render_scrapshot_hud.py.
     print('Rendered '+Path(s.render.filepath).name)
 
 def geometry_report(objects):
