@@ -31,6 +31,7 @@ Paths below are relative to the mod root.
 | Ammo HUD | `Main/CustomAmmoHUD.cs` |
 | Weapon actions and animation callbacks | `Main/Actions.cs`, `Main/AnimationEventProxy.cs` |
 | Aim transitions, missed completion events and own weapon sounds | [Weapon animation and audio](WEAPON-ANIMATION-AUDIO.md), `Main/ShotgunAim.cs`, `Main/ShotgunAudio.cs` |
+| Walking/aiming and touchpad radial behavior also reported on vanilla items | [Shared input observations](VANILLA-INPUT-ISSUES.md) |
 | Availability, custom difficulty, persistence | `Main/ShotgunAvailability.cs`, `Main/ShotgunAvailabilityPatches.cs` |
 | Spawn parsing and group selection | `Main/GroupSpawner.cs`, `Spawns/groupspawns.txt` |
 | Shotgun skill and FiligranisSkills integration | `Main/ShotgunSkill.cs` |

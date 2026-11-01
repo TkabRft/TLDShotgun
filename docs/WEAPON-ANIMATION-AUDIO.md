@@ -37,6 +37,10 @@ reported 5.575 seconds. Their later `state=missing` messages were consequences
 of rejection and cleanup, not missing embedded WAVs. Updating AudioCore alone
 therefore did not restore every sound. The duration correction is implemented; native game acceptance remains separate from structural checks.
 
+The user also reproduced the walking/aim-start restriction and touchpad radial
+selection issue with vanilla items/UI. See [shared input observations](VANILLA-INPUT-ISSUES.md).
+No further aim/input changes are planned for those observations.
+
 ## Aim ownership and completion
 
 `ShotgunAim` coordinates existing accepted native aim requests. It owns one

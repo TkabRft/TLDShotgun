@@ -18,6 +18,8 @@
 
 Aiming uses the game's hold/toggle preference. Shotgun sounds follow the SFX and master volume settings; all six sounds ship inside DoubleBarrel.dll, with no separate sound download. The loaded Scrapshot HUD uses the same white shell silhouette as the other ammunition, with cut-metal shapes inside.
 
+If aiming will not start while walking, stop briefly to aim, then resume movement. If touchpad taps or its left button do not select radial entries, use a physical mouse's left button. Both behaviors were also reported with vanilla items/UI; see the [input observations](docs/VANILLA-INPUT-ISSUES.md).
+
 If aiming or weapon switching stops responding, enable **Aim Diagnostics** in Mod Settings and include the resulting MelonLoader log with your report. It is off by default.
 
 ## Ammunition and crafting
