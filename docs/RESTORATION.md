@@ -1,4 +1,4 @@
-# Shotgun finds and restoration
+# Shotgun maintenance, finds and restoration
 
 Status: implemented in the rebuilt runtime DLL. The complete ammunition asset package is embedded and structurally verified. Game acceptance of spawn persistence and successful ruined-gun milling recovery remains pending.
 
@@ -19,6 +19,36 @@ Minimum resources can be Low, Medium, High, or Very High. An eligible Low/Medium
 
 Changing one percentage reduces the other if their sum would exceed 100. Invalid configuration loading clamps usable to 0вЂ“100, then ruined to the remaining percentage. No-firearm and custom no-shotgun bans still apply. These options do not alter part/ammo group counts or replace vanilla rifles.
 
+## Inventory maintenance
+
+`ShotgunMaintenance.Resolve` obtains the standard rifle's `Harvest`, `Cleanable`
+and `Millable` components, validates their material/tool references and array
+lengths, and resolves scrap metal and fir firewood before any shotgun weapon
+components are created. Fir firewood is `GEAR_Hardwood`, whose game data uses
+`GAMEPLAY_FirFirewood`; `GEAR_FirewoodFir` is not a vanilla address.
+
+The shotgun's inventory Actions use the game's native components:
+
+| Action | Configuration |
+|---|---|
+| Harvest | 2 scrap metal + 1 fir firewood; rifle duration, tools, skill and audio |
+| Clean | Complete rifle `Cleanable` configuration, including its firearm cleaning kit |
+| Ordinary milling repair | Rifle materials, quantities and duration |
+
+In the inspected 2.59 rifle prefab, harvesting takes 60 minutes, requires no tool
+and applies no skill. Cleaning uses `GEAR_RifleCleaningKit`, with serialized
+condition-increase endpoints 2 and 5 and duration endpoints 15 and 5 minutes.
+Ordinary milling repair takes 30 minutes and one scrap metal. Timing and other
+copied fields remain governed by the game's normal behavior.
+
+`ShotgunMaintenance.Configure` creates/configures `Harvest`, `Cleanable` and
+`Millable`, then connects `GearItem.m_Harvest`, `m_Cleanable` and `m_Millable`.
+Array containers are copied independently; resource/tool prefab references retain
+their canonical identities. Changing shotgun yields or cleaning choices cannot
+modify the rifle's arrays. No condition increase or cleaning-kit wear is applied
+by this setup code: native cleaning handles both, including normal full-condition
+and ruined-item eligibility. Ruined recovery remains a milling operation.
+
 ## Restoration
 
 Ruined finds retain `GEAR_DoubleBarrel` and start unloaded at zero condition. A transient, instance-checked marker reapplies zero condition after the verified `RollSeededGearConditionAndWeight` / `RollGearConditionAndWeight` APIs during the spawn frame. It expires at frame end and is not a save field; loaded or later repaired guns are not marked.
@@ -35,6 +65,13 @@ Unavailable or malformed scene/state information falls back to legacy spawning f
 
 ## Pending game checks
 
-Check old visited areas, unvisited areas, all resource levels, chance endpoints, disabled finds, bans, optional-region absence, save switching, repeated quality-setting calls, and pickup/revisit behavior. Verify zero-condition items remain present and unfireable, retain their state through save/load, appear in the milling UI, consume the selected recovery materials, and become usable afterward. These are acceptance requirements, not completed in-game tests.
+Check old visited areas, unvisited areas, all resource levels, chance endpoints, disabled finds, bans, optional-region absence, save switching, repeated quality-setting calls, and pickup/revisit behavior. Verify zero-condition items remain present and unfireable, retain their state through save/load, appear in the milling UI, consume the selected recovery materials, and become usable afterward.
 
-Sources: [spawn policy](../Main/ShotgunSpawnPolicy.cs), [group spawner](../Main/GroupSpawner.cs), [restoration](../Main/ShotgunRestoration.cs), and [settings](../Settings/Settings.cs).
+Check inventory Use/Actions, radial and rifle-cycle selection, cleaning with and
+without a kit, kit wear, full-condition/ruined eligibility, and harvesting loaded
+and unloaded weapons without ammunition duplication or unintended loss. Repeat
+on newly spawned and saved shotguns. The production maintenance harness checks
+configuration, missing inputs and independent arrays with native boundaries
+replaced; it does not execute Unity or establish in-game acceptance.
+
+Sources: [maintenance](../Main/ShotgunMaintenance.cs), [spawn policy](../Main/ShotgunSpawnPolicy.cs), [group spawner](../Main/GroupSpawner.cs), [ruined-condition handling](../Main/ShotgunRestoration.cs), and [settings](../Settings/Settings.cs).

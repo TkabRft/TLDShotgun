@@ -24,6 +24,7 @@ namespace Shotgun
         internal GunRefs? Rifle { get; set; } = new();
         internal AudioMgr.ClipManager? ClipManager { get; set; }
         internal AudioMgr.Shot? AudioShot { get; set; }
+        internal ShotgunMaintenance.Inputs? Maintenance { get; set; }
     }
 
 

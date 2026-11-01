@@ -1,9 +1,7 @@
 using HarmonyLib;
 using Il2Cpp;
-using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using MelonLoader;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using System.Collections;
 using System.Reflection;
 
@@ -12,25 +10,6 @@ namespace Shotgun
     internal static class ShotgunRestoration
     {
         private static readonly Dictionary<IntPtr, GearItem> PendingRuined = new();
-
-        internal static void Configure(ConfigurationReferences refs)
-        {
-            Millable source = refs.Rifle.Gun.Prefab.GetComponent<Millable>();
-            if (source == null) throw new InvalidOperationException("GEAR_Rifle has no milling configuration");
-            GameObject prefab = refs.Shotgun.Gun.Prefab;
-            Millable target = prefab.GetComponent<Millable>() ?? prefab.AddComponent<Millable>();
-            target.m_RepairRequiredGear = source.m_RepairRequiredGear;
-            target.m_RepairRequiredGearUnits = source.m_RepairRequiredGearUnits;
-            target.m_RepairDurationMinutes = source.m_RepairDurationMinutes;
-            target.m_CanRestoreFromWornOut = true;
-            target.m_RecoveryDurationMinutes = 180;
-            target.m_Skill = SkillType.Gunsmithing;
-            GearItem scrap = Addressables.LoadAssetAsync<GameObject>("GEAR_ScrapMetal").WaitForCompletion().GetComponent<GearItem>();
-            GearItem fir = Addressables.LoadAssetAsync<GameObject>("GEAR_FirewoodFir").WaitForCompletion().GetComponent<GearItem>();
-            target.m_RestoreRequiredGear = new Il2CppReferenceArray<GearItem>(new[] { scrap, fir });
-            target.m_RestoreRequiredGearUnits = new Il2CppStructArray<int>(new[] { 4, 1 });
-            refs.Shotgun.Gun.GearItem.m_Millable = target;
-        }
 
         internal static void MarkRuined(GameObject item)
         {

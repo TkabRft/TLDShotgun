@@ -20,6 +20,7 @@ Paths below are relative to the mod root.
 | Planned work, balance tests, and recorded weight baseline | [To-do list](TODO.md) |
 | All ammunition, vanilla references, recipes, and selected shell-weight target | [Ammunition reference](AMMUNITION.md) |
 | Ruined/usable finds, milling restoration, and spawn persistence | [Restoration](RESTORATION.md), `Main/ShotgunSpawnPolicy.cs`, `Main/ShotgunRestoration.cs` |
+| Inventory harvesting, kit cleaning, milling parameters and maintenance preflight | [Maintenance and restoration](RESTORATION.md), `Main/ShotgunMaintenance.cs`, `Main/Configuration.cs` |
 | Projectile materials, optional recipe registration, and asset preparation | `Main/ShotgunCrafting.cs`, [source authoring handoff](../unity/SourceArt/README.md) |
 | Proposed scrapshot stats, crafting recipe, and balance rationale | [Scrapshot design](SCRAPSHOT-DESIGN.md) |
 | Initialization, embedded assets, resource registration, scene lifecycle | [Embedded asset loading](ASSET-LOADING.md), `Main/Main.cs`, `Util/General.cs` |

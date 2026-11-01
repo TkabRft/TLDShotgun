@@ -23,19 +23,25 @@ namespace Shotgun
 
         internal bool PrepareShotgun()
         {
+            string stage = "Get input references";
             try
             {
                 ConfigurationReferences configRefs = new();
                 Refs = configRefs;
                 if (!Get(configRefs)) return false;
+                stage = "Resolve maintenance inputs";
+                configRefs.Maintenance = ShotgunMaintenance.Resolve(configRefs.Rifle.Gun.Prefab);
+                stage = "Instantiate weapon components";
                 if (!Instantiate(configRefs)) return false;
+                stage = "Configure weapon components";
                 if (!Configure(configRefs)) return false;
+                stage = "Register first-person weapon";
                 if (!RegisterShotgun(configRefs)) return false;
                 return true;
             }
             catch (Exception e)
             {
-                MelonLogger.Error($"Error during PrepareShotgun: {e}");
+                MelonLogger.Error($"Error during PrepareShotgun [{stage}]: {e}");
                 return false;
             }
         }
@@ -47,6 +53,7 @@ namespace Shotgun
                 MelonLogger.Error("Failed to add shotgun to vpFPSCamera.m_weapons dictionary");
                 return false;
             }
+            MelonLogger.Msg("Registered shotgun first-person weapon");
             return true;
         }
 
@@ -613,35 +620,36 @@ namespace Shotgun
 
         internal bool ConfigureShotgun(ConfigurationReferences refs)
         {
+            string stage = "Configure ammunition";
+            void Step(string name, Action action) { stage = name; action(); }
             try
             {
                 foreach (var ammoType in ShotgunAmmoTypes)
                 {
-                    ConfigureShotgunAmmoSingle(refs, ammoType);
-                    ConfigureShotgunAmmoBox(refs, ammoType);
-                    ConfigureShotgunAmmoCasing(refs, ammoType);
+                    Step($"AmmoSingle {ammoType}", () => ConfigureShotgunAmmoSingle(refs, ammoType));
+                    Step($"AmmoBox {ammoType}", () => ConfigureShotgunAmmoBox(refs, ammoType));
+                    Step($"AmmoCasing {ammoType}", () => ConfigureShotgunAmmoCasing(refs, ammoType));
                 }
-                ConfigureFirearmBans(refs);
-                ConfigureShotgunGearItem(refs);
-                ConfigureShotgunGunItem(refs);
-                ConfigureShotgunFirstPersonItem(refs);
-                ConfigureShotgunStruggleBonus(refs);
-                ConfigureShotgunCleanable(refs);
-                ShotgunRestoration.Configure(refs);
-                ConfigureShotgunFPSItem(refs);
-                ConfigureShotgunFPHRoot(refs);
-                ConfigureShotgunFirstPersonWeapon(refs);
-                ConfigureShotgunAnimator(refs);
-                ConfigureModdedAnimator(refs);
-                ConfigureShotgunAudio(refs);
-                ConfigureShotgunFPSShooter(refs);
-                ConfigureShotgunFPSWeapon(refs);
-                ConfigureShotgunFPSRoot(refs);
+                Step(nameof(ConfigureFirearmBans), () => ConfigureFirearmBans(refs));
+                Step(nameof(ConfigureShotgunGearItem), () => ConfigureShotgunGearItem(refs));
+                Step(nameof(ConfigureShotgunGunItem), () => ConfigureShotgunGunItem(refs));
+                Step(nameof(ConfigureShotgunFirstPersonItem), () => ConfigureShotgunFirstPersonItem(refs));
+                Step(nameof(ConfigureShotgunStruggleBonus), () => ConfigureShotgunStruggleBonus(refs));
+                Step(nameof(ConfigureShotgunMaintenance), () => ConfigureShotgunMaintenance(refs));
+                Step(nameof(ConfigureShotgunFPSItem), () => ConfigureShotgunFPSItem(refs));
+                Step(nameof(ConfigureShotgunFPHRoot), () => ConfigureShotgunFPHRoot(refs));
+                Step(nameof(ConfigureShotgunFirstPersonWeapon), () => ConfigureShotgunFirstPersonWeapon(refs));
+                Step(nameof(ConfigureShotgunAnimator), () => ConfigureShotgunAnimator(refs));
+                Step(nameof(ConfigureModdedAnimator), () => ConfigureModdedAnimator(refs));
+                Step(nameof(ConfigureShotgunAudio), () => ConfigureShotgunAudio(refs));
+                Step(nameof(ConfigureShotgunFPSShooter), () => ConfigureShotgunFPSShooter(refs));
+                Step(nameof(ConfigureShotgunFPSWeapon), () => ConfigureShotgunFPSWeapon(refs));
+                Step(nameof(ConfigureShotgunFPSRoot), () => ConfigureShotgunFPSRoot(refs));
                 return true;
             }
             catch (Exception e)
             {
-                MelonLogger.Error($"Error during detailed configuration: {e}");
+                MelonLogger.Error($"Error during detailed configuration [{stage}]: {e}");
                 return false;
             }
         }
@@ -830,26 +838,9 @@ namespace Shotgun
         }
 
 
-        // copied from rifle - expose in modcomponent!
-        internal void ConfigureShotgunCleanable(ConfigurationReferences refs)
-        {
-            Cleanable cleanable = refs.Shotgun.Gun.Cleanable;
-            Cleanable rifleCleanable = refs.Rifle.Gun.Prefab.GetComponent<Cleanable>();
-            if (rifleCleanable == null)
-            {
-                MelonLogger.Error("GEAR_Rifle has no Cleanable; shotgun will not be cleanable");
-                return;
-            }
-            cleanable.m_RequiredGear = rifleCleanable.m_RequiredGear;
-            cleanable.m_RequiredGearUnits = rifleCleanable.m_RequiredGearUnits;
-            cleanable.m_ConditionIncreaseMin = rifleCleanable.m_ConditionIncreaseMin;
-            cleanable.m_ConditionIncreaseMax = rifleCleanable.m_ConditionIncreaseMax;
-            cleanable.m_DurationMinutesMin = rifleCleanable.m_DurationMinutesMin;
-            cleanable.m_DurationMinutesMax = rifleCleanable.m_DurationMinutesMax;
-            cleanable.m_CleanAudio = rifleCleanable.m_CleanAudio;
-            cleanable.m_CleanToolChoices = rifleCleanable.m_CleanToolChoices;
-            cleanable.m_RequiresToolToClean = rifleCleanable.m_RequiresToolToClean;
-        }
+        internal void ConfigureShotgunMaintenance(ConfigurationReferences refs) =>
+            ShotgunMaintenance.Configure(refs.Shotgun.Gun.Prefab, refs.Shotgun.Gun.GearItem,
+                refs.Maintenance ?? throw new InvalidOperationException("Missing preflight maintenance inputs"));
 
 
         internal void ConfigureShotgunFPSItem(ConfigurationReferences refs)

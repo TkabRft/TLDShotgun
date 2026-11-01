@@ -88,6 +88,35 @@ checks passed.
 That initialization repair left weapon controls, cycling and save contracts
 unchanged; no inventory reset or save migration was introduced.
 
+The subsequent game test passed all ammunition checks but failed in restoration:
+`GEAR_FirewoodFir` was not an addressable prefab, and the result was dereferenced
+without a null check. `GunItem` had already been connected, exposing Use, while
+the failure prevented first-person registration. Equipping then failed inside
+`vp_FPSCamera.GetWeaponFromItemData`.
+
+Maintenance input gathering now runs before component creation. It validates the
+rifle's `Harvest`, `Cleanable` and `Millable` templates, their material/tool arrays
+and both restoration materials. Fir resolves through `GEAR_Hardwood`, confirmed
+by the installed game's `GAMEPLAY_FirFirewood` item data. Configuration errors
+include their stage and missing resource/component. Successful registration logs
+`Registered shotgun first-person weapon` before `LateInitialize Complete`.
+The [maintenance owner page](RESTORATION.md) describes native inventory actions.
+
+Full builds now validate compiled external types/members, the assembly-reference
+closure, Harmony targets, and typed startup addresses against the installed game
+and generated package before replacing Release. A missing key fails the build
+and records a failed contract report. The production maintenance harness executes
+the real setup implementation against stand-ins for Unity/IL2CPP objects and
+Addressables, including missing resources and preservation of rifle arrays.
+
+These tests do not execute Unity weapon initialization. The subsequent user test
+confirmed that equipping works. After a fresh launch with the current rebuild,
+acceptance must confirm `LateInitialize Complete`, inventory
+Use/Actions and cleaning, rifle/shotgun cycling with **2**, firing, reload and ammo
+selection. Test newly spawned and previously saved shotguns, including harvesting,
+kit wear, ruined recovery, condition and loaded ammunition after save/load. These
+game checks remain pending.
+
 ## Legacy archive migration
 
 After embedded registration succeeds and `ModComponent.Public.IsReady()` confirms

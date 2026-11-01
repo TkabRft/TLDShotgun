@@ -2,6 +2,7 @@
 
 *Double Barrel All The Way*
 
+- Equip from inventory with **Use**, or press **2** to cycle between carried rifles and shotguns.
 - Hold **Left Alt** while firing to fire both barrels at once
 - Tap **T** to cycle to the next shell type, or hold it for the ammo wheel:
   - Slugs
@@ -28,6 +29,12 @@ Slug shells use the vanilla Bullet component. Buckshot and birdshot use their ow
 Combine one matching portion (or one Bullet for a slug), one recovered shotgun casing, and 10 g gunpowder to make one shell in five base minutes. Lead shell assembly uses an ammunition workbench. Scrapshot assembly works at an ordinary workbench without an additional tool. Workbench actions require light. Recover spent casings from the ground after reloading; they can be reused.
 
 Three options, off by default, add ordinary-forge bullet casting, ordinary-forge lead-shot casting, and ordinary-workbench lead shotgun shell assembly. They take effect on the next game load and preserve the default recipes. Vanilla rifle and revolver cartridge recipes are unchanged. Scrapshot is crafting-only and uses six slightly weaker pellets with a slightly wider pattern than lead buckshot.
+
+## Maintenance
+
+Use the inventory **Actions** menu to clean the shotgun with a firearm cleaning kit. Condition recovery, cleaning time, tool wear and eligibility follow the hunting rifle.
+
+Harvesting a shotgun returns **2 scrap metal and 1 fir firewood**. It takes **60 base minutes**, with no tool required, matching the rifle's harvesting time and tool requirements.
 
 ## Finding and restoring shotguns
 
