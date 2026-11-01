@@ -30,6 +30,7 @@ Paths below are relative to the mod root.
 | Ammo wheel and selection | `Main/AmmoRadial.cs`, `Main/AmmoSwapPrompt.cs` |
 | Ammo HUD | `Main/CustomAmmoHUD.cs` |
 | Weapon actions and animation callbacks | `Main/Actions.cs`, `Main/AnimationEventProxy.cs` |
+| Aim transitions and missed completion events | [Weapon animation and audio](WEAPON-ANIMATION-AUDIO.md), `Main/ShotgunAim.cs` |
 | Availability, custom difficulty, persistence | `Main/ShotgunAvailability.cs`, `Main/ShotgunAvailabilityPatches.cs` |
 | Spawn parsing and group selection | `Main/GroupSpawner.cs`, `Spawns/groupspawns.txt` |
 | Shotgun skill and FiligranisSkills integration | `Main/ShotgunSkill.cs` |

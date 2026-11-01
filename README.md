@@ -16,6 +16,10 @@
 
 ![ammo wheel](media/ammo_wheel.jpg)
 
+Aiming uses the game's hold/toggle preference.
+
+If aiming or weapon switching stops responding, enable **Aim Diagnostics** in Mod Settings and include the resulting MelonLoader log with your report. It is off by default.
+
 ## Ammunition and crafting
 
 Slug shells use the vanilla Bullet component. Buckshot and birdshot use their own lead-shot portions, while scrapshot uses prepared scrap buckshot. Each portion supplies one shell, regardless of pellet-count settings. All finished shotgun shells weigh 40 g; a six-shell box weighs 240 g.

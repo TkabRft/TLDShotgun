@@ -26,6 +26,10 @@ namespace Shotgun
         [Description("Hold this key while firing to discharge both barrels at once. Default: Left Alt")]
         public KeyCode DoubleFireKeyCode = KeyCode.LeftAlt;
 
+        [Name("Aim Diagnostics")]
+        [Description("Logs shotgun aim requests and transition completion/recovery for troubleshooting. Default: Off")]
+        public bool AimDiagnostics = false;
+
 
         [Section("Crafting Locations")]
         [Name("Allow Vanilla Bullets At Ordinary Forges")]

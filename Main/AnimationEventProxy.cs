@@ -8,20 +8,12 @@ namespace Shotgun
     {
         internal void OnAimComplete()
         {
-            PlayerAnimation playerAnimation = GameManager.GetPlayerAnimationComponent();
-            if (playerAnimation == null) 
-                return;
-
-            playerAnimation.OnAnimationEvent_Generic_Aim_Complete();
+            ShotgunAim.AnimationComplete(this, ShotgunAim.Direction.Raise);
         }
 
         internal void OnAimCancelComplete()
         {
-            PlayerAnimation playerAnimation = GameManager.GetPlayerAnimationComponent();
-            if (playerAnimation == null) 
-                return;
-
-            playerAnimation.OnAnimationEvent_Generic_Aim_Cancel_Complete();
+            ShotgunAim.AnimationComplete(this, ShotgunAim.Direction.Lower);
         }
 
         internal void OnFireFX()

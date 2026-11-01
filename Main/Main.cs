@@ -71,10 +71,16 @@ namespace Shotgun
 
         public override void OnUpdate() => EmbeddedAssetPackage.Update();
 
+        public override void OnLateUpdate() => ShotgunAim.Tick();
+
 
         public override void OnSceneWasInitialized(int buildIndex, string sceneName)
         {
-            if (sceneName is "MainMenu" or "Boot") ShotgunSpawnPolicy.Reset();
+            if (sceneName is "MainMenu" or "Boot")
+            {
+                ShotgunSpawnPolicy.Reset();
+                ShotgunAim.Reset("menu");
+            }
             ShotgunAvailability.ApplyToCurrentMode();
             if (!mResourceLocatorInitialized)
             {

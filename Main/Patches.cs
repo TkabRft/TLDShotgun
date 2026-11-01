@@ -251,6 +251,8 @@ namespace Shotgun
                 if (__instance.m_State != PlayerAnimation.State.Equipping && __instance.m_State != PlayerAnimation.State.Showing) return;
                 if (!MaybeLatchShotgunAnimator(__instance, "Equip")) return;
 
+                ShotgunAim.Reset("equip");
+
                 if (__instance.m_EquippedFirstPersonWeaponShoulder != null)
                     __instance.m_EquippedFirstPersonWeaponShoulder.gameObject.name = ShotgunFPHPrefabName;
                 Animator moddedAnimator = Main.Instance.Configuration.Refs.ModdedAnimator;
@@ -277,6 +279,8 @@ namespace Shotgun
                 if (__instance.m_EquippedFirstPersonWeaponShoulder == null) return;
                 if (!__instance.m_EquippedFirstPersonWeaponShoulder.name.StartsWith(ShotgunFPHPrefabName)) return;
 
+                ShotgunAim.Interrupt(__instance, "unequip");
+
                 Animator moddedAnimator = Main.Instance.Configuration.Refs.ModdedAnimator;
                 if (moddedAnimator == null || !moddedAnimator.enabled)
                 {
@@ -298,6 +302,7 @@ namespace Shotgun
         {
             internal static void Postfix(PlayerAnimation __instance)
             {
+                ShotgunAim.Interrupt(__instance, "native reset");
                 if (__instance.m_EquippedFirstPersonWeaponShoulder != null && __instance.m_EquippedFirstPersonWeaponShoulder.name.StartsWith(ShotgunFPHPrefabName)) return;
 
                 Animator moddedAnimator = Main.Instance?.Configuration?.Refs?.ModdedAnimator;
@@ -315,22 +320,11 @@ namespace Shotgun
         [HarmonyPatch(typeof(PlayerAnimation), nameof(PlayerAnimation.Trigger_Generic_Aim))]
         internal static class PlayerAnimation_ShotgunAim
         {
-            private static readonly int CloseBarrelToAimHash = Animator.StringToHash("CloseBarrelToAim");
-
             internal static void Postfix(PlayerAnimation __instance)
             {
                 if (__instance.m_State != PlayerAnimation.State.ToAiming) return;
                 if (!MaybeLatchShotgunAnimator(__instance, "Aim")) return;
-                Animator moddedAnimator = Main.Instance.Configuration.Refs.ModdedAnimator;
-                moddedAnimator.ResetTrigger("Trigger_Generic_Aim_Cancel");
-
-                if (!moddedAnimator.IsInTransition(0) && moddedAnimator.GetCurrentAnimatorStateInfo(0).shortNameHash == CloseBarrelToAimHash)
-                {
-                    moddedAnimator.SetBool("AimConfirmed", true);
-                    __instance.OnAnimationEvent_Generic_Aim_Complete();
-                    return;
-                }
-                moddedAnimator.SetTrigger("Trigger_Generic_Aim");
+                ShotgunAim.Request(__instance, ShotgunAim.Direction.Raise);
             }
         }
 
@@ -342,9 +336,7 @@ namespace Shotgun
             {
                 if (__instance.m_State != PlayerAnimation.State.FromAiming) return;
                 if (!MaybeLatchShotgunAnimator(__instance, "AimCancel")) return;
-                Animator moddedAnimator = Main.Instance.Configuration.Refs.ModdedAnimator;
-                moddedAnimator.ResetTrigger("Trigger_Generic_Aim");
-                moddedAnimator.SetTrigger("Trigger_Generic_Aim_Cancel");
+                ShotgunAim.Request(__instance, ShotgunAim.Direction.Lower);
             }
         }
 
@@ -356,6 +348,7 @@ namespace Shotgun
             {
                 if (__instance.m_State != PlayerAnimation.State.Firing) return;
                 if (!MaybeLatchShotgunAnimator(__instance, "Fire")) return;
+                ShotgunAim.Interrupt(__instance, "fire");
                 Main.Instance.Configuration.Refs.ModdedAnimator.SetTrigger("Trigger_Generic_Fire");
             }
         }
@@ -373,6 +366,7 @@ namespace Shotgun
             {
                 if (__instance.m_State != PlayerAnimation.State.Reloading) return;
                 if (!MaybeLatchShotgunAnimator(__instance, "Reload")) return;
+                ShotgunAim.Interrupt(__instance, "reload");
 
                 GearItem weaponInHands = GameManager.GetPlayerManagerComponent()?.m_ItemInHands;
                 GunItem gunItem = weaponInHands?.m_GunItem;
