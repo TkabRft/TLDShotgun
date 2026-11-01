@@ -35,7 +35,9 @@ were rejected by Shotgun's one-sample duration tolerance: for example, 267638
 frames at 48000 Hz calculate to 5.575791667 seconds, while native `clip.length`
 reported 5.575 seconds. Their later `state=missing` messages were consequences
 of rejection and cleanup, not missing embedded WAVs. Updating AudioCore alone
-therefore did not restore every sound. The duration correction is implemented; native game acceptance remains separate from structural checks.
+therefore did not restore every sound. After the duration correction, the user
+confirmed working shotgun sounds and reported that aiming issues appear to have
+disappeared. The acceptance details and remaining checks are recorded below.
 
 The user also reproduced the walking/aim-start restriction and touchpad radial
 selection issue with vanilla items/UI. See [shared input observations](VANILLA-INPUT-ISSUES.md).
@@ -156,9 +158,16 @@ verify all six PCM resources/manifest hashes against the authored WAVs.
 These are compilation and structural checks; they do not execute a native
 Animator, establish audibility or demonstrate that the rare input lock is gone.
 
-## Pending game acceptance
+## User acceptance (2026-11-01)
 
-Check six PCM-ready messages, audible single/double shots and each reload
-sound. Retain checks of volume, pause, scene changes and save/load. The
-duration correction preserves aiming, radial selection and input. Gear IDs,
-ammo indices and save formats are unchanged; no migration is required.
+After testing the duration-corrected DLL with AudioCore 3.1.5, the user reported:
+"sounds are OK" and "AIm issues seem to disappear". The reported sound problem
+is resolved in that setup, and the aiming feedback is positive. The report did
+not individually enumerate all six `PCM ready` messages, double-shot behavior,
+each reload action, SFX/master volume, pause, scene changes or save/load; retain
+those focused checks where relevant. The earlier falling-shell sound had already
+been audibly confirmed.
+
+The duration correction does not change aiming, radial selection or input; the
+shared observations above require no further Shotgun fix. Gear IDs, ammo indices
+and save formats are unchanged; no migration is required.

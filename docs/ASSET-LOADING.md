@@ -126,7 +126,10 @@ their game-acceptance boundary. A further game test confirmed that all six clips
 remained `Unloaded` after `LoadAudioData` and 30 seconds of polling. The current
 build embeds the six original PCM16 WAV files and creates clips from their
 samples in memory, with native `SetData`/`GetData` verification. It does not use
-the non-loading FSB clips or extract WAV files. Audible playback remains pending user acceptance; the structural checks alone do not establish it.
+the non-loading FSB clips or extract WAV files. After the duration-tolerance
+correction, the user confirmed working sounds and reported that aiming issues
+appear to have disappeared. The prior structural checks alone did not establish
+those game results; see the owner page for the acceptance boundary.
 
 ## Legacy archive migration
 
