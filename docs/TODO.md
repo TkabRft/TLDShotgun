@@ -28,6 +28,8 @@ Recorded: 2026-10-31; updated: 2026-11-01. This backlog includes future ideas an
 
 13. [ ] **Fix the Scrapshot box later.** Defer the box artwork/model rework. Confirm the specific in-game appearance defects before changing assets; the current audio/HUD fix does not alter the box model, textures or inventory icon.
 
+14. [ ] **Skill-based casing/live-shell recovery.** Research is recorded in [CASING-RECOVERY-DESIGN.md](CASING-RECOVERY-DESIGN.md). Proposed threshold: level 4, configurable 1–5 using the active skill. Animation adaptation and transfer logic remain deferred; current destinations are unchanged.
+
 ## Historical shotgun weight baseline
 
 Checked against the Unity item definitions and the matching entries in the original `DoubleBarrel.modcomponent` on 2026-10-31. These are historical 20 g shell values from the immutable template, not an in-game weighing test. Current source and generated packages use 40 g shells; see AMMUNITION.md.

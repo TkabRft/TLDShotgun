@@ -36,6 +36,7 @@ Paths below are relative to the mod root.
 | Spawn parsing and group selection | `Main/GroupSpawner.cs`, `Spawns/groupspawns.txt` |
 | Shotgun/Rifle skill source, per-shell experience, firing wear and initial condition | [Skills and condition](SKILLS-AND-CONDITION.md), `Main/ShotgunSkillProgression.cs`, `Main/ShotgunShot.cs`, `Main/ShotgunCondition.cs` |
 | Optional FiligranisSkills registration and skill artwork/books | `Main/ShotgunSkill.cs` |
+| Deferred skill-based casing recovery and animation feasibility | [Casing recovery research](CASING-RECOVERY-DESIGN.md) |
 | Mod settings | `Settings/Settings.cs` |
 | Mod identity and assembly metadata | `Settings/AssemblyInfo.cs`, `Main/Main.cs`, `Shotgun.csproj` |
 | Shared references and UI/transform helpers | `Main/Refs.cs`, `Util/`, `ToolBox/` |
