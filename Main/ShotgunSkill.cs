@@ -7,7 +7,7 @@ using UnityEngine.AddressableAssets;
 
 namespace Shotgun
 {
-    internal static class ShotgunSkill
+    internal static partial class ShotgunSkill
     {
         internal const string SkillName = "Shotgun";
         internal static int[] TierTresholds = new int[] { 0, 25, 50, 75, 100 };
@@ -22,7 +22,8 @@ namespace Shotgun
         internal delegate void IncreaseSkillPointsDelegate(string skillName, int points);
         internal static IncreaseSkillPointsDelegate IncreaseSkillPoints { get; private set; }
 
-        internal static bool IsAvailable => mFSkillType != null && GetPointsAndTiers != null;
+        internal static bool IsAvailable => mFSkillType != null && GetPointsAndTiers != null && IncreaseSkillPoints != null && mRegistered;
+        private static bool mRegistered;
 
         internal static void Init()
         {
@@ -48,10 +49,7 @@ namespace Shotgun
             TryRegisterSkill();
         }
 
-        /// <summary>
-        /// OK, she IS removing the ammo properly at high level - it seems to be an issue of maybe not having the reload itself trigger properly? WTF
-        /// Somehow the post-switch reload is not working. This is actually a very good sign, it means our previous fix hasn't changed the bug manifestation itself. We're just chasing a tail end of it :D
-        /// </summary>
+        // A usable integration requires registration and both progression delegates.
         private static void TryRegisterSkill()
         {
             if (mFSkillType == null) return;
@@ -96,6 +94,7 @@ namespace Shotgun
             });
 
             registerMethod.Invoke(null, new[] { skillDef });
+            mRegistered = true;
             MelonLogger.Msg("Shotgun skill registered with FiligranisSkills");
         }
 
@@ -147,15 +146,6 @@ namespace Shotgun
 
         #region Stat Calculation
 
-        internal static int DefaultAnimationTier = 3;
-
-        internal static int GetCurrentTier()
-        {
-            if (!IsAvailable) return DefaultAnimationTier;
-            (int points, int tier) skill = GetPointsAndTiers(SkillName);
-            return skill.tier;
-        }
-
         internal static int TierForPoints(int points)
         {
             int t = 0;
@@ -184,65 +174,6 @@ namespace Shotgun
                 if (sk != null && sk.name == goName) return sk;
             }
             return null;
-        }
-
-        internal static void ApplyToGunItem(GunItem gunItem)
-        {
-
-        }
-
-        
-        internal static long LastSkillUpTime;
-
-        internal static void MaybeIncreaseSkill()
-        {
-            if (DateTime.Now.Ticks - LastSkillUpTime >= TimeSpan.TicksPerSecond)
-            {
-                LastSkillUpTime = DateTime.Now.Ticks;
-                IncreaseSkillPoints?.Invoke(SkillName, 1);
-            }
-        }
-
-        #endregion
-
-        #region Animation Skill Gates
-
-        internal static int AnimationTier => GetCurrentTier();
-        internal static int CatchLeftMinTier = 3;
-        internal static int RemoveBothMediumMinTier = 2;
-        internal static int RemoveBothFastMinTier = 3;
-        internal static int InsertBothMediumMinTier = 2;
-        internal static int InsertBothFastMinTier = 4;
-        internal static int CloseToAimMinTier = 3;
-        internal static int RecoilMedMinTier = 2; 
-        internal static int RecoilLowMinTier = 4;
-
-        internal static bool CanCatchLeftOnAmmoSwitch => AnimationTier >= CatchLeftMinTier;
-        internal static bool CanCloseBarrelToAim => AnimationTier >= CloseToAimMinTier;
-        internal static int ManualRemoveSpeed => AnimationTier >= RemoveBothFastMinTier ? 2 : (AnimationTier >= RemoveBothMediumMinTier ? 1 : 0);
-        internal static int InsertSpeed => AnimationTier >= InsertBothFastMinTier ? 2 : (AnimationTier >= InsertBothMediumMinTier ? 1 : 0);
-        internal static int RecoilHandlingLevel => AnimationTier >= RecoilLowMinTier ? 2 : (AnimationTier >= RecoilMedMinTier ? 1 : 0);
-
-        private static int mAppliedTier = -1;
-
-        internal static void ReapplyAnimatorParamsIfTierChanged(Animator animator)
-        {
-            if (AnimationTier == mAppliedTier) return;
-            ApplyAnimatorParams(animator);
-        }
-
-        internal static void ApplyAnimatorParams(Animator animator)
-        {
-            if (animator == null) return;
-            mAppliedTier = AnimationTier;
-            animator.SetBool("CanCatchLeftOnAmmoSwitch", CanCatchLeftOnAmmoSwitch);
-            animator.SetBool("CanCloseBarrelToAim", CanCloseBarrelToAim);
-            animator.SetInteger("ManualRemoveSpeed", ManualRemoveSpeed);
-            animator.SetInteger("InsertSpeed", InsertSpeed);
-            animator.SetInteger("RecoilHandlingLevel", RecoilHandlingLevel);
-            animator.SetFloat("Reload_Speed_Multiplier", Settings.Instance.BaseReloadSpeedMultiplier + ((AnimationTier * Settings.Instance.AdditionalReloadSpeedMultiplier) * 0.01f));
-            animator.SetFloat("Aim_Speed_Multiplier", Settings.Instance.BaseAimSpeedMultiplier + ((AnimationTier * Settings.Instance.AdditionalAimSpeedMultiplier) * 0.01f));
-            animator.SetFloat("Equip_Speed_Multiplier", Settings.Instance.BaseEquipSpeedMultiplier + ((AnimationTier * Settings.Instance.AdditionalEquipSpeedMultiplier) * 0.01f));
         }
 
         #endregion

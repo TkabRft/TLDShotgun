@@ -7,17 +7,13 @@ using UnityEngine;
 
 namespace Shotgun
 {
-    internal static class ShotgunPellets
+    internal static partial class ShotgunPellets
     {
-        internal enum ShotgunAmmo { None = 0, Slug = 1, Buckshot = 2, Birdshot = 3, Scrapshot = 4 }
 
         internal const int BulletLayerMask = 0x180e1b41;
         internal const int GearLayer = 17;
         internal const int MaxImpactSoundsPerShot = 3;
 
-        internal static bool InShotgunShot { get; private set; }
-        internal static ShotgunAmmo CurrentAmmo { get; private set; } = ShotgunAmmo.None;
-        private static bool mShotHitAnimal;
 
         private static readonly Dictionary<IntPtr, PelletTarget> mTargets = new Dictionary<IntPtr, PelletTarget>();
         private static readonly HashSet<IntPtr> mSoundedSurfaces = new HashSet<IntPtr>();
@@ -66,34 +62,6 @@ namespace Shotgun
 
 
         private static bool MeetsPelletThreshold(int pellets, int threshold) => threshold > 0 && pellets >= threshold;
-
-
-        internal static void BeginShot(ShotgunAmmo ammo)
-        {
-            InShotgunShot = true;
-            CurrentAmmo = ammo;
-            mShotHitAnimal = false;
-        }
-
-
-        internal static void EndShot()
-        {
-            if (!InShotgunShot) return;
-            if (mShotHitAnimal) IncreaseSkillForShot();
-            InShotgunShot = false;
-            CurrentAmmo = ShotgunAmmo.None;
-            mShotHitAnimal = false;
-        }
-
-
-        internal static void MarkHitAnimal() => mShotHitAnimal = true;
-
-
-        private static void IncreaseSkillForShot()
-        {
-            if (ShotgunSkill.IncreaseSkillPoints == null) return;
-            ShotgunSkill.IncreaseSkillPoints.Invoke(ShotgunSkill.SkillName, 1);
-        }
 
 
         internal static void ResolvePellets(vp_Bullet bullet, ShotgunAmmo ammo)
@@ -274,40 +242,6 @@ namespace Shotgun
         }
 
 
-        [HarmonyPatch(typeof(vp_Bullet), nameof(vp_Bullet.Start))]
-        internal static class vp_Bullet_ResolveShotgunShot
-        {
-            internal static bool Prefix(vp_Bullet __instance)
-            {
-                if (__instance.m_GunType != GunTypeCustom) return true;
-
-                ShotgunAmmo ammo = GetLoadedAmmo();
-                BeginShot(ammo);
-
-                __instance.DamageFalloffPerMeterBeyondEffectiveRange = GetFalloffPerMeter(ammo);
-                __instance.MinimumDamageFalloffBeyondEffectiveRange = GetMinimumDamage(ammo);
-
-                if (!IsPelletAmmo(ammo)) return true;
-
-                try
-                {
-                    ResolvePellets(__instance, ammo);
-                }
-                catch (Exception e)
-                {
-                    MelonLogger.Error($"Pellet resolution failed: {e}");
-                }
-                return false;
-            }
-
-            internal static void Postfix(vp_Bullet __instance)
-            {
-                if (__instance == null) return;
-                EndShot();
-            }
-        }
-
-
         [HarmonyPatch(typeof(AkSoundEngine), nameof(AkSoundEngine.PostEvent), new Type[] { typeof(string), typeof(GameObject) })]
         internal static class AkSoundEngine_MuteRepeatedPelletImpacts
         {
@@ -316,17 +250,6 @@ namespace Shotgun
                 if (!MuteImpactAudio) return true;
                 __result = 0;
                 return false;
-            }
-        }
-
-
-        [HarmonyPatch(typeof(LocalizedDamage), nameof(LocalizedDamage.GetBleedOutMinutes), new Type[] { typeof(WeaponSource) })]
-        internal static class LocalizedDamage_ShotgunBleed
-        {
-            internal static void Postfix(ref float __result)
-            {
-                if (!InShotgunShot) return;
-                MarkHitAnimal();
             }
         }
 

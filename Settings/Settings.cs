@@ -30,6 +30,10 @@ namespace Shotgun
         [Description("Logs shotgun aim requests and transition completion/recovery for troubleshooting. Default: Off")]
         public bool AimDiagnostics = false;
 
+        [Name("Use Rifle Skill Without Shotgun Skill")]
+        [Description("Without the optional Shotgun skill, use Rifle for shotgun hit experience and skill benefits. When off, Rifle level has no effect and hits grant no Rifle experience. The separate Shotgun skill takes priority. Default: On")]
+        public bool UseRifleSkillWithoutShotgunSkill = true;
+
 
         [Section("Crafting Locations")]
         [Name("Allow Vanilla Bullets At Ordinary Forges")]
@@ -203,12 +207,12 @@ namespace Shotgun
 
         [Section("Recoil Settings")]
         [Name("Recoil Pitch Kick")]
-        [Description("Strength of the upward camera jerk when the shotgun fires, at Shotgun skill level 1. Scales down linearly to zero at level 5. Set to 0 to disable. Default: 12")]
+        [Description("Strength of the upward camera jerk when the shotgun fires, at active firearm skill level 1. Scales down linearly to zero at level 5. Set to 0 to disable. Default: 12")]
         [Slider(0f, 20f)]
         public float RecoilMaxPitchKick = 12f;
 
         [Name("Recoil Yaw Kick")]
-        [Description("Strength of the random sideways camera jerk when the shotgun fires, at Shotgun skill level 1. Scales down to zero at level 5. Set to 0 to disable. Default: 4")]
+        [Description("Strength of the random sideways camera jerk when the shotgun fires, at active firearm skill level 1. Scales down to zero at level 5. Set to 0 to disable. Default: 4")]
         [Slider(0f, 8f)]
         public float RecoilMaxYawKick = 4f;
 
@@ -313,32 +317,32 @@ namespace Shotgun
         public float MaxSprintingSpeed = 10.0f;
 
         [Name("Base Reload Speed Multiplier")]
-        [Description("Sets the base reload speed multiplier applied regardless of shotgun skill level.")]
+        [Description("Sets the base reload speed multiplier applied regardless of active firearm skill level.")]
         [Slider(0.1f, 10f)]
         public float BaseReloadSpeedMultiplier = 1.0f;
 
         [Name("Per-Level Reload Speed Multiplier")]
-        [Description("Sets the reload speed increase per shotgun skill level, measured in additional percentage.")]
+        [Description("Sets the reload speed increase per active firearm skill level, measured in additional percentage.")]
         [Slider(0f, 20f)]
         public float AdditionalReloadSpeedMultiplier = 10.0f;
 
         [Name("Base Aim Speed Multiplier")]
-        [Description("Sets the base aim speed multiplier applied regardless of shotgun skill level.")]
+        [Description("Sets the base aim speed multiplier applied regardless of active firearm skill level.")]
         [Slider(0.1f, 10f)]
         public float BaseAimSpeedMultiplier = 1.0f;
 
         [Name("Per-Level Aim Speed Multiplier")]
-        [Description("Sets the aim speed increase per shotgun skill level, measured in additional percentage.")]
+        [Description("Sets the aim speed increase per active firearm skill level, measured in additional percentage.")]
         [Slider(0f, 20f)]
         public float AdditionalAimSpeedMultiplier = 10.0f;
 
         [Name("Base Equip Speed Multiplier")]
-        [Description("Sets the base equip speed multiplier applied regardless of shotgun skill level.")]
+        [Description("Sets the base equip speed multiplier applied regardless of active firearm skill level.")]
         [Slider(0.1f, 10f)]
         public float BaseEquipSpeedMultiplier = 1.0f;
 
         [Name("Per-Level Equip Speed Multiplier")]
-        [Description("Sets the equip speed increase per shotgun skill level, measured in additional percentage.")]
+        [Description("Sets the equip speed increase per active firearm skill level, measured in additional percentage.")]
         [Slider(0f, 20f)]
         public float AdditionalEquipSpeedMultiplier = 10.0f;
 
@@ -360,6 +364,7 @@ namespace Shotgun
             ValidateSpawnChances();
             base.OnConfirm();
             ShotgunSkill.ApplyAnimatorParams(Main.Instance?.Configuration?.Refs?.ModdedAnimator);
+            ShotgunSkill.RefreshCurrentWeapon();
         }
 
         internal void ValidateSpawnChances()

@@ -11,7 +11,7 @@
   - Scrapshot
 - Make it (barrel, stock, forend, trigger) or find it on Voyager or Pilgrim
 - Find or make your own ammo, just like vanilla
-- Level up a dedicated skill with optional integration with Filigrani's Skills
+- Train Rifle with shotgun hits, or a dedicated Shotgun skill with optional Filigrani's Skills integration
 - (Open Beta Only) Many aspects can be changed in Mod Settings; experiment and enjoy!
 
 ![ammo wheel](media/ammo_wheel.jpg)
@@ -41,6 +41,10 @@ Three options, off by default, add ordinary-forge bullet casting, ordinary-forge
 Use the inventory **Actions** menu to clean the shotgun with a firearm cleaning kit. Condition recovery, cleaning time, tool wear and eligibility follow the hunting rifle.
 
 Harvesting a shotgun returns **2 scrap metal and 1 fir firewood**. It takes **60 base minutes**, with no tool required, matching the rifle's harvesting time and tool requirements.
+
+## Skills
+
+Without a separate Shotgun skill, **Use Rifle Skill Without Shotgun Skill** is on by default: Rifle level controls shotgun handling, recoil, critical chance, and hitting a live animal grants **one Rifle point per shell**, regardless of pellet or target count. Both hitting barrels can earn two points. Turn the option off to retain fixed handling without Rifle experience or Rifle-level bonuses. When the separate Shotgun skill is available, it takes priority for both experience and benefits.
 
 ## Finding and restoring shotguns
 
