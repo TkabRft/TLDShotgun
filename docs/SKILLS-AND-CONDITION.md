@@ -2,8 +2,8 @@
 
 code-synced: 2026-11-01
 
-Status: implemented. Native gameplay acceptance of wear, experience, skill
-benefits and new-find condition remains pending.
+Status: implemented; isolated production-code tests pass. Native gameplay acceptance
+of wear, experience, skill benefits and new-find condition remains pending.
 
 ## Skill source
 
@@ -81,9 +81,24 @@ override after initial rolls; see [restoration](RESTORATION.md).
 
 ## Validation and acceptance
 
-Native gameplay acceptance remains pending. Check one experience point per
-hitting shell across all four loads, skill-source priority, fallback off and
-handling changes after level-up or settings confirmation.
+The existing weapon harness now adds 88 assertions executing production skill
+selection, animation parameters, hit scopes/hooks, firing wear and ruined-marker
+code. Tests cover five tiers, single/double/rejected shots, native-debit suppression,
+first-barrel ruin, four ammunition types, many pellets/targets, misses/corpses,
+exceptions, nested/duplicate completions, optional-skill priority and fallback off.
+They also cover level-up/Animator refresh, unchanged saved HP/ammunition and
+zero-condition restoration markers. Native game/Unity/integration boundaries are
+stand-ins; the fixture's intermediate rifle reductions are not measurements of
+the installed game's balance table.
+
+Package checks, including the real ModComponent JsonHandler, verify that the
+effective weapon definition uses Random. All 17 pipeline tests pass. Compilation
+and managed-reference checks are distinct from these required game checks:
+
+- Compare actual HP loss at levels 1–5, on hits and misses, for single/double fire.
+- Check one XP point per hitting shell, all four loads, and both skill sources.
+- Confirm handling changes, option off, saved condition/ammunition and scene changes.
+- Check new usable finds vary in condition and ruined finds remain empty at zero.
 
 Sources: [progression](../Main/ShotgunSkillProgression.cs),
 [shot scope and hit hooks](../Main/ShotgunShot.cs),

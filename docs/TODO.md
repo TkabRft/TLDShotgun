@@ -30,6 +30,8 @@ Recorded: 2026-10-31; updated: 2026-11-01. This backlog includes future ideas an
 
 14. [ ] **Skill-based casing/live-shell recovery.** Research is recorded in [CASING-RECOVERY-DESIGN.md](CASING-RECOVERY-DESIGN.md). Proposed threshold: level 4, configurable 1–5 using the active skill. Animation adaptation and transfer logic remain deferred; current destinations are unchanged.
 
+15. [ ] **Accept firing wear, skill fallback and random usable-find condition in game.** Production-source and package tests pass; verify actual HP loss, one point per hitting shell, both skill sources/option off, handling changes and saved/new/ruined gun condition. See [SKILLS-AND-CONDITION.md](SKILLS-AND-CONDITION.md).
+
 ## Historical shotgun weight baseline
 
 Checked against the Unity item definitions and the matching entries in the original `DoubleBarrel.modcomponent` on 2026-10-31. These are historical 20 g shell values from the immutable template, not an in-game weighing test. Current source and generated packages use 40 g shells; see AMMUNITION.md.

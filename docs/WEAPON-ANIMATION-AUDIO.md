@@ -151,12 +151,17 @@ and retain the corrupted-data, metadata and sample-mismatch negative controls.
 All 17 pipeline tests pass, including the existing maintenance and real
 ModComponent JSON/streaming-loader harnesses. Package checks validate the new HUD
 Sprite/alpha, preserved audio bank and event keys, references, recipes and CRC.
-The rebuilt DLL's managed audit resolves 212 external types, 687 members, 260
-assembly references and 55 Harmony targets against the installed dependencies.
+The rebuilt DLL's managed audit resolves 216 external types, 703 members, 260
+assembly references and 57 Harmony targets against the installed dependencies.
 Pre-publication checks resolve 23 actual startup addresses and independently
 verify all six PCM resources/manifest hashes against the authored WAVs.
 These are compilation and structural checks; they do not execute a native
 Animator, establish audibility or demonstrate that the rare input lock is gone.
+
+The same weapon harness now includes 88 production-code checks for skill source,
+per-shell hit experience, condition wear and ruined markers; see
+[skills and condition](SKILLS-AND-CONDITION.md). The firing observer also debits
+wear after a confirmed shot, while the sound and aim implementations are unchanged.
 
 ## User acceptance (2026-11-01)
 
