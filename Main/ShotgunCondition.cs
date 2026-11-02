@@ -13,6 +13,13 @@ internal static class ShotgunCondition
         gear.m_DegradeOnUse = wear;
     }
 
+    internal static void ConfigureInitialCondition(GearItem shotgun, GearItem? rifle)
+    {
+        if (rifle == null) throw new InvalidOperationException("Missing GEAR_Rifle.GearItem condition template");
+        shotgun.m_StartCondition = rifle.m_StartCondition;
+        ConfigureWear(shotgun);
+    }
+
     internal static void SuccessfulShot(GunItem gun)
     {
         GearItem gear = gun.m_GearItem;

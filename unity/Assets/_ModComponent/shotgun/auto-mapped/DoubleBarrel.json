@@ -6,7 +6,7 @@
     "WeightKG": 3.0,
     "DaysToDecay": 500,
     "MaxHP": 100.0,
-    "InitialCondition": "High",
+    "InitialCondition": "Random",
     "InventoryCategory": "Tool",
     "PickUpAudio": "Play_DrawRifle",
     "PutBackAudio": "Play_DrawRifle",

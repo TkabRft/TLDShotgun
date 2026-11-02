@@ -51,6 +51,12 @@ and ruined-item eligibility. Ruined recovery remains a milling operation.
 
 ## Restoration
 
+New usable finds now use `InitialCondition: Random`, matching the inspected
+vanilla rifle, instead of the old High range. Runtime configuration copies the
+rifle's start-condition mode without writing HP or invoking another condition
+roll. Existing saved guns are not rerolled. Firing wear and skill rules are owned
+by [skills and condition](SKILLS-AND-CONDITION.md).
+
 Ruined finds retain `GEAR_DoubleBarrel` and start unloaded at zero condition. A transient, instance-checked marker reapplies zero condition after the verified `RollSeededGearConditionAndWeight` / `RollGearConditionAndWeight` APIs during the spawn frame. It expires at frame end and is not a save field; loaded or later repaired guns are not marked.
 
 The shotgun receives a `Millable` component configured for Gunsmithing. Recover a ruined gun at a milling machine using **4 scrap metal + 1 fir firewood**, taking **180 base minutes**. Milling-machine power, skill, success, and recovery behavior follow the game. Ordinary repairs copy the standard rifle's milling materials and duration. Existing gun identity and serialized ammunition fields are unchanged.

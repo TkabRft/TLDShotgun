@@ -761,6 +761,7 @@ namespace Shotgun
             gearItem.m_GunItem = refs.Shotgun.Gun.GunItem;
             gearItem.m_Inspect = refs.Shotgun.Gun.Prefab.GetComponent<Inspect>();
             gearItem.m_Cleanable = refs.Shotgun.Gun.Cleanable;
+            ShotgunCondition.ConfigureInitialCondition(gearItem, refs.Rifle.Gun.GearItem);
         }
 
 

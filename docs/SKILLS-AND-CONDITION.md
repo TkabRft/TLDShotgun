@@ -2,8 +2,8 @@
 
 code-synced: 2026-11-01
 
-Status: implemented. Native gameplay acceptance of wear, experience and skill
-benefits remains pending.
+Status: implemented. Native gameplay acceptance of wear, experience, skill
+benefits and new-find condition remains pending.
 
 ## Skill source
 
@@ -71,6 +71,13 @@ Without an active source, wear is 1%, independently of the fixed animation tier.
 Two successful barrels debit 2% base or 1% at maximum skill. Empty/refused/jammed/
 misfired attempts debit nothing; reaching zero on the first barrel prevents the
 automatic second discharge.
+
+The mapped weapon definition now uses `InitialCondition: Random`, matching the
+inspected vanilla rifle. Configuration also copies the rifle's start-condition
+mode. Neither operation writes current HP or rolls condition again. The game's
+normal initialization handles new finds; saved condition and explicitly assigned
+condition are retained. Ruined finds keep their existing transient zero-condition
+override after initial rolls; see [restoration](RESTORATION.md).
 
 ## Validation and acceptance
 
