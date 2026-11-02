@@ -20,6 +20,15 @@ internal static partial class ShotgunSkill
         _ => DefaultAnimationTier
     };
 
+    internal static float ConditionDegradeScale()
+    {
+        if (ActiveSource == Source.None) return 1f;
+        var reductions = RifleSkill?.m_ConditionDegradeOnUseReduction;
+        if (reductions == null || reductions.Length != 5)
+            throw new InvalidOperationException("Missing five-tier Skill_Rifle.m_ConditionDegradeOnUseReduction");
+        return 1f - Math.Clamp(reductions[GetCurrentTier()], 0, 50) / 100f;
+    }
+
     internal static void AwardHit()
     {
         switch (ActiveSource)
@@ -40,6 +49,7 @@ internal static partial class ShotgunSkill
     internal static void ApplyToGunItem(GunItem? gunItem)
     {
         if (gunItem == null || gunItem.m_GunType != GunTypeCustom) return;
+        ShotgunCondition.ConfigureWear(gunItem.m_GearItem);
         if (gunItem == ShotgunInHands())
             ApplyAnimatorParams(Main.Instance?.Configuration?.Refs?.ModdedAnimator);
     }

@@ -24,8 +24,10 @@ namespace Shotgun
                 GunItem? gunItem = __instance.m_Weapon?.m_GunItem;
                 if (gunItem == null || gunItem.m_Clip == null
                     || !ShotgunAudio.SuccessfulShot(__state, gunItem.m_Clip.Count, gunItem.m_IsJammed, gunItem.m_HasMisfired)) return;
+                ShotgunCondition.SuccessfulShot(gunItem);
                 ShotgunAudio.Play(ShotgunAudio.Discharge);
                 if (FiringSecondBarrel || __state < 2) return;
+                if (gunItem.m_GearItem.m_CurrentHP <= 0f) return;
                 if (!Input.GetKey(Settings.Instance.DoubleFireKeyCode)) return;
 
                 FiringSecondBarrel = true;

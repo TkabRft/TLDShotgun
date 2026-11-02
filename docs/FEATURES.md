@@ -34,7 +34,7 @@ Paths below are relative to the mod root.
 | Walking/aiming and touchpad radial behavior also reported on vanilla items | [Shared input observations](VANILLA-INPUT-ISSUES.md) |
 | Availability, custom difficulty, persistence | `Main/ShotgunAvailability.cs`, `Main/ShotgunAvailabilityPatches.cs` |
 | Spawn parsing and group selection | `Main/GroupSpawner.cs`, `Spawns/groupspawns.txt` |
-| Shotgun/Rifle skill source and per-shell experience | [Skills and condition](SKILLS-AND-CONDITION.md), `Main/ShotgunSkillProgression.cs`, `Main/ShotgunShot.cs` |
+| Shotgun/Rifle skill source, per-shell experience and firing wear | [Skills and condition](SKILLS-AND-CONDITION.md), `Main/ShotgunSkillProgression.cs`, `Main/ShotgunShot.cs`, `Main/ShotgunCondition.cs` |
 | Optional FiligranisSkills registration and skill artwork/books | `Main/ShotgunSkill.cs` |
 | Mod settings | `Settings/Settings.cs` |
 | Mod identity and assembly metadata | `Settings/AssemblyInfo.cs`, `Main/Main.cs`, `Shotgun.csproj` |

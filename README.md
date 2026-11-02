@@ -38,13 +38,15 @@ Three options, off by default, add ordinary-forge bullet casting, ordinary-forge
 
 ## Maintenance
 
+Each successfully fired barrel costs **1% condition**, reduced by skill to **0.5% at maximum level**. A double shot costs twice as much. Misses still wear the weapon; empty triggers, jams and misfires do not.
+
 Use the inventory **Actions** menu to clean the shotgun with a firearm cleaning kit. Condition recovery, cleaning time, tool wear and eligibility follow the hunting rifle.
 
 Harvesting a shotgun returns **2 scrap metal and 1 fir firewood**. It takes **60 base minutes**, with no tool required, matching the rifle's harvesting time and tool requirements.
 
 ## Skills
 
-Without a separate Shotgun skill, **Use Rifle Skill Without Shotgun Skill** is on by default: Rifle level controls shotgun handling, recoil, critical chance, and hitting a live animal grants **one Rifle point per shell**, regardless of pellet or target count. Both hitting barrels can earn two points. Turn the option off to retain fixed handling without Rifle experience or Rifle-level bonuses. When the separate Shotgun skill is available, it takes priority for both experience and benefits.
+Without a separate Shotgun skill, **Use Rifle Skill Without Shotgun Skill** is on by default: Rifle level controls shotgun handling, recoil, critical chance and wear, and hitting a live animal grants **one Rifle point per shell**, regardless of pellet or target count. Both hitting barrels can earn two points. Turn the option off to retain fixed handling without Rifle experience or Rifle-level bonuses. When the separate Shotgun skill is available, it takes priority for both experience and benefits.
 
 ## Finding and restoring shotguns
 

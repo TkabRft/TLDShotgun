@@ -1,19 +1,19 @@
-# Shotgun skill progression
+# Shotgun skill progression and firing wear
 
 code-synced: 2026-11-01
 
-Status: implemented. Native gameplay acceptance of experience and skill benefits
-remains pending.
+Status: implemented. Native gameplay acceptance of wear, experience and skill
+benefits remains pending.
 
 ## Skill source
 
 `ShotgunSkill` chooses exactly one source, in this order:
 
-| Available integration / setting | Experience destination | Handling tier |
-|---|---|---|
-| Registered FiligranisSkills Shotgun skill with both delegates | Shotgun | Shotgun level |
-| No separate skill; Use Rifle Skill Without Shotgun Skill enabled (default) | Rifle | Rifle level |
-| No separate skill; option disabled | None | Previous fixed internal tier 3 |
+| Available integration / setting | Experience destination | Handling tier | Firing wear |
+|---|---|---|---|
+| Registered FiligranisSkills Shotgun skill with both delegates | Shotgun | Shotgun level | Rifle reduction table at that level |
+| No separate skill; Use Rifle Skill Without Shotgun Skill enabled (default) | Rifle | Rifle level | Rifle reduction table at that level |
+| No separate skill; option disabled | None | Previous fixed internal tier 3 | Full base wear |
 
 An integration is available only after successful registration and binding of both
 progression delegates. Rifle fallback does not create a new skill, redirect books,
@@ -52,6 +52,26 @@ Postfix and finalizer share idempotent completion. Failed pellet resolution and
 native exceptions clear the scope without awarding experience. Nested scopes
 restore their parent, and unrelated bullets cannot close a shotgun scope.
 
+## Condition
+
+The shotgun has its own `DegradeOnUse`, linked through `GearItem.m_DegradeOnUse`.
+Its base HP debit is one percent of the item's maximum HP: one condition
+percentage point at the current 100 HP maximum.
+
+The existing `vp_FPSShooter.Fire` observer confirms one shell consumed without
+jam/misfire and applies wear once, whether the shot hits or misses. A shotgun-only
+prefix suppresses native `GearItem.DegradeOnUse` debits so the confirmed-shot path
+is the sole firing debit; other gear is unaffected. The native `GearItem.Degrade`
+method still handles HP clamping and condition notifications.
+
+For an active skill, reduction comes from the live rifle's five-entry
+`m_ConditionDegradeOnUseReduction` array, indexed by the selected skill tier and
+bounded to 0–50 percent. Base wear is **1%**, falling to **0.5% at maximum skill**.
+Without an active source, wear is 1%, independently of the fixed animation tier.
+Two successful barrels debit 2% base or 1% at maximum skill. Empty/refused/jammed/
+misfired attempts debit nothing; reaching zero on the first barrel prevents the
+automatic second discharge.
+
 ## Validation and acceptance
 
 Native gameplay acceptance remains pending. Check one experience point per
@@ -59,4 +79,5 @@ hitting shell across all four loads, skill-source priority, fallback off and
 handling changes after level-up or settings confirmation.
 
 Sources: [progression](../Main/ShotgunSkillProgression.cs),
-[shot scope and hit hooks](../Main/ShotgunShot.cs).
+[shot scope and hit hooks](../Main/ShotgunShot.cs),
+[condition setup](../Main/ShotgunCondition.cs), [shot observer](../Main/DoubleFire.cs).
