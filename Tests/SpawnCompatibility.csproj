@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <LangVersion>Latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseAppHost>false</UseAppHost>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../Main/GroupSpawner.cs" Link="Production/GroupSpawner.cs" />
+    <Compile Include="../Main/SpawnLedger.cs" Link="Production/SpawnLedger.cs" />
+    <Compile Include="../Main/ShotgunSpawnPolicy.cs" Link="Production/ShotgunSpawnPolicy.cs" />
+    <EmbeddedResource Include="../Spawns/groupspawns.txt" LogicalName="Shotgun.groupspawns.txt" />
+    <EmbeddedResource Include="../Spawns/legacy-v1-groupspawns.txt" LogicalName="Shotgun.legacy-v1-groupspawns.txt" />
+  </ItemGroup>
+</Project>

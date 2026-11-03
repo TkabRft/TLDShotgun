@@ -38,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Tests\**" />
     <Compile Remove="unity\**" />
     <EmbeddedResource Remove="unity\**" />
     <None Remove="unity\**" />
