@@ -15,7 +15,7 @@ namespace Shotgun
 {
     internal static class GroupSpawner
     {
-        internal sealed record Member(string Scene, string Prefab, Vector3 Position, Quaternion Rotation);
+        internal sealed record Member(string Id, string Scene, string Prefab, Vector3 Position, Quaternion Rotation);
 
         internal sealed class Group
         {
@@ -25,9 +25,9 @@ namespace Shotgun
             public List<Member> Members = new();
         }
 
-        private static readonly Regex sGroup = new(@"^group\s*=\s*(\w+)((?:\s+\w+\s*=\s*\w+)*)$", RegexOptions.IgnoreCase);
-        private static readonly Regex sKeys = new(@"(\w+)\s*=\s*(\w+)");
-        private static readonly Regex sItem = new(@"^item\s*=\s*(\w+)(?:\s+scene\s*=\s*(\w+))?\s+p\s*=\s*([-\d.,\s]+?)\s+r\s*=\s*([-\d.,\s]+?)$", RegexOptions.IgnoreCase);
+        private static readonly Regex GroupLine = new(@"^group\s*=\s*(\w+)((?:\s+\w+\s*=\s*\w+)*)$", RegexOptions.IgnoreCase);
+        private static readonly Regex Keys = new(@"(\w+)\s*=\s*(\w+)");
+        private static readonly Regex ItemLine = new(@"^item\s*=\s*(\w+)\s+id\s*=\s*(\w+)(?:\s+scene\s*=\s*(\w+))?\s+p\s*=\s*([-\d.,\s]+?)\s+r\s*=\s*([-\d.,\s]+?)$", RegexOptions.IgnoreCase);
 
         private static List<Group> sGroups;
 
@@ -44,37 +44,58 @@ namespace Shotgun
 
         internal static List<Group> Parse(string text)
         {
-            Dictionary<string, Group> groups = new(StringComparer.OrdinalIgnoreCase);
-            Group current = null;
+            List<Group> result = new();
+            HashSet<string> names = new(StringComparer.OrdinalIgnoreCase);
+            HashSet<string> ids = new(StringComparer.OrdinalIgnoreCase);
+            Group? current = null;
+            int number = 0;
             foreach (string raw in text.Split('\n'))
             {
+                number++;
                 string line = raw.Trim();
                 if (line.Length == 0 || line.StartsWith("#")) continue;
-                Match m;
-                if ((m = sGroup.Match(line)).Success)
+                try
                 {
-                    string name = m.Groups[1].Value;
-                    if (!groups.TryGetValue(name, out current)) groups[name] = current = new Group { Name = name };
-                    foreach (Match key in sKeys.Matches(m.Groups[2].Value))
+                    Match match = GroupLine.Match(line);
+                    if (match.Success)
                     {
-                        if (key.Groups[1].Value.Equals("scene", StringComparison.OrdinalIgnoreCase)) current.Scene = key.Groups[2].Value;
-                        else if (int.TryParse(key.Groups[2].Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out int n)) current.Picks[key.Groups[1].Value] = n;
+                        string name = match.Groups[1].Value;
+                        if (!names.Add(name)) throw new InvalidDataException($"Repeated group {name}");
+                        current = new Group { Name = name };
+                        HashSet<string> seen = new(StringComparer.OrdinalIgnoreCase);
+                        foreach (Match key in Keys.Matches(match.Groups[2].Value))
+                        {
+                            string field = key.Groups[1].Value;
+                            if (!seen.Add(field)) throw new InvalidDataException($"Repeated field {field}");
+                            if (field.Equals("scene", StringComparison.OrdinalIgnoreCase)) current.Scene = key.Groups[2].Value;
+                            else if (new[] { "low", "medium", "high", "veryhigh", "default" }.Contains(field.ToLowerInvariant())
+                                && int.TryParse(key.Groups[2].Value, NumberStyles.None, CultureInfo.InvariantCulture, out int count))
+                                current.Picks.Add(field, count);
+                            else throw new InvalidDataException($"Invalid group field {field}");
+                        }
+                        result.Add(current);
                     }
-                    continue;
+                    else if (current != null && (match = ItemLine.Match(line)).Success)
+                    {
+                        string id = match.Groups[2].Value;
+                        string? scene = match.Groups[3].Success ? match.Groups[3].Value : current.Scene;
+                        if (string.IsNullOrEmpty(scene)) throw new InvalidDataException("Missing scene");
+                        if (!ids.Add(id)) throw new InvalidDataException($"Repeated spawn ID {id}");
+                        current.Members.Add(new Member(id, scene, match.Groups[1].Value, Vec(match.Groups[4].Value), Quaternion.Euler(Vec(match.Groups[5].Value))));
+                    }
+                    else throw new InvalidDataException("Expected a group or an item with a permanent id");
                 }
-                if (current != null && (m = sItem.Match(line)).Success)
-                {
-                    string scene = m.Groups[2].Success ? m.Groups[2].Value : current.Scene;
-                    if (scene == null) continue;
-                    current.Members.Add(new Member(scene, m.Groups[1].Value, Vec(m.Groups[3].Value), Quaternion.Euler(Vec(m.Groups[4].Value))));
-                }
+                catch (Exception e) { throw new InvalidDataException($"Spawn line {number}: {e.Message}", e); }
             }
-            return groups.Values.ToList();
+            if (result.Count == 0 || result.Any(g => g.Members.Count == 0 || g.Picks.Count == 0))
+                throw new InvalidDataException("Empty spawn data or group without members/counts");
+            return result;
         }
 
-        private static Vector3 Vec(string s)
+        private static Vector3 Vec(string value)
         {
-            float[] v = s.Split(',').Select(x => float.Parse(x.Trim(), CultureInfo.InvariantCulture)).ToArray();
+            float[] v = value.Split(',').Select(x => float.Parse(x.Trim(), CultureInfo.InvariantCulture)).ToArray();
+            if (v.Length != 3 || v.Any(x => !float.IsFinite(x))) throw new InvalidDataException("Expected three finite coordinates");
             return new Vector3(v[0], v[1], v[2]);
         }
 

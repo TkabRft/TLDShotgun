@@ -1,507 +1,507 @@
 # Shotgun spawn groups: each game picks low/medium/high/veryhigh of a group's items (by the game's base resource level).
 # group=<name> [scene=<scene>] low=<n> medium=<n> high=<n> veryhigh=<n>
-# item=<gear> [scene=<scene>] p=<x,y,z> r=<x,y,z>
+# item=<gear> id=<permanent-id> [scene=<scene>] p=<x,y,z> r=<x,y,z>
 # scene= on the group line covers every item; on an item line it places that item in its own scene.
 
 group=SG_Shotgun low=0 medium=0 high=1 veryhigh=2
-item=GEAR_DoubleBarrel scene=BlackrockInteriorASurvival p=29.56,0.905,7.011 r=75,89.1,0
-item=GEAR_DoubleBarrel scene=MiningRegionMine p=79.489,9.375,44.35 r=0,236.6,270
-item=GEAR_DoubleBarrel scene=ModShatteredBunker p=259.242,78.446,19.399 r=74.9,14.1,315
+item=GEAR_DoubleBarrel id=SG_Shotgun_001 scene=BlackrockInteriorASurvival p=29.56,0.905,7.011 r=75,89.1,0
+item=GEAR_DoubleBarrel id=SG_Shotgun_002 scene=MiningRegionMine p=79.489,9.375,44.35 r=0,236.6,270
+item=GEAR_DoubleBarrel id=SG_Shotgun_003 scene=ModShatteredBunker p=259.242,78.446,19.399 r=74.9,14.1,315
 
 group=SG_PartBarrel low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelPartBarrel scene=Dam p=11.25,1.048,-19 r=0,3,0
-item=GEAR_DoubleBarrelPartBarrel scene=MaintenanceShedA p=-7.72,-0.433,-8.05 r=0,0,0
-item=GEAR_DoubleBarrelPartBarrel scene=MaintenanceShedB p=8.4,0.354,-3.5 r=0,2,0
+item=GEAR_DoubleBarrelPartBarrel id=SG_PartBarrel_001 scene=Dam p=11.25,1.048,-19 r=0,3,0
+item=GEAR_DoubleBarrelPartBarrel id=SG_PartBarrel_002 scene=MaintenanceShedA p=-7.72,-0.433,-8.05 r=0,0,0
+item=GEAR_DoubleBarrelPartBarrel id=SG_PartBarrel_003 scene=MaintenanceShedB p=8.4,0.354,-3.5 r=0,2,0
 
 group=SG_PartStock low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelPartStock scene=HuntingLodgeA p=-5.044,1.258,-4.297 r=0,80,90
-item=GEAR_DoubleBarrelPartStock scene=MountainPassBasement p=1,0.087,1.2 r=353.4,69.9,91.1
-item=GEAR_DoubleBarrelPartStock scene=PrepperCacheA p=1.588,0.998,1.274 r=1,129.5,274.5
-item=GEAR_DoubleBarrelPartStock scene=PrepperCacheF p=0.706,0.084,3.771 r=1,105,274.5
-item=GEAR_DoubleBarrelPartStock scene=SafeHouseA p=-1.2,0.728,6 r=0,70,90
+item=GEAR_DoubleBarrelPartStock id=SG_PartStock_001 scene=HuntingLodgeA p=-5.044,1.258,-4.297 r=0,80,90
+item=GEAR_DoubleBarrelPartStock id=SG_PartStock_002 scene=MountainPassBasement p=1,0.087,1.2 r=353.4,69.9,91.1
+item=GEAR_DoubleBarrelPartStock id=SG_PartStock_003 scene=PrepperCacheA p=1.588,0.998,1.274 r=1,129.5,274.5
+item=GEAR_DoubleBarrelPartStock id=SG_PartStock_004 scene=PrepperCacheF p=0.706,0.084,3.771 r=1,105,274.5
+item=GEAR_DoubleBarrelPartStock id=SG_PartStock_005 scene=SafeHouseA p=-1.2,0.728,6 r=0,70,90
 
 group=SG_PartForend low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelPartForend scene=CampOffice p=-0.42,1.063,-4.082 r=0.1,95,357.7
-item=GEAR_DoubleBarrelPartForend scene=QuonsetGasStation p=5.346,1.078,3.971 r=359.3,360,0.3
-item=GEAR_DoubleBarrelPartForend scene=RadioControlHut p=1.2,1.04,3.45 r=0,82,0
+item=GEAR_DoubleBarrelPartForend id=SG_PartForend_001 scene=CampOffice p=-0.42,1.063,-4.082 r=0.1,95,357.7
+item=GEAR_DoubleBarrelPartForend id=SG_PartForend_002 scene=QuonsetGasStation p=5.346,1.078,3.971 r=359.3,360,0.3
+item=GEAR_DoubleBarrelPartForend id=SG_PartForend_003 scene=RadioControlHut p=1.2,1.04,3.45 r=0,82,0
 
 group=SG_PartTrigger low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelPartTrigger scene=AshWoodCabinA p=1.91,0.928,2.873 r=0,200,90
-item=GEAR_DoubleBarrelPartTrigger scene=BlackrockPrisonSurvivalZone p=-115.743,227.362,58.131 r=0,18,90
-item=GEAR_DoubleBarrelPartTrigger scene=PostOfficeA p=2.14,1.196,-4.06 r=0,75,90
+item=GEAR_DoubleBarrelPartTrigger id=SG_PartTrigger_001 scene=AshWoodCabinA p=1.91,0.928,2.873 r=0,200,90
+item=GEAR_DoubleBarrelPartTrigger id=SG_PartTrigger_002 scene=BlackrockPrisonSurvivalZone p=-115.743,227.362,58.131 r=0,18,90
+item=GEAR_DoubleBarrelPartTrigger id=SG_PartTrigger_003 scene=PostOfficeA p=2.14,1.196,-4.06 r=0,75,90
 
 group=SG_TLDevPartBarrel low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelPartBarrel scene=ModShatteredBunker p=204.012,81.383,4.227 r=32.5,192.1,51.7
-item=GEAR_DoubleBarrelPartBarrel scene=ModTrainShed p=-1.6,1.34,19.4 r=0,0,0
+item=GEAR_DoubleBarrelPartBarrel id=SG_TLDevPartBarrel_001 scene=ModShatteredBunker p=204.012,81.383,4.227 r=32.5,192.1,51.7
+item=GEAR_DoubleBarrelPartBarrel id=SG_TLDevPartBarrel_002 scene=ModTrainShed p=-1.6,1.34,19.4 r=0,0,0
 
 group=SG_TLDevPartStock low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelPartStock scene=ModTrainShed p=-5.949,0.589,4.191 r=352,284.3,10.4
+item=GEAR_DoubleBarrelPartStock id=SG_TLDevPartStock_001 scene=ModTrainShed p=-5.949,0.589,4.191 r=352,284.3,10.4
 
 group=SG_TLDevPartForend low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelPartForend scene=ModCamperTrailers p=-42.815,0.36,28.527 r=12.4,200.4,354.6
-item=GEAR_DoubleBarrelPartForend scene=ModShatteredBunker p=204.935,80.95,4.187 r=0,294,0
+item=GEAR_DoubleBarrelPartForend id=SG_TLDevPartForend_001 scene=ModCamperTrailers p=-42.815,0.36,28.527 r=12.4,200.4,354.6
+item=GEAR_DoubleBarrelPartForend id=SG_TLDevPartForend_002 scene=ModShatteredBunker p=204.935,80.95,4.187 r=0,294,0
 
 group=SG_TLDevPartTrigger low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelPartTrigger scene=ModOilRig p=-45.529,-1.282,-36.516 r=0,1,0
-item=GEAR_DoubleBarrelPartTrigger scene=ModStoneHouseSM p=-46.137,3.812,51.797 r=0,84,0
+item=GEAR_DoubleBarrelPartTrigger id=SG_TLDevPartTrigger_001 scene=ModOilRig p=-45.529,-1.282,-36.516 r=0,1,0
+item=GEAR_DoubleBarrelPartTrigger id=SG_TLDevPartTrigger_002 scene=ModStoneHouseSM p=-46.137,3.812,51.797 r=0,84,0
 
 group=SG_IslandPartBarrel low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelPartBarrel scene=TrainRepairDepotA p=-10.53,1.304,4.571 r=0,310,0
-item=GEAR_DoubleBarrelPartBarrel scene=TrainRepairDepotB p=-6.947,1.088,2.436 r=0,201,0
+item=GEAR_DoubleBarrelPartBarrel id=SG_IslandPartBarrel_001 scene=TrainRepairDepotA p=-10.53,1.304,4.571 r=0,310,0
+item=GEAR_DoubleBarrelPartBarrel id=SG_IslandPartBarrel_002 scene=TrainRepairDepotB p=-6.947,1.088,2.436 r=0,201,0
 
 group=SG_IslandPartStock low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelPartStock scene=WoodCabinC_IronRoad p=1.518,1.157,-2.203 r=0,186,0
+item=GEAR_DoubleBarrelPartStock id=SG_IslandPartStock_001 scene=WoodCabinC_IronRoad p=1.518,1.157,-2.203 r=0,186,0
 
 group=SG_IslandPartForend low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelPartForend scene=CoastalHouseH1_IronRoad p=-4.361,-0.163,-0.142 r=0,202,0
-item=GEAR_DoubleBarrelPartForend scene=WoodCabinC_IronRoad p=-1.383,0.039,-2.948 r=0,243,0
+item=GEAR_DoubleBarrelPartForend id=SG_IslandPartForend_001 scene=CoastalHouseH1_IronRoad p=-4.361,-0.163,-0.142 r=0,202,0
+item=GEAR_DoubleBarrelPartForend id=SG_IslandPartForend_002 scene=WoodCabinC_IronRoad p=-1.383,0.039,-2.948 r=0,243,0
 
 group=SG_IslandPartTrigger low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelPartTrigger scene=CoastalHouseH1_IronRoad p=-2.323,-0.154,-3.69 r=0,268,0
-item=GEAR_DoubleBarrelPartTrigger scene=LakeCabinD_IronRoad p=1.692,0.046,2.287 r=0,269,0
+item=GEAR_DoubleBarrelPartTrigger id=SG_IslandPartTrigger_001 scene=CoastalHouseH1_IronRoad p=-2.323,-0.154,-3.69 r=0,268,0
+item=GEAR_DoubleBarrelPartTrigger id=SG_IslandPartTrigger_002 scene=LakeCabinD_IronRoad p=1.692,0.046,2.287 r=0,269,0
 
 group=AF_Out_Boxes scene=AirfieldRegion low=0 medium=0 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=37.989,155.876,383.69 r=24,8,15
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=AF_Out_Boxes_001 p=37.989,155.876,383.69 r=24,8,15
 
 group=AF_Out_Singles scene=AirfieldRegion low=0 medium=1 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=101.9,160.428,-576.3 r=0,40,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=AF_Out_Singles_001 p=101.9,160.428,-576.3 r=0,40,90
 
 group=AFTB scene=AirfieldTrailerB low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-3.3,0.022,0.9 r=0,100,90
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=2.033,1.158,-1.789 r=0,344.1,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=AFTB_001 p=-3.3,0.022,0.9 r=0,100,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=AFTB_002 p=2.033,1.158,-1.789 r=0,344.1,90
 
 group=ACF scene=AshCabinF low=0 medium=1 high=2 veryhigh=3
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-1.324,0.024,2.812 r=0.1,15,94.9
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=2.294,0.057,-1.743 r=358.7,120,89.8
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-1.25,0.952,-1.95 r=0,80,90
-item=GEAR_DoubleBarrelAmmoSingleSlug p=2.227,0.057,-1.816 r=0,40,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=ACF_001 p=-1.324,0.024,2.812 r=0.1,15,94.9
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=ACF_002 p=2.294,0.057,-1.743 r=358.7,120,89.8
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=ACF_003 p=-1.25,0.952,-1.95 r=0,80,90
+item=GEAR_DoubleBarrelAmmoSingleSlug id=ACF_004 p=2.227,0.057,-1.816 r=0,40,90
 
 group=AC_North scene=AshCanyonRegion low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=-347.591,195.443,278.618 r=338.9,30,0.2
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=-371.469,357.279,378.462 r=1.4,119.9,353.4
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=-422.091,293.167,742.106 r=6.4,48.7,11.1
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=AC_North_001 p=-347.591,195.443,278.618 r=338.9,30,0.2
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=AC_North_002 p=-371.469,357.279,378.462 r=1.4,119.9,353.4
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=AC_North_003 p=-422.091,293.167,742.106 r=6.4,48.7,11.1
 
 group=AC_South scene=AshCanyonRegion low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=194.5,44.964,-685.3 r=353.9,300.6,348.5
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=294.4,155.137,-352.7 r=14.3,17.2,17.5
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=-285.2,150.765,-551.6 r=356.3,74.8,4.9
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=AC_South_001 p=194.5,44.964,-685.3 r=353.9,300.6,348.5
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=AC_South_002 p=294.4,155.137,-352.7 r=14.3,17.2,17.5
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=AC_South_003 p=-285.2,150.765,-551.6 r=356.3,74.8,4.9
 
 group=AshMine_S scene=AshMine low=0 medium=1 high=2 veryhigh=3
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-129.6,-57.149,210.5 r=2.6,20,89.8
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-130.9,-57.12,211.6 r=358.8,110,87.6
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-99.5,-54.738,162.2 r=0,60,90
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-99.2,-54.738,162.5 r=0,150,90
-item=GEAR_DoubleBarrelAmmoSingleSlug p=-125.6,-57,172.95 r=346.4,84.4,20.9
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-126.55,-57.095,170.45 r=359.9,160,89.2
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=AshMine_S_001 p=-129.6,-57.149,210.5 r=2.6,20,89.8
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=AshMine_S_002 p=-130.9,-57.12,211.6 r=358.8,110,87.6
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=AshMine_S_003 p=-99.5,-54.738,162.2 r=0,60,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=AshMine_S_004 p=-99.2,-54.738,162.5 r=0,150,90
+item=GEAR_DoubleBarrelAmmoSingleSlug id=AshMine_S_005 p=-125.6,-57,172.95 r=346.4,84.4,20.9
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=AshMine_S_006 p=-126.55,-57.095,170.45 r=359.9,160,89.2
 
 group=AWC_Boxes scene=AshWoodCabinA low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=1.93,0.974,3.03 r=0,0,0
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=1,0.07,-1.8 r=0,100,0
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=AWC_Boxes_001 p=1.93,0.974,3.03 r=0,0,0
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=AWC_Boxes_002 p=1,0.07,-1.8 r=0,100,0
 
 group=AWC_Singles scene=AshWoodCabinA low=0 medium=1 high=2 veryhigh=3
-item=GEAR_DoubleBarrelAmmoSingleSlug p=-0.824,0.1,3.402 r=0,80,90
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-2.102,0.932,1.936 r=0,265.4,90
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-2.187,0.932,-2.217 r=0,87.1,90
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=0.5,0.024,-0.3 r=0,30,90
+item=GEAR_DoubleBarrelAmmoSingleSlug id=AWC_Singles_001 p=-0.824,0.1,3.402 r=0,80,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=AWC_Singles_002 p=-2.102,0.932,1.936 r=0,265.4,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=AWC_Singles_003 p=-2.187,0.932,-2.217 r=0,87.1,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=AWC_Singles_004 p=0.5,0.024,-0.3 r=0,30,90
 
 group=MTN_Bank scene=BankA low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-4.7,0.022,5.4 r=0,40,90
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-0.494,1.004,-0.1 r=0,100,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=MTN_Bank_001 p=-4.7,0.022,5.4 r=0,40,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=MTN_Bank_002 p=-0.494,1.004,-0.1 r=0,100,90
 
 group=PV_BarnA scene=BarnHouseA low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=0.1,0.825,1.5 r=0,30,90
-item=GEAR_DoubleBarrelAmmoSingleSlug p=-1,5.891,6.6 r=0,110,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=PV_BarnA_001 p=0.1,0.825,1.5 r=0,30,90
+item=GEAR_DoubleBarrelAmmoSingleSlug id=PV_BarnA_002 p=-1,5.891,6.6 r=0,110,90
 
 group=PV_BarnB scene=BarnHouseB low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=1,1.006,14.7 r=0,100,90
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-10.15,0.582,10.25 r=358.2,100.1,82.9
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=PV_BarnB_001 p=1,1.006,14.7 r=0,100,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=PV_BarnB_002 p=-10.15,0.582,10.25 r=358.2,100.1,82.9
 
 group=BRIntA scene=BlackrockInteriorASurvival low=0 medium=1 high=2 veryhigh=3
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=55,0.028,10.55 r=359.9,110,89.9
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=55.75,0.03,10.25 r=359.9,60,90.1
-item=GEAR_DoubleBarrelAmmoSingleSlug p=30.327,0.053,6.854 r=0,335,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=BRIntA_001 p=55,0.028,10.55 r=359.9,110,89.9
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=BRIntA_002 p=55.75,0.03,10.25 r=359.9,60,90.1
+item=GEAR_DoubleBarrelAmmoSingleSlug id=BRIntA_003 p=30.327,0.053,6.854 r=0,335,90
 
 group=BRPP scene=BlackrockPowerplantA low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=11,1.074,3.1 r=0,30,90
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=13.7,-7.968,1.2 r=0,100,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=BRPP_001 p=11,1.074,3.1 r=0,30,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=BRPP_002 p=13.7,-7.968,1.2 r=0,100,90
 
 group=BRPrison_Boxes scene=BlackrockPrisonSurvivalZone low=0 medium=0 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=-141.78,224.738,105.743 r=350.5,95.4,354.9
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=BRPrison_Boxes_001 p=-141.78,224.738,105.743 r=350.5,95.4,354.9
 
 group=BRPrison_Singles scene=BlackrockPrisonSurvivalZone low=0 medium=2 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleSlug p=-228.2,227.063,97.7 r=0,100,90
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-142.98,224.558,105.743 r=348.6,334.3,92.6
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-144.719,229.773,81.442 r=7,131.5,90.9
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-144.449,229.356,81.336 r=0,11,90
+item=GEAR_DoubleBarrelAmmoSingleSlug id=BRPrison_Singles_001 p=-228.2,227.063,97.7 r=0,100,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=BRPrison_Singles_002 p=-142.98,224.558,105.743 r=348.6,334.3,92.6
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=BRPrison_Singles_003 p=-144.719,229.773,81.442 r=7,131.5,90.9
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=BRPrison_Singles_004 p=-144.449,229.356,81.336 r=0,11,90
 
 group=BR_Out_Boxes scene=BlackrockRegion low=0 medium=0 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=-395.4,149.024,102.6 r=8.3,20.4,6.1
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=BR_Out_Boxes_001 p=-395.4,149.024,102.6 r=8.3,20.4,6.1
 
 group=BR_Out_Singles scene=BlackrockRegion low=0 medium=1 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-441,122.705,-290.8 r=355.4,69.9,92.5
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=BR_Out_Singles_001 p=-441,122.705,-290.8 r=355.4,69.9,92.5
 
 group=BXL_Boxes scene=BunkerXL low=0 medium=1 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxSlug p=-19.6,0.226,5.65 r=2.2,15,0.5
+item=GEAR_DoubleBarrelAmmoBoxSlug id=BXL_Boxes_001 p=-19.6,0.226,5.65 r=2.2,15,0.5
 
 group=BXL_Singles scene=BunkerXL low=0 medium=1 high=2 veryhigh=3
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-19.1,1.681,8.6 r=0,90,90
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=6.8,1.162,19.5 r=0,30,90
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=8.4,1.059,20 r=0,100,90
-item=GEAR_DoubleBarrelAmmoSingleSlug p=5.3,1.04,25.1 r=0,0,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=BXL_Singles_001 p=-19.1,1.681,8.6 r=0,90,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=BXL_Singles_002 p=6.8,1.162,19.5 r=0,30,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=BXL_Singles_003 p=8.4,1.059,20 r=0,100,90
+item=GEAR_DoubleBarrelAmmoSingleSlug id=BXL_Singles_004 p=5.3,1.04,25.1 r=0,0,90
 
 group=DP_CaveC scene=CaveC low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-37.4,7.628,-38.5 r=18.3,21,96.1
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-38.6,8.585,-39.9 r=41.4,93.8,48.8
-item=GEAR_DoubleBarrelAmmoSingleSlug p=-41.4,16.61,-41.3 r=340.2,59.3,94.2
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=DP_CaveC_001 p=-37.4,7.628,-38.5 r=18.3,21,96.1
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=DP_CaveC_002 p=-38.6,8.585,-39.9 r=41.4,93.8,48.8
+item=GEAR_DoubleBarrelAmmoSingleSlug id=DP_CaveC_003 p=-41.4,16.61,-41.3 r=340.2,59.3,94.2
 
 group=MTN_Church scene=ChurchB low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-6,0.627,-2.7 r=358.4,30,88.6
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-5.55,0.649,-1.6 r=344.3,157.5,108
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=2.4,0.604,2.3 r=0,0,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=MTN_Church_001 p=-6,0.627,-2.7 r=358.4,30,88.6
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=MTN_Church_002 p=-5.55,0.649,-1.6 r=344.3,157.5,108
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=MTN_Church_003 p=2.4,0.604,2.3 r=0,0,90
 
 group=CH_HouseB_Boxes scene=CoastalHouseB low=0 medium=0 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxSlug p=-3.914,0.954,7.742 r=0,15,0
+item=GEAR_DoubleBarrelAmmoBoxSlug id=CH_HouseB_Boxes_001 p=-3.914,0.954,7.742 r=0,15,0
 
 group=CH_HouseB_Singles scene=CoastalHouseB low=0 medium=1 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=2.887,0.022,2.034 r=0,80,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=CH_HouseB_Singles_001 p=2.887,0.022,2.034 r=0,80,90
 
 group=CH_HouseF_Boxes scene=CoastalHouseF low=0 medium=0 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=-4.604,3.579,1.106 r=0,80,0
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=CH_HouseF_Boxes_001 p=-4.604,3.579,1.106 r=0,80,0
 
 group=CH_HouseF_Singles scene=CoastalHouseF low=0 medium=1 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-0.45,1.13,-2.75 r=0,20,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=CH_HouseF_Singles_001 p=-0.45,1.13,-2.75 r=0,20,90
 
 group=CH_HouseH_Boxes scene=CoastalHouseH low=0 medium=0 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=2.239,-0.132,-0.081 r=0,100,0
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=CH_HouseH_Boxes_001 p=2.239,-0.132,-0.081 r=0,100,0
 
 group=CH_HouseH_Singles scene=CoastalHouseH low=0 medium=0 high=1 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=1.35,-0.178,-0.6 r=0,30,90
-item=GEAR_DoubleBarrelAmmoSingleSlug p=-3.1,-0.058,3.3 r=0,60,90
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-2.6,-0.086,2.6 r=0,200,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=CH_HouseH_Singles_001 p=1.35,-0.178,-0.6 r=0,30,90
+item=GEAR_DoubleBarrelAmmoSingleSlug id=CH_HouseH_Singles_002 p=-3.1,-0.058,3.3 r=0,60,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=CH_HouseH_Singles_003 p=-2.6,-0.086,2.6 r=0,200,90
 
 group=CH_Boats_Boxes scene=CoastalRegion low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=333.45,26.547,107.6 r=352.2,24.3,10.1
-item=GEAR_DoubleBarrelAmmoBoxSlug p=731.2,25.115,546.5 r=17.9,302.8,17.5
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=-722.363,27.766,675.967 r=0.4,25,356
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=CH_Boats_Boxes_001 p=333.45,26.547,107.6 r=352.2,24.3,10.1
+item=GEAR_DoubleBarrelAmmoBoxSlug id=CH_Boats_Boxes_002 p=731.2,25.115,546.5 r=17.9,302.8,17.5
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=CH_Boats_Boxes_003 p=-722.363,27.766,675.967 r=0.4,25,356
 
 group=CH_Boats_Singles scene=CoastalRegion low=0 medium=1 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=732.4,25.361,546.9 r=337.8,20.2,88.9
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-722.6,27.922,677.45 r=49.8,94.1,77.3
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=CH_Boats_Singles_001 p=732.4,25.361,546.9 r=337.8,20.2,88.9
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=CH_Boats_Singles_002 p=-722.6,27.922,677.45 r=49.8,94.1,77.3
 
 group=CH_Bodies_Boxes scene=CoastalRegion low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=897.7,37.117,119.5 r=5.8,199.5,350.5
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=-474.719,100.733,1133.189 r=355.2,120.1,358.1
-item=GEAR_DoubleBarrelAmmoBoxSlug p=-720.2,204.705,1311 r=3.6,299.9,355.3
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=-49.76,26.235,307.41 r=339.6,318.3,358.4
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=CH_Bodies_Boxes_001 p=897.7,37.117,119.5 r=5.8,199.5,350.5
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=CH_Bodies_Boxes_002 p=-474.719,100.733,1133.189 r=355.2,120.1,358.1
+item=GEAR_DoubleBarrelAmmoBoxSlug id=CH_Bodies_Boxes_003 p=-720.2,204.705,1311 r=3.6,299.9,355.3
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=CH_Bodies_Boxes_004 p=-49.76,26.235,307.41 r=339.6,318.3,358.4
 
 group=CH_Bodies_Singles scene=CoastalRegion low=0 medium=1 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoSingleSlug p=-722,205.052,1312.5 r=356,40.4,79
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-49.91,26.413,307.86 r=27.1,21.5,38.3
+item=GEAR_DoubleBarrelAmmoSingleSlug id=CH_Bodies_Singles_001 p=-722,205.052,1312.5 r=356,40.4,79
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=CH_Bodies_Singles_002 p=-49.91,26.413,307.86 r=27.1,21.5,38.3
 
 group=PV_Hall_Boxes scene=CommunityHallA low=0 medium=1 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=-1.65,0.068,3.45 r=0,250,0
-item=GEAR_DoubleBarrelAmmoBoxSlug p=-3.4,1.045,-7.074 r=0.4,10,359.6
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=PV_Hall_Boxes_001 p=-1.65,0.068,3.45 r=0,250,0
+item=GEAR_DoubleBarrelAmmoBoxSlug id=PV_Hall_Boxes_002 p=-3.4,1.045,-7.074 r=0.4,10,359.6
 
 group=PV_Hall_Singles scene=CommunityHallA low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-3.3,0.022,3.6 r=0,30,90
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-1.65,1.176,7.8 r=0,80,90
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-1.3,1.176,7.85 r=0,110,90
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-5.681,0.022,-5.862 r=0,60,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=PV_Hall_Singles_001 p=-3.3,0.022,3.6 r=0,30,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=PV_Hall_Singles_002 p=-1.65,1.176,7.8 r=0,80,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=PV_Hall_Singles_003 p=-1.3,1.176,7.85 r=0,110,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=PV_Hall_Singles_004 p=-5.681,0.022,-5.862 r=0,60,90
 
 group=MTN_Conv_Boxes scene=ConvenienceStoreA low=0 medium=0 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxSlug p=-1.566,0.748,0.043 r=0,90,0
+item=GEAR_DoubleBarrelAmmoBoxSlug id=MTN_Conv_Boxes_001 p=-1.566,0.748,0.043 r=0,90,0
 
 group=MTN_Conv_Singles scene=ConvenienceStoreA low=0 medium=1 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoSingleSlug p=-4.6,1.067,-5.2 r=0,20,90
+item=GEAR_DoubleBarrelAmmoSingleSlug id=MTN_Conv_Singles_001 p=-4.6,1.067,-5.2 r=0,20,90
 
 group=ML_Dam_Boxes scene=Dam low=0 medium=0 high=0 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=-12.4,4.688,-18.7 r=0,15,0
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=ML_Dam_Boxes_001 p=-12.4,4.688,-18.7 r=0,15,0
 
 group=ML_Dam_Singles scene=Dam low=0 medium=2 high=3 veryhigh=4
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-14.7,5.699,-6 r=90,60,0
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=4.45,1.236,-11.65 r=90,30,0
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=4.7,1.236,-11.95 r=90,115,0
-item=GEAR_DoubleBarrelAmmoSingleSlug p=-0.3,1.133,-2.05 r=90,80,0
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=10.45,-5.938,-18.75 r=90,170,0
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-11.04,-4.573,-1.888 r=90,250,0
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=9.2,-5.938,-18.8 r=90,40,0
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=ML_Dam_Singles_001 p=-14.7,5.699,-6 r=90,60,0
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=ML_Dam_Singles_002 p=4.45,1.236,-11.65 r=90,30,0
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=ML_Dam_Singles_003 p=4.7,1.236,-11.95 r=90,115,0
+item=GEAR_DoubleBarrelAmmoSingleSlug id=ML_Dam_Singles_004 p=-0.3,1.133,-2.05 r=90,80,0
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=ML_Dam_Singles_005 p=10.45,-5.938,-18.75 r=90,170,0
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=ML_Dam_Singles_006 p=-11.04,-4.573,-1.888 r=90,250,0
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=ML_Dam_Singles_007 p=9.2,-5.938,-18.8 r=90,40,0
 
 group=PV_FarmA scene=FarmHouseA low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=3.056,3.725,4.67 r=0,95,2.1
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=-1.585,4.191,-0.806 r=358.4,20,0
-item=GEAR_DoubleBarrelAmmoBoxSlug p=9.335,4.451,-4.891 r=0,100,0
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=PV_FarmA_001 p=3.056,3.725,4.67 r=0,95,2.1
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=PV_FarmA_002 p=-1.585,4.191,-0.806 r=358.4,20,0
+item=GEAR_DoubleBarrelAmmoBoxSlug id=PV_FarmA_003 p=9.335,4.451,-4.891 r=0,100,0
 
 group=MTN_FarmB_Boxes scene=FarmHouseB low=0 medium=0 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=4.696,0.135,-3.368 r=7.9,351.6,6.3
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=MTN_FarmB_Boxes_001 p=4.696,0.135,-3.368 r=7.9,351.6,6.3
 
 group=MTN_FarmB_Singles scene=FarmHouseB low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=4.5,0.067,-5.1 r=0,30,90
-item=GEAR_DoubleBarrelAmmoSingleSlug p=1.6,0.065,4.3 r=0,110,90
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=2.661,0.035,2.008 r=0,0,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=MTN_FarmB_Singles_001 p=4.5,0.067,-5.1 r=0,30,90
+item=GEAR_DoubleBarrelAmmoSingleSlug id=MTN_FarmB_Singles_002 p=1.6,0.065,4.3 r=0,110,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=MTN_FarmB_Singles_003 p=2.661,0.035,2.008 r=0,0,90
 
 group=MTN_GreyM_Boxes scene=GreyMothersHouseA low=0 medium=1 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=2.4,3.702,3.6 r=0,100,0
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=MTN_GreyM_Boxes_001 p=2.4,3.702,3.6 r=0,100,0
 
 group=MTN_GreyM_Singles scene=GreyMothersHouseA low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleSlug p=-1.051,4.484,0.971 r=359.6,20,95.9
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-1.002,4.5,1.177 r=16.1,131.2,98.7
+item=GEAR_DoubleBarrelAmmoSingleSlug id=MTN_GreyM_Singles_001 p=-1.051,4.484,0.971 r=359.6,20,95.9
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=MTN_GreyM_Singles_002 p=-1.002,4.5,1.177 r=16.1,131.2,98.7
 
 group=HM_Mine scene=HighwayMineTransitionZone low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-86.236,-8.964,-33.464 r=355,18.7,118.9
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-87.1,-9.092,-34.1 r=309.4,153.4,62.1
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-2.957,-18.577,-13.459 r=0,30,90
-item=GEAR_DoubleBarrelAmmoSingleSlug p=-1.1,-18.577,-14.9 r=0,110,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=HM_Mine_001 p=-86.236,-8.964,-33.464 r=355,18.7,118.9
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=HM_Mine_002 p=-87.1,-9.092,-34.1 r=309.4,153.4,62.1
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=HM_Mine_003 p=-2.957,-18.577,-13.459 r=0,30,90
+item=GEAR_DoubleBarrelAmmoSingleSlug id=HM_Mine_004 p=-1.1,-18.577,-14.9 r=0,110,90
 
 group=BR_Lodge_Boxes scene=HuntingLodgeA low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=-10.25,-2.969,-2.45 r=0,75,0
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=-3.85,1.29,-4.24 r=359.9,175,358.8
-item=GEAR_DoubleBarrelAmmoBoxSlug p=-1.15,7.122,-8.25 r=355.4,19.9,2
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=BR_Lodge_Boxes_001 p=-10.25,-2.969,-2.45 r=0,75,0
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=BR_Lodge_Boxes_002 p=-3.85,1.29,-4.24 r=359.9,175,358.8
+item=GEAR_DoubleBarrelAmmoBoxSlug id=BR_Lodge_Boxes_003 p=-1.15,7.122,-8.25 r=355.4,19.9,2
 
 group=BR_Lodge_Singles scene=HuntingLodgeA low=0 medium=1 high=2 veryhigh=3
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-10.05,-2.975,-1.95 r=90,30,0
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-10.4,-3.963,-2.85 r=90,140,0
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-6.55,2.289,-4.78 r=83.3,270,210
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-2.65,0.079,-4.72 r=90,15,0
-item=GEAR_DoubleBarrelAmmoSingleSlug p=-4.95,7.255,-7.6 r=64,339.9,89.9
-item=GEAR_DoubleBarrelAmmoSingleSlug p=-1.05,6.359,-8.55 r=90,120,0
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=BR_Lodge_Singles_001 p=-10.05,-2.975,-1.95 r=90,30,0
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=BR_Lodge_Singles_002 p=-10.4,-3.963,-2.85 r=90,140,0
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=BR_Lodge_Singles_003 p=-6.55,2.289,-4.78 r=83.3,270,210
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=BR_Lodge_Singles_004 p=-2.65,0.079,-4.72 r=90,15,0
+item=GEAR_DoubleBarrelAmmoSingleSlug id=BR_Lodge_Singles_005 p=-4.95,7.255,-7.6 r=64,339.9,89.9
+item=GEAR_DoubleBarrelAmmoSingleSlug id=BR_Lodge_Singles_006 p=-1.05,6.359,-8.55 r=90,120,0
 
 group=BR_Lodge2 scene=HuntingLodgeA low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-7.9,-2.877,-4.75 r=0,80,90
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=4.343,-4.003,4.071 r=0,63,90
-item=GEAR_DoubleBarrelAmmoSingleSlug p=-8.7,0.069,2.4 r=0,80,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=BR_Lodge2_001 p=-7.9,-2.877,-4.75 r=0,80,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=BR_Lodge2_002 p=4.343,-4.003,4.071 r=0,63,90
+item=GEAR_DoubleBarrelAmmoSingleSlug id=BR_Lodge2_003 p=-8.7,0.069,2.4 r=0,80,90
 
 group=ICB scene=IceCaveB low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-10.9,-3.623,35 r=357,39.7,100.7
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=157.3,-11.635,22.5 r=17.7,119,83.3
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=ICB_001 p=-10.9,-3.623,35 r=357,39.7,100.7
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=ICB_002 p=157.3,-11.635,22.5 r=17.7,119,83.3
 
 group=ML_Camps_Boxes scene=LakeRegion low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=810,139.795,939 r=339.1,298.5,8.2
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=372.765,108.402,1619.199 r=16.1,199.5,356.5
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=1275.75,119.654,649.3 r=9.8,159.9,358.6
-item=GEAR_DoubleBarrelAmmoBoxSlug p=946.813,51.732,22.445 r=5.4,80.5,10.7
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=ML_Camps_Boxes_001 p=810,139.795,939 r=339.1,298.5,8.2
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=ML_Camps_Boxes_002 p=372.765,108.402,1619.199 r=16.1,199.5,356.5
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=ML_Camps_Boxes_003 p=1275.75,119.654,649.3 r=9.8,159.9,358.6
+item=GEAR_DoubleBarrelAmmoBoxSlug id=ML_Camps_Boxes_004 p=946.813,51.732,22.445 r=5.4,80.5,10.7
 
 group=ML_Camps_Singles scene=LakeRegion low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=808.4,140.599,940.3 r=69.2,335.6,315.6
-item=GEAR_DoubleBarrelAmmoSingleSlug p=361.414,103.607,1607.402 r=73.6,64.8,349.8
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=1272.9,119.484,647.3 r=86.1,34.7,144.7
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=948.6,51.454,23.3 r=80.7,196.7,186.7
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=ML_Camps_Singles_001 p=808.4,140.599,940.3 r=69.2,335.6,315.6
+item=GEAR_DoubleBarrelAmmoSingleSlug id=ML_Camps_Singles_002 p=361.414,103.607,1607.402 r=73.6,64.8,349.8
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=ML_Camps_Singles_003 p=1272.9,119.484,647.3 r=86.1,34.7,144.7
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=ML_Camps_Singles_004 p=948.6,51.454,23.3 r=80.7,196.7,186.7
 
 group=ML_Ice_Boxes scene=LakeRegion low=0 medium=1 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=1580.615,18.387,422.308 r=0,120,0
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=1385.05,16.741,190.598 r=0,15,0
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=ML_Ice_Boxes_001 p=1580.615,18.387,422.308 r=0,120,0
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=ML_Ice_Boxes_002 p=1385.05,16.741,190.598 r=0,15,0
 
 group=ML_Ice_Singles scene=LakeRegion low=0 medium=1 high=2 veryhigh=3
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=1580.298,17.549,422.201 r=90,30,0
-item=GEAR_DoubleBarrelAmmoSingleSlug p=1383.25,17.549,192.85 r=90,20,0
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=886.2,22.327,1250.5 r=74.3,236.3,216.3
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=886.55,22.188,1250.85 r=74.3,236.3,91.3
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=885.95,22.46,1250.15 r=74.3,236.3,336.3
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=ML_Ice_Singles_001 p=1580.298,17.549,422.201 r=90,30,0
+item=GEAR_DoubleBarrelAmmoSingleSlug id=ML_Ice_Singles_002 p=1383.25,17.549,192.85 r=90,20,0
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=ML_Ice_Singles_003 p=886.2,22.327,1250.5 r=74.3,236.3,216.3
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=ML_Ice_Singles_004 p=886.55,22.188,1250.85 r=74.3,236.3,91.3
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=ML_Ice_Singles_005 p=885.95,22.46,1250.15 r=74.3,236.3,336.3
 
 group=DP_Lighthouse_Boxes scene=LighthouseA low=0 medium=0 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxSlug p=4.238,0.935,4.307 r=359.5,120,358.9
+item=GEAR_DoubleBarrelAmmoBoxSlug id=DP_Lighthouse_Boxes_001 p=4.238,0.935,4.307 r=359.5,120,358.9
 
 group=DP_Lighthouse_Singles scene=LighthouseA low=0 medium=1 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=2.5,8.739,3.3 r=0,30,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=DP_Lighthouse_Singles_001 p=2.5,8.739,3.3 r=0,30,90
 
 group=BR_Shed_Boxes scene=MaintenanceShedA low=0 medium=0 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=-3.47,-0.571,-4.75 r=0,95,0
-item=GEAR_DoubleBarrelAmmoBoxSlug p=-6.75,0.724,-20.42 r=2.8,3,0.1
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=BR_Shed_Boxes_001 p=-3.47,-0.571,-4.75 r=0,95,0
+item=GEAR_DoubleBarrelAmmoBoxSlug id=BR_Shed_Boxes_002 p=-6.75,0.724,-20.42 r=2.8,3,0.1
 
 group=BR_Shed_Singles scene=MaintenanceShedA low=0 medium=1 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoSingleSlug p=10.95,0.062,-22.4 r=90,160,0
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=3.8,0.067,-17.275 r=79.8,278.2,208.2
+item=GEAR_DoubleBarrelAmmoSingleSlug id=BR_Shed_Singles_001 p=10.95,0.062,-22.4 r=90,160,0
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=BR_Shed_Singles_002 p=3.8,0.067,-17.275 r=79.8,278.2,208.2
 
 group=MCB_Boxes scene=MineConcentratorBuilding low=0 medium=1 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=0.713,55.259,50.679 r=0,40,0
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=139.75,1.757,-13 r=0,70,0
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=MCB_Boxes_001 p=0.713,55.259,50.679 r=0,40,0
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=MCB_Boxes_002 p=139.75,1.757,-13 r=0,70,0
 
 group=MCB_Singles scene=MineConcentratorBuilding low=0 medium=1 high=2 veryhigh=3
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-0.75,54.542,44.9 r=0,110,90
-item=GEAR_DoubleBarrelAmmoSingleSlug p=22.3,55.53,44.6 r=0,20,90
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=139.3,2.964,2 r=0,150,90
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=138.754,1.963,1.107 r=0,100,90
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=9,30.61,21.5 r=0,80,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=MCB_Singles_001 p=-0.75,54.542,44.9 r=0,110,90
+item=GEAR_DoubleBarrelAmmoSingleSlug id=MCB_Singles_002 p=22.3,55.53,44.6 r=0,20,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=MCB_Singles_003 p=139.3,2.964,2 r=0,150,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=MCB_Singles_004 p=138.754,1.963,1.107 r=0,100,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=MCB_Singles_005 p=9,30.61,21.5 r=0,80,90
 
 group=MT_Mine scene=MineTransitionZone low=0 medium=1 high=2 veryhigh=3
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-235.55,-48.896,204.35 r=359.3,40,90.3
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-236.4,-48.902,205.55 r=359.5,130,90.3
-item=GEAR_DoubleBarrelAmmoSingleSlug p=1.95,-9.157,60 r=355.6,60,89.1
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=0.9,-9.369,59 r=0,160,90
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-36.45,-19.92,-21 r=357.5,20.1,86.5
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-35.05,-19.998,-21.35 r=3,99.9,87
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=MT_Mine_001 p=-235.55,-48.896,204.35 r=359.3,40,90.3
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=MT_Mine_002 p=-236.4,-48.902,205.55 r=359.5,130,90.3
+item=GEAR_DoubleBarrelAmmoSingleSlug id=MT_Mine_003 p=1.95,-9.157,60 r=355.6,60,89.1
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=MT_Mine_004 p=0.9,-9.369,59 r=0,160,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=MT_Mine_005 p=-36.45,-19.92,-21 r=357.5,20.1,86.5
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=MT_Mine_006 p=-35.05,-19.998,-21.35 r=3,99.9,87
 
 group=MRMine_Boxes scene=MiningRegionMine low=0 medium=1 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=-90.784,0.666,232.921 r=1.5,40,2.5
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=-62.4,-30.42,-51.4 r=0,100,0
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=MRMine_Boxes_001 p=-90.784,0.666,232.921 r=1.5,40,2.5
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=MRMine_Boxes_002 p=-62.4,-30.42,-51.4 r=0,100,0
 
 group=MRMine_Singles scene=MiningRegionMine low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-88.6,0.102,230.9 r=3.6,120.3,98.9
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-13,-17.367,149 r=349.2,30.1,88.5
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-14.1,-17.66,148.1 r=347.4,80.9,81.9
-item=GEAR_DoubleBarrelAmmoSingleSlug p=-66.2,-23.669,-104.45 r=0,20,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=MRMine_Singles_001 p=-88.6,0.102,230.9 r=3.6,120.3,98.9
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=MRMine_Singles_002 p=-13,-17.367,149 r=349.2,30.1,88.5
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=MRMine_Singles_003 p=-14.1,-17.66,148.1 r=347.4,80.9,81.9
+item=GEAR_DoubleBarrelAmmoSingleSlug id=MRMine_Singles_004 p=-66.2,-23.669,-104.45 r=0,20,90
 
 group=MPB scene=MountainPassBasement low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=3.156,1.257,0.995 r=0,80,0
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=2.966,1.257,1.055 r=0,96.1,0
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=MPB_001 p=3.156,1.257,0.995 r=0,80,0
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=MPB_002 p=2.966,1.257,1.055 r=0,96.1,0
 
 group=TWM_East_Boxes scene=MountainPassRegion low=0 medium=0 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=1087.02,618.612,-695.69 r=327.7,182.6,65
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=1088.932,618.125,-699.921 r=345.9,33.6,11.4
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=TWM_East_Boxes_001 p=1087.02,618.612,-695.69 r=327.7,182.6,65
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=TWM_East_Boxes_002 p=1088.932,618.125,-699.921 r=345.9,33.6,11.4
 
 group=TWM_East_Singles scene=MountainPassRegion low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleSlug p=1087,617.093,-705.2 r=353.6,30,90.4
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=1085.6,616.863,-707 r=0.8,110,82.7
+item=GEAR_DoubleBarrelAmmoSingleSlug id=TWM_East_Singles_001 p=1087,617.093,-705.2 r=353.6,30,90.4
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=TWM_East_Singles_002 p=1085.6,616.863,-707 r=0.8,110,82.7
 
 group=TWM_Mid_Boxes scene=MountainPassRegion low=0 medium=0 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxSlug p=500.948,100.602,647.194 r=354.4,70,0.2
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=202.964,196.812,765.606 r=0,309,0
+item=GEAR_DoubleBarrelAmmoBoxSlug id=TWM_Mid_Boxes_001 p=500.948,100.602,647.194 r=354.4,70,0.2
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=TWM_Mid_Boxes_002 p=202.964,196.812,765.606 r=0,309,0
 
 group=TWM_Mid_Singles scene=MountainPassRegion low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=348.6,156.313,-366.4 r=2.9,19.9,87.2
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=351.1,156.151,-365 r=3.5,100,90.6
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=TWM_Mid_Singles_001 p=348.6,156.313,-366.4 r=2.9,19.9,87.2
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=TWM_Mid_Singles_002 p=351.1,156.151,-365 r=3.5,100,90.6
 
 group=TWM_West_Boxes scene=MountainPassRegion low=0 medium=0 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=-182.203,390.731,442.99 r=3.9,200.2,5
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=520.3,599.167,-627.5 r=357.9,200,0.4
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=TWM_West_Boxes_001 p=-182.203,390.731,442.99 r=3.9,200.2,5
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=TWM_West_Boxes_002 p=520.3,599.167,-627.5 r=357.9,200,0.4
 
 group=TWM_West_Singles scene=MountainPassRegion low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-790,853.58,410.2 r=19,42.4,104.4
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-791.4,853.089,411.9 r=344.2,126.4,115.2
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=TWM_West_Singles_001 p=-790,853.58,410.2 r=19,42.4,104.4
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=TWM_West_Singles_002 p=-791.4,853.089,411.9 r=344.2,126.4,115.2
 
 group=MTN_Out_Boxes scene=MountainTownRegion low=0 medium=0 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=1204.489,266.023,1349.892 r=0.9,30.1,9.1
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=MTN_Out_Boxes_001 p=1204.489,266.023,1349.892 r=0.9,30.1,9.1
 
 group=MTN_Out_Singles scene=MountainTownRegion low=0 medium=1 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=1367.2,264.581,1317.7 r=358.1,120,88.9
-item=GEAR_DoubleBarrelAmmoSingleSlug p=1275.6,245.199,1000.6 r=1,80,87.2
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=MTN_Out_Singles_001 p=1367.2,264.581,1317.7 r=358.1,120,88.9
+item=GEAR_DoubleBarrelAmmoSingleSlug id=MTN_Out_Singles_002 p=1275.6,245.199,1000.6 r=1,80,87.2
 
 group=PCA_Boxes scene=PrepperCacheA low=0 medium=1 high=2 veryhigh=3
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=-2.053,0.092,-1.507 r=22.8,70,0
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=-3.75,1.566,1 r=0,10,0
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=-3.5,1.28,1.85 r=0,40,0
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=PCA_Boxes_001 p=-2.053,0.092,-1.507 r=22.8,70,0
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=PCA_Boxes_002 p=-3.75,1.566,1 r=0,10,0
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=PCA_Boxes_003 p=-3.5,1.28,1.85 r=0,40,0
 
 group=PCA_Singles scene=PrepperCacheA low=0 medium=1 high=2 veryhigh=3
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=0.55,0.044,-1.05 r=335.6,16.1,108.1
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-1.6,0.753,0.85 r=0,120,90
-item=GEAR_DoubleBarrelAmmoSingleSlug p=1.4,0.022,0.6 r=0,75,90
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=0.9,0.076,1.35 r=352.7,148.4,114.9
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=0.35,0.031,-0.4 r=1.9,60.1,93.9
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=PCA_Singles_001 p=0.55,0.044,-1.05 r=335.6,16.1,108.1
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=PCA_Singles_002 p=-1.6,0.753,0.85 r=0,120,90
+item=GEAR_DoubleBarrelAmmoSingleSlug id=PCA_Singles_003 p=1.4,0.022,0.6 r=0,75,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=PCA_Singles_004 p=0.9,0.076,1.35 r=352.7,148.4,114.9
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=PCA_Singles_005 p=0.35,0.031,-0.4 r=1.9,60.1,93.9
 
 group=PCF_Boxes scene=PrepperCacheF low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=1.15,-0.446,0.6 r=0,10,0
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=0.85,0.891,-9.1 r=0,15,0
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=PCF_Boxes_001 p=1.15,-0.446,0.6 r=0,10,0
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=PCF_Boxes_002 p=0.85,0.891,-9.1 r=0,15,0
 
 group=PCF_Singles scene=PrepperCacheF low=0 medium=1 high=2 veryhigh=3
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=1.6,0.094,2.6 r=0,90,90
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-0.4,-0.712,0.5 r=0,35,90
-item=GEAR_DoubleBarrelAmmoSingleSlug p=0.15,-0.29,-3 r=359.2,120,95.7
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=1.25,0.051,-7.65 r=0,160,90
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=1.05,0.051,-6.3 r=0,30,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=PCF_Singles_001 p=1.6,0.094,2.6 r=0,90,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=PCF_Singles_002 p=-0.4,-0.712,0.5 r=0,35,90
+item=GEAR_DoubleBarrelAmmoSingleSlug id=PCF_Singles_003 p=0.15,-0.29,-3 r=359.2,120,95.7
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=PCF_Singles_004 p=1.25,0.051,-7.65 r=0,160,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=PCF_Singles_005 p=1.05,0.051,-6.3 r=0,30,90
 
 group=PumpH scene=PumpHouse low=0 medium=1 high=2 veryhigh=3
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=3.4,0.044,-1.6 r=0,20,90
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-3.6,0.022,-1.8 r=0,60,90
-item=GEAR_DoubleBarrelAmmoSingleSlug p=1,-0.275,1.2 r=0,150,90
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=2.6,1.108,-3.3 r=0,100,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=PumpH_001 p=3.4,0.044,-1.6 r=0,20,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=PumpH_002 p=-3.6,0.022,-1.8 r=0,60,90
+item=GEAR_DoubleBarrelAmmoSingleSlug id=PumpH_003 p=1,-0.275,1.2 r=0,150,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=PumpH_004 p=2.6,1.108,-3.3 r=0,100,90
 
 group=CH_Quonset_Boxes scene=QuonsetGasStation low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=-3.031,0.078,7.412 r=0,15,0
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=-4.144,0.084,-3.907 r=355.3,190,359.7
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=CH_Quonset_Boxes_001 p=-3.031,0.078,7.412 r=0,15,0
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=CH_Quonset_Boxes_002 p=-4.144,0.084,-3.907 r=355.3,190,359.7
 
 group=CH_Quonset_Singles scene=QuonsetGasStation low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-4.098,0.067,3.939 r=27.6,78.7,84.7
-item=GEAR_DoubleBarrelAmmoSingleSlug p=-4.5,0.535,-4.45 r=359.7,80,92.6
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=CH_Quonset_Singles_001 p=-4.098,0.067,3.939 r=27.6,78.7,84.7
+item=GEAR_DoubleBarrelAmmoSingleSlug id=CH_Quonset_Singles_002 p=-4.5,0.535,-4.45 r=359.7,80,92.6
 
 group=PV_RadioHut scene=RadioControlHut low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=-1.273,0.746,1.676 r=0,170,0
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=4,0.068,2.75 r=0,80,0
-item=GEAR_DoubleBarrelAmmoBoxSlug p=2.705,0.083,3.617 r=0,340,0
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=PV_RadioHut_001 p=-1.273,0.746,1.676 r=0,170,0
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=PV_RadioHut_002 p=4,0.068,2.75 r=0,80,0
+item=GEAR_DoubleBarrelAmmoBoxSlug id=PV_RadioHut_003 p=2.705,0.083,3.617 r=0,340,0
 
 group=RV_Ravine_Boxes scene=RavineTransitionZone low=0 medium=0 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=-678.286,19.831,-186.375 r=348.4,61.6,344.4
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=RV_Ravine_Boxes_001 p=-678.286,19.831,-186.375 r=348.4,61.6,344.4
 
 group=RV_Ravine_Singles scene=RavineTransitionZone low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-680.6,19.386,-187.1 r=15.2,148.4,78
-item=GEAR_DoubleBarrelAmmoSingleSlug p=-1036.95,137.231,-289.9 r=356.7,20.2,83.9
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-1035.6,137.048,-290.85 r=5.9,109.9,87.8
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=RV_Ravine_Singles_001 p=-680.6,19.386,-187.1 r=15.2,148.4,78
+item=GEAR_DoubleBarrelAmmoSingleSlug id=RV_Ravine_Singles_002 p=-1036.95,137.231,-289.9 r=356.7,20.2,83.9
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=RV_Ravine_Singles_003 p=-1035.6,137.048,-290.85 r=5.9,109.9,87.8
 
 group=RV_Bodies scene=RiverValleyRegion low=0 medium=1 high=2 veryhigh=3
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=689.4,113.994,590.4 r=20.4,21.7,99.7
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=691.2,114.27,590 r=344.3,138.8,98.4
-item=GEAR_DoubleBarrelAmmoSingleSlug p=792.2,92.928,932.7 r=0.8,69.9,79.9
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=846.143,190.778,1592.882 r=0.4,87.1,94.6
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=RV_Bodies_001 p=689.4,113.994,590.4 r=20.4,21.7,99.7
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=RV_Bodies_002 p=691.2,114.27,590 r=344.3,138.8,98.4
+item=GEAR_DoubleBarrelAmmoSingleSlug id=RV_Bodies_003 p=792.2,92.928,932.7 r=0.8,69.9,79.9
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=RV_Bodies_004 p=846.143,190.778,1592.882 r=0.4,87.1,94.6
 
 group=PV_Blinds scene=RuralRegion low=0 medium=1 high=2 veryhigh=3
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=2514.55,185.904,566.35 r=0,20,90
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=2514.45,185.904,565.35 r=0,250,90
-item=GEAR_DoubleBarrelAmmoSingleSlug p=398.817,149.411,2056.587 r=0,170,90
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=398.709,149.823,2056.611 r=0,130,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=PV_Blinds_001 p=2514.55,185.904,566.35 r=0,20,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=PV_Blinds_002 p=2514.45,185.904,565.35 r=0,250,90
+item=GEAR_DoubleBarrelAmmoSingleSlug id=PV_Blinds_003 p=398.817,149.411,2056.587 r=0,170,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=PV_Blinds_004 p=398.709,149.823,2056.611 r=0,130,90
 
 group=PV_Trucks scene=RuralRegion low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=2295.886,54.463,2257.859 r=11.4,60.6,5.7
-item=GEAR_DoubleBarrelAmmoBoxSlug p=2337.851,43.991,2023.85 r=4.7,59.3,343.7
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=1789.565,55.756,1031.778 r=355,253.9,357.9
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=PV_Trucks_001 p=2295.886,54.463,2257.859 r=11.4,60.6,5.7
+item=GEAR_DoubleBarrelAmmoBoxSlug id=PV_Trucks_002 p=2337.851,43.991,2023.85 r=4.7,59.3,343.7
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=PV_Trucks_003 p=1789.565,55.756,1031.778 r=355,253.9,357.9
 
 group=PV_Wrecks_Boxes scene=RuralRegion low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=645.6,141.226,2277.5 r=358.9,40.3,329.5
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=471.846,59.805,562.812 r=4.5,339.3,326.3
-item=GEAR_DoubleBarrelAmmoBoxBirdshot p=745.096,116.792,1564.796 r=354.2,359.4,18.8
-item=GEAR_DoubleBarrelAmmoBoxSlug p=1946.743,45.548,1249.545 r=354.2,312.1,343.9
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=PV_Wrecks_Boxes_001 p=645.6,141.226,2277.5 r=358.9,40.3,329.5
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=PV_Wrecks_Boxes_002 p=471.846,59.805,562.812 r=4.5,339.3,326.3
+item=GEAR_DoubleBarrelAmmoBoxBirdshot id=PV_Wrecks_Boxes_003 p=745.096,116.792,1564.796 r=354.2,359.4,18.8
+item=GEAR_DoubleBarrelAmmoBoxSlug id=PV_Wrecks_Boxes_004 p=1946.743,45.548,1249.545 r=354.2,312.1,343.9
 
 group=PV_Wrecks_Singles scene=RuralRegion low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=646.9,140.865,2277.7 r=18.9,128.9,83.2
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=471.346,59.74,562.812 r=14,140,117
-item=GEAR_DoubleBarrelAmmoSingleSlug p=743.896,116.91,1564.796 r=8.3,241,92.6
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=1946.593,45.428,1249.995 r=355.7,140,90.5
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=PV_Wrecks_Singles_001 p=646.9,140.865,2277.7 r=18.9,128.9,83.2
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=PV_Wrecks_Singles_002 p=471.346,59.74,562.812 r=14,140,117
+item=GEAR_DoubleBarrelAmmoSingleSlug id=PV_Wrecks_Singles_003 p=743.896,116.91,1564.796 r=8.3,241,92.6
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=PV_Wrecks_Singles_004 p=1946.593,45.428,1249.995 r=355.7,140,90.5
 
 group=PV_Store scene=RuralStoreA low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=1.5,1.208,-4.1 r=0,100,90
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-0.5,1.004,-7.6 r=0,85,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=PV_Store_001 p=1.5,1.208,-4.1 r=0,100,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=PV_Store_002 p=-0.5,1.004,-7.6 r=0,85,90
 
 group=SHA scene=SafeHouseA low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-1.737,0.01,6.73 r=6.3,29.9,88.9
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-4.678,0.001,5.12 r=0,120,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=SHA_001 p=-1.737,0.01,6.73 r=6.3,29.9,88.9
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=SHA_002 p=-4.678,0.001,5.12 r=0,120,90
 
 group=BR_Yard_Boxes scene=TracksRegion low=0 medium=1 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=578.45,199.018,562.75 r=0,95,0
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=BR_Yard_Boxes_001 p=578.45,199.018,562.75 r=0,95,0
 
 group=BR_Yard_Singles scene=TracksRegion low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=586.15,200.255,561 r=0,30,0
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=581.634,200.017,564.447 r=0,200,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=BR_Yard_Singles_001 p=586.15,200.255,561 r=0,30,0
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=BR_Yard_Singles_002 p=581.634,200.017,564.447 r=0,200,90
 
 group=DP_Riken_Boxes scene=WhalingShipA low=0 medium=0 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=-1.802,1.94,-14.461 r=355.3,19.5,13.2
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=DP_Riken_Boxes_001 p=-1.802,1.94,-14.461 r=355.3,19.5,13.2
 
 group=DP_Riken_Singles scene=WhalingShipA low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-2.131,2.24,-14.501 r=346.2,100.3,87.5
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-2.245,5.666,-9.74 r=352.7,78.8,92.2
-item=GEAR_DoubleBarrelAmmoSingleSlug p=-2.055,5.704,-9.751 r=355,120.4,80.7
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=DP_Riken_Singles_001 p=-2.131,2.24,-14.501 r=346.2,100.3,87.5
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=DP_Riken_Singles_002 p=-2.245,5.666,-9.74 r=352.7,78.8,92.2
+item=GEAR_DoubleBarrelAmmoSingleSlug id=DP_Riken_Singles_003 p=-2.055,5.704,-9.751 r=355,120.4,80.7
 
 group=DP_Shore_Boxes scene=WhalingStationRegion low=0 medium=0 high=0 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=807.062,16.723,1030.954 r=25.3,41.7,7.7
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=DP_Shore_Boxes_001 p=807.062,16.723,1030.954 r=25.3,41.7,7.7
 
 group=DP_Shore_Singles scene=WhalingStationRegion low=0 medium=2 high=3 veryhigh=3
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=807,16.055,1032.6 r=1.6,120.3,112.5
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=926.6,16.507,1052.6 r=4.7,150.2,94.5
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=928.1,16.206,1050.9 r=1.4,29.8,73.7
-item=GEAR_DoubleBarrelAmmoSingleSlug p=1084.6,16.471,758.9 r=5.1,59.7,82.9
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=1083,16.767,758.8 r=0.7,170.1,98.9
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=DP_Shore_Singles_001 p=807,16.055,1032.6 r=1.6,120.3,112.5
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=DP_Shore_Singles_002 p=926.6,16.507,1052.6 r=4.7,150.2,94.5
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=DP_Shore_Singles_003 p=928.1,16.206,1050.9 r=1.4,29.8,73.7
+item=GEAR_DoubleBarrelAmmoSingleSlug id=DP_Shore_Singles_004 p=1084.6,16.471,758.9 r=5.1,59.7,82.9
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=DP_Shore_Singles_005 p=1083,16.767,758.8 r=0.7,170.1,98.9
 
 group=DP_Warehouse_Boxes scene=WhalingWarehouseA low=0 medium=0 high=1 veryhigh=1
-item=GEAR_DoubleBarrelAmmoBoxBuckshot p=-9.6,1.047,-19.3 r=0,80,0
+item=GEAR_DoubleBarrelAmmoBoxBuckshot id=DP_Warehouse_Boxes_001 p=-9.6,1.047,-19.3 r=0,80,0
 
 group=DP_Warehouse_Singles scene=WhalingWarehouseA low=0 medium=2 high=2 veryhigh=3
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-9.2,0.352,-19.6 r=359.2,20,92.2
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-7.9,4.852,-13.85 r=2.2,60,89.9
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-1.375,4.016,-12.609 r=0,313,91
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=DP_Warehouse_Singles_001 p=-9.2,0.352,-19.6 r=359.2,20,92.2
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=DP_Warehouse_Singles_002 p=-7.9,4.852,-13.85 r=2.2,60,89.9
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=DP_Warehouse_Singles_003 p=-1.375,4.016,-12.609 r=0,313,91
 
 group=WCA scene=WoodCabinA low=0 medium=1 high=2 veryhigh=2
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=1.624,0.493,0.075 r=0,39.9,90
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-2.065,0.046,-2.095 r=0,120,90
-item=GEAR_DoubleBarrelAmmoSingleSlug p=-1,0.895,-3.45 r=0,80,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=WCA_001 p=1.624,0.493,0.075 r=0,39.9,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=WCA_002 p=-2.065,0.046,-2.095 r=0,120,90
+item=GEAR_DoubleBarrelAmmoSingleSlug id=WCA_003 p=-1,0.895,-3.45 r=0,80,90
 
 group=WCC scene=WoodCabinC low=0 medium=1 high=2 veryhigh=3
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-3.725,0.207,1.439 r=8.3,71.1,104.8
-item=GEAR_DoubleBarrelAmmoSingleSlug p=-5.928,1.286,-1.781 r=0,10,90
-item=GEAR_DoubleBarrelAmmoSingleBuckshot p=-3.721,0.192,1.558 r=0,120,90
-item=GEAR_DoubleBarrelAmmoSingleBirdshot p=-2.545,0.089,-1.675 r=0,160,56.4
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=WCC_001 p=-3.725,0.207,1.439 r=8.3,71.1,104.8
+item=GEAR_DoubleBarrelAmmoSingleSlug id=WCC_002 p=-5.928,1.286,-1.781 r=0,10,90
+item=GEAR_DoubleBarrelAmmoSingleBuckshot id=WCC_003 p=-3.721,0.192,1.558 r=0,120,90
+item=GEAR_DoubleBarrelAmmoSingleBirdshot id=WCC_004 p=-2.545,0.089,-1.675 r=0,160,56.4
