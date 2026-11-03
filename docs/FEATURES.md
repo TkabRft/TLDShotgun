@@ -33,7 +33,7 @@ Paths below are relative to the mod root.
 | Aim transitions, missed completion events and own weapon sounds | [Weapon animation and audio](WEAPON-ANIMATION-AUDIO.md), `Main/ShotgunAim.cs`, `Main/ShotgunAudio.cs` |
 | Walking/aiming and touchpad radial behavior also reported on vanilla items | [Shared input observations](VANILLA-INPUT-ISSUES.md) |
 | Availability, custom difficulty, persistence | `Main/ShotgunAvailability.cs`, `Main/ShotgunAvailabilityPatches.cs` |
-| Spawn parsing and group selection | `Main/GroupSpawner.cs`, `Spawns/groupspawns.txt` |
+| Spawn parsing, permanent IDs, saved group quotas and migration | [Restoration persistence](RESTORATION.md#persistence), `Main/GroupSpawner.cs`, `Main/SpawnLedger.cs`, `Spawns/groupspawns.txt` |
 | Shotgun/Rifle skill source, per-shell experience, firing wear and initial condition | [Skills and condition](SKILLS-AND-CONDITION.md), `Main/ShotgunSkillProgression.cs`, `Main/ShotgunShot.cs`, `Main/ShotgunCondition.cs` |
 | Optional FiligranisSkills registration and skill artwork/books | `Main/ShotgunSkill.cs` |
 | Deferred skill-based casing recovery and animation feasibility | [Casing recovery research](CASING-RECOVERY-DESIGN.md) |
@@ -68,4 +68,7 @@ This is an explicit diagnostic C# build; it does not refresh a playable Release.
 
 C# compilation alone does not regenerate bundles or the `.modcomponent`. The full template-based UnityPy pipeline consumes `unity/SourceArt/no-unity-build.json` and the authored GLB/PNG inputs, validates the catalog/CRC and all bundle references, and verifies the exact embedded package after compilation. Existing shaders, controllers, clips and sound banks remain in the compatible template. TLDShotgun embeds its six PCM16 WAV resources separately and creates verified clips in memory through `Main/EmbeddedAudio.cs`; it does not extract sound files or fall back to bundled FSB clips. Game acceptance remains separate; name the focused game checks. Documentation-only edits need neither compilation nor a local release.
 
-code-synced: 2026-11-01
+The focused production-source spawn harness and its portable command are described
+under [restoration persistence](RESTORATION.md#focused-regression-harness).
+
+code-synced: 2026-11-03

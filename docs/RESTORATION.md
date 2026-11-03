@@ -63,15 +63,112 @@ The shotgun receives a `Millable` component configured for Gunsmithing. Recover 
 
 ## Persistence
 
-`ShotgunSpawnPolicy` snapshots the current save's existing scene keys using `SaveGameSlots.GetSceneKeysForCurrentSaveSlot`. Previously saved areas keep the legacy group-selection path and their serialized gear. New areas record their selected gun locations and empty/usable/ruined outcomes. Settings changes apply only to subsequently unvisited areas.
+code-synced: 2026-11-03
 
-The existing ModData namespace remains `Shotgun`. The new suffix is `ShotgunSpawnOutcomesV1`, with version 1 state containing `LegacyScenes`, `Selections`, and `Outcomes`. Selection/outcome records are saved with the normal slot save. Seeded outcome rolls use a separate key from group selection, leaving other groups' RNG unchanged. Cached records and scene-attempt guards reset on save restoration/menu entry; scene attempts clear on unload. Repeated quality-setting callbacks cannot duplicate the same successful spawn in a loaded scene.
+`SpawnLedger` records placement decisions for all groups: complete shotguns, parts
+and grouped ammunition. Native scene/inventory serialization owns actual gear,
+including its GUID, position, condition and loaded ammunition. The mod does not
+generate deterministic object GUIDs or replace native save/load methods. Scenes
+already present in `SaveGameSlots.GetSceneKeysForCurrentSaveSlot`, or processed in
+the ledger/current session, receive no additional group filling. Fixed ModComponent
+spawns remain under that framework's existing rules.
 
-Unavailable or malformed scene/state information falls back to legacy spawning for that load and logs the reason. It does not rewrite or delete saves.
+Each member in `Spawns/groupspawns.txt` has a mandatory permanent `id=`. Keep group
+names and IDs unchanged when correcting coordinates or rotation. Never reuse a
+retired ID for another prefab/group. Parsing rejects missing/duplicate IDs,
+repeated groups, unknown lines/fields and malformed vectors/counts. Persisted
+identity records also detect prefab/group reuse and ID case changes.
+
+### Quotas and pool updates
+
+Each group records its initial resource-level quota, processed IDs/outcomes,
+pending selections and a roster fingerprint. Complete-gun capacity is one slot,
+or two at Very High, with current usable/ruined eligibility controlling whether
+unprocessed slots are selected. Other groups use their original count table.
+Their capacity is fixed for that save; future count-table edits do not silently
+increase an existing group's quota. New independent groups receive their own
+capacity and can fill only unvisited scenes.
+
+Empty outcomes spend a selected slot. Removing a processed point, picking up its
+gear or changing chance settings never refunds it. Unchanged pools retain their
+pending choices. Changed membership, scene assignment or region availability
+reselects only the remaining capacity from unvisited, unprocessed candidates.
+Canonical ordinal ID ordering removes dependence on text-line order; coordinates
+and rotation are excluded from the fingerprint. Removed groups retain spent
+slots and identity tombstones; reintroduced groups exclude scenes visited while
+they were absent. Outcome chances are sampled when the new scene is planned.
+
+The original FNV seed and seeded `System.Random` selection algorithm are retained.
+Gun outcome RNG uses a separate stable-ID salt. The immutable migration snapshot's
+IDs follow its original order, preserving its initial selection sequence.
+
+### V1 migration and failure handling
+
+The ModData namespace remains `Shotgun`. `ShotgunSpawnStateV2` stores version 2
+with `VisitedScenes`, `Groups` and retained `Identities`. Group entries contain
+`Quota`, `Fingerprint`, `Processed` and `Pending`; reservations retain their scene
+as well as ID. `ShotgunSpawnOutcomesV1` and `ShotgunsInWorld` retain their names.
+The spawn migration never writes or removes V1. Existing V2 takes priority and
+does not import V1 again, including if an obsolete V1 record is malformed.
+
+The frozen `Spawns/legacy-v1-groupspawns.txt` contains all 110 groups/283 original
+points, their order/counts/transforms and permanent IDs. Its normalized UTF-8
+SHA-256 is checked before use. It defines the exact old coordinate-key-to-ID map;
+do not update it when editing current spawns. Historical alias collisions fail
+validation rather than choosing an arbitrary member.
+
+V1 selections and outcomes are authoritative, including empty selections and
+empty outcomes. Unrecognized old selected keys become retained historical
+tombstones and spend quota. For missing history, replay the frozen pool with the
+save's seed/resource level and currently available regions, charging selected
+points in previously saved scenes. Reconstruction cannot recover a past region
+list or earlier settings; it may differ from actual historical finds. It never
+edits already saved gear or attempts to infer origin from the current inventory.
+
+Writes occur only on the existing normal slot-save hook. Failed ModData writes
+are reported, retain in-memory decisions and retry on the next normal save. A
+native saved scene ahead of the ledger consumes its pending reservations without
+refilling them. Native saves and ModData writes are not an atomic transaction;
+complete loss of unwritten history still has the reconstruction limitation above.
+
+Malformed, incomplete or unsupported state disables group injection for that
+save load and preserves stored data. There is no legacy-spawn fallback. Missing
+slot/scene information, an unloaded ModData cache, an unready catalog or missing
+prefab defers work without committing an empty scene. Because ModData 1.5.5 returns
+null both for an unloaded cache and an absent key, a narrow read-only readiness
+check inspects its existing `cacheLoaded` field before reading keys. Unsupported
+readiness metadata fails closed. Custom-game availability is loaded before rolls.
+
+Deferred work runs from the existing main-thread update, scoped to the active
+scene and save. Reset/menu entry, slot switches and unload cancel stale requests.
+Plans and successful-attempt guards prevent repeated quality callbacks or a
+partial native failure from rolling replacements in the loaded scene. Prefabs are
+preflighted before committing a scene; one Addressables ownership handle per
+successful prefab remains for process lifetime to support manual instances.
+
+### Focused regression harness
+
+From the repository root:
+
+```text
+dotnet run --project Tests/SpawnCompatibility.csproj -c Release -- .
+```
+
+The dependency-free .NET 6 harness links production parsing, ledger, migration and
+runtime-policy code. Only Unity/game/ModData boundaries are stand-ins. It seals
+the legacy snapshot, checks current IDs/counts/transforms and ammo order, and
+exercises pool edits, quotas, V1/V2 state, bans, readiness, retries and slot changes.
+It does not execute native scene deserialization or establish in-game acceptance.
 
 ## Pending game checks
 
 Check old visited areas, unvisited areas, all resource levels, chance endpoints, disabled finds, bans, optional-region absence, save switching, repeated quality-setting calls, and pickup/revisit behavior. Verify zero-condition items remain present and unfireable, retain their state through save/load, appear in the milling UI, consume the selected recovery materials, and become usable afterward.
+
+Across an actual version upgrade, repeat with picked-up, left, moved and dismantled
+group loot; loaded and restored shotguns; an already consumed empty slot; and a
+changed optional-region list. Confirm existing gear is restored by the game,
+visited scenes receive no group refill, and only remaining quotas can populate
+unvisited scenes. Check V1-to-V2 and a subsequent V2-to-V2 update separately.
 
 Check inventory Use/Actions, radial and rifle-cycle selection, cleaning with and
 without a kit, kit wear, full-condition/ruined eligibility, and harvesting loaded

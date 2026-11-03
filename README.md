@@ -52,6 +52,10 @@ Without a separate Shotgun skill, **Use Rifle Skill Without Shotgun Skill** is o
 
 Usable and ruined shotguns share the existing complete-gun locations. Mod Settings independently control each type's availability, chance, and minimum resource level. Defaults are 50% usable at High or above, and 50% ruined at Medium or above. Blocked chances remain empty: on Medium the default is 50% ruined and 50% empty. Previously visited areas retain their saved finds.
 
+Updates can change future finds in unexplored areas within each group's remaining allowance. This applies to grouped shotguns, parts and ammunition. A processed location spends its allowance even when its result is empty; picking up, moving or dismantling its loot does not create a replacement. Chance and eligibility settings affect newly explored areas. Existing fixed finds retain their usual placement rules.
+
+When upgrading from a version without complete spawn history, remaining allowances are reconstructed from the earlier placement rules. A different region-mod list or earlier settings can make that estimate differ from the actual past finds. Saved items keep the game's normal condition, ammunition and placement persistence.
+
 New usable finds use the rifle's random starting-condition behavior. Existing saved shotguns retain their condition; ruined finds remain unloaded at 0%.
 
 Restore a ruined shotgun at a milling machine with **4 scrap metal and 1 fir firewood**, taking **three base hours**, subject to normal milling-machine requirements and skill rules.
