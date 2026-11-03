@@ -1,4 +1,4 @@
-using System.Globalization;
+using System.Reflection;
 using System.Text.Json;
 using HarmonyLib;
 using Il2Cpp;
@@ -9,74 +9,112 @@ namespace Shotgun
 {
     internal static class ShotgunSpawnPolicy
     {
-        internal enum Outcome { Empty, Usable, Ruined }
-        private const string SaveKey = "ShotgunSpawnOutcomesV1";
+        internal const string SaveKey = "ShotgunSpawnStateV2";
+        internal const string LegacySaveKey = "ShotgunSpawnOutcomesV1";
         private static readonly ModDataManager Data = new("Shotgun");
+        // ModData 1.5.5 returns null both for an absent key and an unloaded cache.
+        // Inspect readiness only; never initialize or modify its private cache.
+        private static readonly FieldInfo? CacheLoaded = typeof(ModDataManager).Assembly.GetType("ModData.ModDataCore")
+            ?.GetField("cacheLoaded", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
         private static string? loadedSave;
-        private static State? state;
-        private static HashSet<string> previousScenes = new(StringComparer.OrdinalIgnoreCase);
-
-        internal sealed class State
-        {
-            public State() { }
-            public int Version { get; set; } = 1;
-            public Dictionary<string, bool> LegacyScenes { get; set; } = new(StringComparer.OrdinalIgnoreCase);
-            public Dictionary<string, Outcome> Outcomes { get; set; } = new();
-            public Dictionary<string, List<string>> Selections { get; set; } = new(StringComparer.OrdinalIgnoreCase);
-        }
+        private static SpawnLedger.State? state;
+        private static bool blocked;
+        private static string? lastWarning;
+        private static readonly Dictionary<string, List<SpawnLedger.Placement>> plans = new(StringComparer.OrdinalIgnoreCase);
 
         internal static void Reset()
         {
-            loadedSave = null;
-            state = null;
-            previousScenes.Clear();
+            loadedSave = null; state = null; blocked = false; lastWarning = null; plans.Clear();
             ShotgunRestoration.Reset();
             GroupSpawner.ResetAttempts();
         }
 
-        private static bool EnsureState()
+        private static bool EnsureState(IReadOnlyList<GroupSpawner.Group> groups, IReadOnlyList<GroupSpawner.Group> baseline, string level)
         {
             string save = SaveGameSystem.GetCurrentSaveName();
             if (string.IsNullOrEmpty(save)) return false;
-            if (save == loadedSave) return state != null;
-            loadedSave = save;
-            state = null;
-            GroupSpawner.ResetAttempts();
+            if (save != loadedSave)
+            {
+                loadedSave = save; state = null; blocked = false; lastWarning = null; plans.Clear();
+            }
+            if (blocked) return false;
             try
             {
-                var sceneKeys = SaveGameSlots.GetSceneKeysForCurrentSaveSlot();
-                if (sceneKeys == null) throw new InvalidOperationException("Saved-scene keys are unavailable");
-                previousScenes = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-                foreach (string key in sceneKeys) previousScenes.Add(key);
-                string stored = Data.Load(SaveKey);
-                State candidate = string.IsNullOrEmpty(stored) ? new State() :
-                    JsonSerializer.Deserialize<State>(stored) ?? throw new InvalidOperationException("Empty spawn state");
-                if (candidate.Version != 1 || candidate.LegacyScenes == null || candidate.Outcomes == null || candidate.Selections == null)
-                    throw new InvalidOperationException("Unsupported or incomplete spawn state");
-                if (candidate.Selections.Values.Any(v => v == null) || candidate.Outcomes.Values.Any(v => !Enum.IsDefined(typeof(Outcome), v)))
-                    throw new InvalidOperationException("Invalid spawn selections or outcomes");
-                candidate.LegacyScenes = new(candidate.LegacyScenes, StringComparer.OrdinalIgnoreCase);
-                candidate.Selections = new(candidate.Selections, StringComparer.OrdinalIgnoreCase);
+                if (CacheLoaded == null || CacheLoaded.FieldType != typeof(bool))
+                    throw new InvalidDataException("ModData cache readiness API is unavailable");
+                if (CacheLoaded.GetValue(null) is not true) return false;
+                ShotgunAvailability.LoadOncePerSave();
+                if (state != null) return true;
+                var keys = SaveGameSlots.GetSceneKeysForCurrentSaveSlot();
+                if (keys == null) return false;
+                List<string> savedScenes = new();
+                foreach (string key in keys) savedScenes.Add(key);
+                string? stored = Data.Load(SaveKey);
+                SpawnLedger.State candidate;
+                if (stored != null) candidate = SpawnLedger.Read(stored);
+                else
+                {
+                    string? legacy = Data.Load(LegacySaveKey);
+                    candidate = SpawnLedger.Migrate(legacy, savedScenes, baseline, level, GroupSpawner.SceneInGame,
+                        GroupSpawner.RngFor, CandidateCount(level));
+                    if (savedScenes.Count > 0 || legacy != null)
+                        MelonLogger.Msg("Spawn V2 migration prepared: V1 decisions take priority; missing history reconstructed from the 0.13.5 pool, current resource level and available regions. Written on the next normal save.");
+                }
+                SpawnLedger.ReconcileSavedScenes(candidate, savedScenes);
+                SpawnLedger.Update(candidate, groups, level, GroupSpawner.SceneInGame, GroupSpawner.RngFor, CandidateCount(level));
                 state = candidate;
                 return true;
             }
+            catch (Exception e) when (e is InvalidDataException or JsonException or ArgumentException or InvalidOperationException)
+            {
+                Block(e.Message);
+                return false;
+            }
             catch (Exception e)
             {
-                MelonLogger.Warning($"Preserving legacy shotgun spawning for this load: {e.Message}");
+                Warn($"Spawn state is not ready; deferred without saving: {e.Message}");
                 return false;
             }
         }
 
-        internal static bool UseLegacy(string scene)
+        private static void Warn(string message)
         {
-            if (!EnsureState()) return true;
-            if (!state!.LegacyScenes.TryGetValue(scene, out bool legacy))
-                state.LegacyScenes[scene] = legacy = previousScenes.Contains(scene);
-            return legacy;
+            if (lastWarning != message) MelonLogger.Warning(message);
+            lastWarning = message;
         }
 
+        private static void Block(string reason)
+        {
+            state = null; plans.Clear(); blocked = true;
+            Warn($"Grouped shotgun spawns disabled for this save load; stored data preserved: {reason}");
+        }
+
+        internal static bool TryPlan(string scene, IReadOnlyList<GroupSpawner.Group> groups,
+            IReadOnlyList<GroupSpawner.Group> baseline, string level, out List<SpawnLedger.Placement> plan)
+        {
+            plan = new();
+            if (!EnsureState(groups, baseline, level)) return blocked;
+            if (plans.TryGetValue(scene, out var existing)) { plan = existing; return true; }
+            try
+            {
+                SpawnLedger.Update(state!, groups, level, GroupSpawner.SceneInGame, GroupSpawner.RngFor, CandidateCount(level));
+                plan = SpawnLedger.Plan(state!, groups, scene, (group, member) => ForMember(group, member, level));
+                plans.Add(scene, plan);
+                return true;
+            }
+            catch (Exception e) { Block(e.Message); return true; }
+        }
+
+        internal static void Commit(string scene, List<SpawnLedger.Placement> plan)
+        {
+            if (state != null && !blocked) SpawnLedger.Commit(state, scene, plan);
+        }
+
+        internal static void ForgetScene(string scene) => plans.Remove(scene);
+
         internal static int ResourceRank(string level) =>
-            Enum.TryParse(level, true, out ShotgunResourceLevel rank) ? (int)rank : (int)ShotgunResourceLevel.High;
+            Enum.TryParse(level, true, out ShotgunResourceLevel rank) && Enum.IsDefined(typeof(ShotgunResourceLevel), rank)
+                ? (int)rank : throw new InvalidDataException($"Unknown resource level {level}");
 
         internal static int CandidateCount(string level)
         {
@@ -87,45 +125,31 @@ namespace Shotgun
             return eligible ? (rank == (int)ShotgunResourceLevel.VeryHigh ? 2 : 1) : 0;
         }
 
-        internal static string MemberKey(string group, GroupSpawner.Member member) =>
-            $"{group}:{member.Scene}:{member.Prefab}:" +
-            member.Position.x.ToString("R", CultureInfo.InvariantCulture) + "," +
-            member.Position.y.ToString("R", CultureInfo.InvariantCulture) + "," +
-            member.Position.z.ToString("R", CultureInfo.InvariantCulture);
+        internal static SpawnLedger.Outcome Roll(int roll, int usable, int ruined) => roll < usable ? SpawnLedger.Outcome.Usable
+            : roll < usable + ruined ? SpawnLedger.Outcome.Ruined : SpawnLedger.Outcome.Empty;
 
-        internal static IEnumerable<GroupSpawner.Member> PickForScene(GroupSpawner.Group group, string scene, string level)
+        private static SpawnLedger.Outcome ForMember(string group, GroupSpawner.Member member, string level)
         {
-            if (!state!.Selections.TryGetValue(scene, out var selected))
-            {
-                selected = GroupSpawner.Pick(group, level, GroupSpawner.RngFor(group.Name), CandidateCount(level))
-                    .Where(m => string.Equals(m.Scene, scene, StringComparison.OrdinalIgnoreCase))
-                    .Select(m => MemberKey(group.Name, m)).ToList();
-                state.Selections.Add(scene, selected);
-                // Snapshot outcomes now, including empty/banned results. Later setting
-                // or optional-region changes must not add finds to this visited scene.
-                foreach (var member in group.Members.Where(m => selected.Contains(MemberKey(group.Name, m))))
-                    ForMember(group.Name, member, level);
-            }
-            return group.Members.Where(m => selected.Contains(MemberKey(group.Name, m)));
-        }
-
-        internal static Outcome Roll(int roll, int usable, int ruined) =>
-            roll < usable ? Outcome.Usable : roll < usable + ruined ? Outcome.Ruined : Outcome.Empty;
-
-        internal static Outcome ForMember(string group, GroupSpawner.Member member, string level)
-        {
-            if (state == null) return Outcome.Usable; // Only reached on the conservative legacy path.
-            string key = MemberKey(group, member);
-            if (state.Outcomes.TryGetValue(key, out Outcome previous)) return previous;
+            if (!ShotgunAvailability.AllowsWorldItems()) return SpawnLedger.Outcome.Empty;
+            if (!SpawnLedger.IsGun(group)) return SpawnLedger.Outcome.Usable;
             Settings s = Settings.Instance;
             s.ValidateSpawnChances();
             int rank = ResourceRank(level);
             int usable = s.SpawnUsableShotguns && rank >= (int)s.UsableShotgunMinimumResources ? s.UsableShotgunChance : 0;
             int ruined = s.SpawnRuinedShotguns && rank >= (int)s.RuinedShotgunMinimumResources ? s.RuinedShotgunChance : 0;
-            Outcome result = ShotgunAvailability.AllowsWorldItems()
-                ? Roll(GroupSpawner.RngFor("ShotgunOutcome:" + key).Next(100), usable, ruined) : Outcome.Empty;
-            state.Outcomes.Add(key, result);
-            return result;
+            return Roll(GroupSpawner.RngFor("ShotgunOutcome:" + member.Id).Next(100), usable, ruined);
+        }
+
+        internal static bool Save()
+        {
+            if (state == null || blocked || loadedSave != SaveGameSystem.GetCurrentSaveName()) return false;
+            try
+            {
+                if (Data.Save(JsonSerializer.Serialize(state), SaveKey)) return true;
+                Warn("Spawn V2 ModData write failed; decisions retained in memory and will retry on the next normal save.");
+            }
+            catch (Exception e) { Warn($"Spawn V2 ModData write failed; decisions retained for the next normal save: {e.Message}"); }
+            return false;
         }
 
         [HarmonyPatch(typeof(SaveGameSystem), nameof(SaveGameSystem.RestoreGame))]
@@ -137,11 +161,7 @@ namespace Shotgun
         [HarmonyPatch(typeof(SaveGameSlots), nameof(SaveGameSlots.WriteSlotToDisk), new[] { typeof(SlotData), typeof(SaveGameSlots.Timestamp) })]
         private static class SaveOutcomes
         {
-            private static void Prefix()
-            {
-                if (state != null && loadedSave == SaveGameSystem.GetCurrentSaveName())
-                    Data.Save(JsonSerializer.Serialize(state), SaveKey);
-            }
+            private static void Prefix() => Save();
         }
     }
 }

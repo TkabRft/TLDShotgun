@@ -1,10 +1,11 @@
 using System.Globalization;
 using System.Reflection;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.RegularExpressions;
 using HarmonyLib;
 using Il2Cpp;
 using Il2CppTLD.Gameplay;
-using Il2CppTLD.Gameplay.Tunable;
 using MelonLoader;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -16,30 +17,50 @@ namespace Shotgun
     internal static class GroupSpawner
     {
         internal sealed record Member(string Id, string Scene, string Prefab, Vector3 Position, Quaternion Rotation);
-
         internal sealed class Group
         {
             public string Name = "";
-            public string Scene;
+            public string? Scene;
             public Dictionary<string, int> Picks = new(StringComparer.OrdinalIgnoreCase);
             public List<Member> Members = new();
         }
 
+        internal const string BaselineHash = "6d45d47219273def9c7a2aeb7f629bdf8eb077ffdf55485b0b87e147564e972c";
         private static readonly Regex GroupLine = new(@"^group\s*=\s*(\w+)((?:\s+\w+\s*=\s*\w+)*)$", RegexOptions.IgnoreCase);
         private static readonly Regex Keys = new(@"(\w+)\s*=\s*(\w+)");
         private static readonly Regex ItemLine = new(@"^item\s*=\s*(\w+)\s+id\s*=\s*(\w+)(?:\s+scene\s*=\s*(\w+))?\s+p\s*=\s*([-\d.,\s]+?)\s+r\s*=\s*([-\d.,\s]+?)$", RegexOptions.IgnoreCase);
+        private static List<Group>? groups;
+        private static List<Group>? baseline;
+        private static readonly Dictionary<string, bool> scenes = new(StringComparer.OrdinalIgnoreCase);
+        // Keep one Addressables ownership handle per prefab for process lifetime, as
+        // manually instantiated gear may still use its assets after a scene transition.
+        private static readonly Dictionary<string, AsyncOperationHandle<GameObject>> prefabHandles = new(StringComparer.Ordinal);
+        private static readonly Dictionary<string, HashSet<string>> attempts = new(StringComparer.OrdinalIgnoreCase);
+        private static string? pendingScene;
+        private static string? pendingSave;
+        private static string? attemptSave;
+        private static float nextRetry;
+        private static string? lastWarning;
 
-        private static List<Group> sGroups;
+        internal static void SetGroups(IEnumerable<Group> source) => groups = source.ToList();
 
-        internal static void SetGroups(IEnumerable<Group> groups) => sGroups = groups.Where(g => g.Members.Count > 0).ToList();
+        private static string Resource(string name)
+        {
+            using Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(name)
+                ?? throw new InvalidDataException($"Missing spawn resource {name}");
+            using StreamReader reader = new(stream);
+            return reader.ReadToEnd();
+        }
 
         private static void EnsureLoaded()
         {
-            if (sGroups != null) return;
-            using Stream s = Assembly.GetExecutingAssembly().GetManifestResourceStream("Shotgun.groupspawns.txt");
-            if (s == null) { SetGroups(Array.Empty<Group>()); return; }
-            using StreamReader reader = new(s);
-            SetGroups(Parse(reader.ReadToEnd()));
+            if (groups == null) groups = Parse(Resource("Shotgun.groupspawns.txt"));
+            if (baseline != null) return;
+            string snapshot = Resource("Shotgun.legacy-v1-groupspawns.txt").Replace("\r\n", "\n");
+            if (Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(snapshot))).ToLowerInvariant() != BaselineHash)
+                throw new InvalidDataException("The immutable V1 spawn snapshot has changed");
+            baseline = Parse(snapshot);
+            SpawnLedger.LegacyAliases(baseline);
         }
 
         internal static List<Group> Parse(string text)
@@ -99,65 +120,49 @@ namespace Shotgun
             return new Vector3(v[0], v[1], v[2]);
         }
 
-        internal static string CurrentLevel()
+        internal static string? CurrentLevel()
         {
-            try
-            {
-                if (ExperienceModeManager.GetCurrentExperienceModeType() == ExperienceModeType.Custom)
-                {
-                    CustomExperienceMode custom = GameManager.GetCustomMode();
-                    if (custom != null) return custom.m_BaseResourceAvailability.ToString();
-                }
-                ExperienceMode mode = ExperienceModeManager.Instance?.GetCurrentExperienceMode();
-                if (mode != null) return mode.m_BaseResourceAvailability.ToString();
-            }
-            catch (Exception e)
-            {
-                MelonLogger.Warning($"GroupSpawner: resource level unavailable ({e.Message}), using High");
-            }
-            return CustomTunableLMHV.High.ToString();
+            if (ExperienceModeManager.GetCurrentExperienceModeType() == ExperienceModeType.Custom)
+                return GameManager.GetCustomMode()?.m_BaseResourceAvailability.ToString();
+            return ExperienceModeManager.Instance?.GetCurrentExperienceMode()?.m_BaseResourceAvailability.ToString();
         }
 
-        internal static int PicksFor(Group g, string level) =>
-            g.Picks.TryGetValue(level, out int n) || g.Picks.TryGetValue("default", out n) ? n : 0;
+        internal static int PicksFor(Group group, string level) =>
+            group.Picks.TryGetValue(level, out int n) || group.Picks.TryGetValue("default", out n) ? n : 0;
 
-        internal static string GameKey()
+        internal static string GameKey() => $"{GameManager.m_SceneTransitionData!.m_GameRandomSeed}:{SaveGameSystem.m_CurrentGameId}";
+
+        internal static System.Random RngFor(string name)
         {
-            int seed = GameManager.m_SceneTransitionData != null ? GameManager.m_SceneTransitionData.m_GameRandomSeed : 0;
-            return $"{seed}:{SaveGameSystem.m_CurrentGameId}";
+            uint hash = 2166136261;
+            foreach (char c in GameKey() + ":" + name.ToLowerInvariant()) hash = unchecked((hash ^ c) * 16777619);
+            return new System.Random(unchecked((int)hash));
         }
-
-        internal static System.Random RngFor(string groupName)
-        {
-            uint h = 2166136261;
-            foreach (char c in GameKey() + ":" + groupName.ToLowerInvariant()) h = (h ^ c) * 16777619;
-            return new System.Random((int)h);
-        }
-
-        private static readonly HashSet<string> sScenesInGame = new(StringComparer.OrdinalIgnoreCase);
-        private static readonly HashSet<string> sScenesReported = new(StringComparer.OrdinalIgnoreCase);
 
         internal static bool SceneInGame(string scene)
         {
-            if (sScenesInGame.Contains(scene)) return true;
+            if (scenes.TryGetValue(scene, out bool cached)) return cached;
             AsyncOperationHandle<Il2CppSystem.Collections.Generic.IList<IResourceLocation>> locations = Addressables.LoadResourceLocationsAsync(scene, null);
-            bool found = locations.WaitForCompletion()?.Cast<Il2CppSystem.Collections.Generic.ICollection<IResourceLocation>>().Count > 0;
-            Addressables.Release(locations);
-            if (found)
+            bool found;
+            try
             {
-                sScenesInGame.Add(scene);
-                return true;
+                var result = locations.WaitForCompletion();
+                if (locations.Status != AsyncOperationStatus.Succeeded || result == null)
+                    throw new IOException($"Scene catalog lookup not ready: {scene}");
+                found = result.Cast<Il2CppSystem.Collections.Generic.ICollection<IResourceLocation>>().Count > 0;
             }
-            if (sScenesReported.Add(scene)) MelonLogger.Msg($"GroupSpawner: {scene} is not in this game (mod not installed?), left out of the spawn pools");
-            return false;
+            catch (Exception e) { throw new IOException($"Scene catalog lookup deferred: {scene}", e); }
+            finally { Addressables.Release(locations); }
+            scenes.Add(scene, found);
+            if (!found) MelonLogger.Msg($"GroupSpawner: {scene} is absent; excluded from available spawn pools");
+            return found;
         }
 
-        internal static List<Member> Pick(Group g, string level, System.Random rng, int? requestedCount = null)
+        internal static List<Member> Pick(IEnumerable<Member> source, int count, System.Random rng)
         {
-            List<Member> pool = g.Members.Where(m => SceneInGame(m.Scene)).ToList();
+            List<Member> pool = source.ToList();
             List<Member> picked = new();
-            int count = Math.Min(requestedCount ?? PicksFor(g, level), pool.Count);
-            for (int i = 0; i < count; i++)
+            for (int i = 0, n = Math.Min(count, pool.Count); i < n; i++)
             {
                 int index = rng.Next(pool.Count);
                 picked.Add(pool[index]);
@@ -166,43 +171,96 @@ namespace Shotgun
             return picked;
         }
 
-        internal static List<Member> PickedForThisGame(Group g) => Pick(g, CurrentLevel(), RngFor(g.Name));
-
-        private static readonly Dictionary<string, HashSet<string>> sAttempts = new(StringComparer.OrdinalIgnoreCase);
-        internal static void ResetAttempts() => sAttempts.Clear();
-        internal static void ForgetScene(string scene) => sAttempts.Remove(scene);
-
-        private static void SpawnScene(string scene)
+        internal static void ResetAttempts()
         {
-            EnsureLoaded();
-            string level = CurrentLevel();
-            // Initialize the saved-scene policy before taking a reference to the attempts
-            // set: changing saves clears the sets as part of policy initialization.
-            bool legacy = ShotgunSpawnPolicy.UseLegacy(scene);
-            if (!sAttempts.TryGetValue(scene, out var attempts)) sAttempts[scene] = attempts = new();
-            foreach (Group g in sGroups)
+            attempts.Clear(); scenes.Clear(); pendingScene = pendingSave = attemptSave = lastWarning = null; nextRetry = 0;
+        }
+
+        internal static void ForgetScene(string scene)
+        {
+            attempts.Remove(scene);
+            ShotgunSpawnPolicy.ForgetScene(scene);
+            if (string.Equals(scene, pendingScene, StringComparison.OrdinalIgnoreCase)) pendingScene = pendingSave = null;
+        }
+
+        internal static void RequestScene(string scene)
+        {
+            if (scene is "" or "MainMenu" or "Boot" or "Empty") return;
+            string save = SaveGameSystem.GetCurrentSaveName();
+            if (attemptSave != save) { ResetAttempts(); attemptSave = save; }
+            pendingScene = scene;
+            pendingSave = save;
+            nextRetry = 0;
+            Tick();
+        }
+
+        // Deferred work is only for the active scene/slot and runs on the Unity thread.
+        internal static void Tick()
+        {
+            if (pendingScene == null || Time.realtimeSinceStartup < nextRetry) return;
+            string scene = pendingScene;
+            string save = SaveGameSystem.GetCurrentSaveName();
+            if (string.IsNullOrEmpty(pendingSave) && !string.IsNullOrEmpty(save)) pendingSave = attemptSave = save;
+            if (scene != GameManager.m_ActiveScene || pendingSave != save)
+            { pendingScene = pendingSave = null; return; }
+            nextRetry = Time.realtimeSinceStartup + 1f;
+            try
             {
-                if (!g.Members.Any(m => string.Equals(m.Scene, scene, StringComparison.OrdinalIgnoreCase))) continue;
-                bool gunGroup = g.Name == "SG_Shotgun";
-                IEnumerable<Member> selected = gunGroup && !legacy ? ShotgunSpawnPolicy.PickForScene(g, scene, level)
-                    : Pick(g, level, RngFor(g.Name)).Where(m => string.Equals(m.Scene, scene, StringComparison.OrdinalIgnoreCase));
-                foreach (Member m in selected)
+                if (!ModComponent.Public.IsReady() || GameManager.m_SceneTransitionData == null
+                    || ExperienceModeManager.s_CurrentGameMode?.m_ActiveTags == null) return;
+                string? level = CurrentLevel();
+                if (level == null) return;
+                EnsureLoaded();
+                if (!ShotgunSpawnPolicy.TryPlan(scene, groups!, baseline!, level, out var plan)) return;
+                if (!attempts.TryGetValue(scene, out var done)) attempts[scene] = done = new(StringComparer.Ordinal);
+                Dictionary<string, GameObject> prefabs = new(StringComparer.Ordinal);
+                foreach (var placement in plan.Where(p => p.Outcome != SpawnLedger.Outcome.Empty && !done.Contains(p.Member.Id)))
                 {
-                    string key = ShotgunSpawnPolicy.MemberKey(g.Name, m);
-                    if (attempts.Contains(key)) continue;
-                    ShotgunSpawnPolicy.Outcome outcome = gunGroup && !legacy
-                        ? ShotgunSpawnPolicy.ForMember(g.Name, m, level) : ShotgunSpawnPolicy.Outcome.Usable;
-                    if (outcome == ShotgunSpawnPolicy.Outcome.Empty) { attempts.Add(key); continue; }
-                    if (!ShotgunAvailability.AllowsWorldItems()) continue;
-                    GameObject prefab = Addressables.LoadAssetAsync<GameObject>(m.Prefab).WaitForCompletion();
-                    if (prefab == null) { MelonLogger.Warning($"GroupSpawner: no prefab {m.Prefab}"); continue; }
-                    GameObject gear = UnityEngine.Object.Instantiate(prefab, m.Position, m.Rotation);
-                    gear.name = prefab.name;
-                    if (outcome == ShotgunSpawnPolicy.Outcome.Ruined) ShotgunRestoration.MarkRuined(gear);
-                    DisableObjectForXPMode xp = gear.GetComponent<DisableObjectForXPMode>();
-                    if (xp != null) UnityEngine.Object.Destroy(xp);
-                    attempts.Add(key);
+                    if (prefabs.ContainsKey(placement.Member.Prefab)) continue;
+                    string address = placement.Member.Prefab;
+                    if (!prefabHandles.TryGetValue(address, out var handle))
+                    {
+                        handle = Addressables.LoadAssetAsync<GameObject>(address);
+                        try
+                        {
+                            if (handle.WaitForCompletion() == null || handle.Status != AsyncOperationStatus.Succeeded)
+                                throw new IOException($"Missing spawn prefab {address}; scene decision deferred");
+                            prefabHandles.Add(address, handle);
+                        }
+                        catch { Addressables.Release(handle); throw; }
+                    }
+                    GameObject prefab = handle.WaitForCompletion();
+                    prefabs.Add(placement.Member.Prefab, prefab);
                 }
+                ShotgunSpawnPolicy.Commit(scene, plan);
+                foreach (var placement in plan)
+                {
+                    Member member = placement.Member;
+                    if (done.Contains(member.Id)) continue;
+                    if (placement.Outcome != SpawnLedger.Outcome.Empty)
+                    {
+                        GameObject? gear = null;
+                        try
+                        {
+                            GameObject prefab = prefabs[member.Prefab];
+                            gear = UnityEngine.Object.Instantiate(prefab, member.Position, member.Rotation);
+                            gear.name = prefab.name;
+                            if (placement.Outcome == SpawnLedger.Outcome.Ruined) ShotgunRestoration.MarkRuined(gear);
+                            DisableObjectForXPMode xp = gear.GetComponent<DisableObjectForXPMode>();
+                            if (xp != null) UnityEngine.Object.Destroy(xp);
+                        }
+                        catch { if (gear != null) UnityEngine.Object.Destroy(gear); throw; }
+                    }
+                    done.Add(member.Id);
+                }
+                ShotgunSpawnPolicy.ForgetScene(scene);
+                pendingScene = pendingSave = lastWarning = null;
+            }
+            catch (Exception e)
+            {
+                // Retry the same plan, never a replacement after partial success.
+                if (lastWarning != e.Message) MelonLogger.Warning($"GroupSpawner: {scene}: {e.Message}");
+                lastWarning = e.Message;
             }
         }
 
@@ -212,9 +270,7 @@ namespace Shotgun
             private static void Prefix()
             {
                 string scene = GameManager.m_ActiveScene;
-                if (scene is null or "" or "MainMenu" or "Boot" or "Empty") return;
-                try { SpawnScene(scene); }
-                catch (Exception e) { MelonLogger.Error($"GroupSpawner: {scene}: {e}"); }
+                if (!string.IsNullOrEmpty(scene)) RequestScene(scene);
             }
         }
     }

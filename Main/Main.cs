@@ -72,6 +72,7 @@ namespace Shotgun
         public override void OnUpdate()
         {
             EmbeddedAssetPackage.Update();
+            GroupSpawner.Tick();
             ShotgunAudio.Tick();
         }
 
