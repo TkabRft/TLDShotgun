@@ -260,6 +260,66 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 434a5f538529592d9529531dfecbed12
+    m_Address: ico_CraftItem__DoubleBarrelAmmoSingleSlug
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 74e6b801eee550c7a7d82873902a7b54
+    m_Address: ico_CraftingPreview__DoubleBarrelAmmoSingleSlug
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c0d1d24057ed5a0f826a9c541b18b6a0
+    m_Address: ico_CraftItem__DoubleBarrelAmmoSingleBuckshot
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 00121f0a521a5563a94bc6477dd602cc
+    m_Address: ico_CraftingPreview__DoubleBarrelAmmoSingleBuckshot
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c66f1cbc34fa5d5a9017252dabffd894
+    m_Address: ico_CraftItem__DoubleBarrelAmmoSingleBirdshot
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ae5290c86e615d9f8a136dd0b753a5ce
+    m_Address: ico_CraftingPreview__DoubleBarrelAmmoSingleBirdshot
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c37f3a82ef735453b30216db5155c893
+    m_Address: ico_CraftItem__DoubleBarrelAmmoSingleScrapshot
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3ea0022ab0105f6b8907bdf0d36c66db
+    m_Address: ico_CraftingPreview__DoubleBarrelAmmoSingleScrapshot
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f7040b0233055c54849fac349c67ce22
+    m_Address: ico_CraftItem__DoubleBarrelAmmoCasing
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e8369f5949ac558a86b19b9be7fff2d8
+    m_Address: ico_CraftItem__DoubleBarrelLeadBuckshot
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ebd0d8de2d6758ab8ac664baa2c278d2
+    m_Address: ico_CraftItem__DoubleBarrelLeadBirdshot
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f47c9ef8c16f5b0aa856215105e65158
+    m_Address: ico_CraftItem__DoubleBarrelScrapBuckshot
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: cffdf2c850ccb174f9f523e067e86409, type: 2}
   m_SchemaSet:

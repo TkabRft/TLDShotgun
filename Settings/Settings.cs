@@ -7,6 +7,7 @@ using System.Reflection;
 namespace Shotgun
 {
     internal enum ShotgunResourceLevel { Low, Medium, High, VeryHigh }
+    internal enum ShellConditionControls { Collapsed, Expanded }
 
     internal class Settings : JsonModSettings
     {
@@ -47,6 +48,31 @@ namespace Shotgun
         [Name("Allow Lead Shotgun Shells At Workbenches")]
         [Description("Adds workbench alternatives for slugs, buckshot, and birdshot. Vanilla rifle/revolver cartridges are unchanged. Takes effect on the next game load. Default: Off")]
         public bool AllowLeadShellsAtWorkbench = false;
+
+        [Section("Crafted Shell Condition")]
+        [Name("Gunsmithing Condition Controls")]
+        [Description("Expand to adjust the condition of newly crafted shotgun ammunition at each Gunsmithing level. Changes apply to subsequent completed shells.")]
+        public ShellConditionControls ShellConditionDisplay = ShellConditionControls.Collapsed;
+
+        [Name("Gunsmithing Level 1 Condition (%)")]
+        [Slider(0, 100, 101)]
+        public int ShellConditionLevel1 = 40;
+
+        [Name("Gunsmithing Level 2 Condition (%)")]
+        [Slider(0, 100, 101)]
+        public int ShellConditionLevel2 = 60;
+
+        [Name("Gunsmithing Level 3 Condition (%)")]
+        [Slider(0, 100, 101)]
+        public int ShellConditionLevel3 = 80;
+
+        [Name("Gunsmithing Level 4 Condition (%)")]
+        [Slider(0, 100, 101)]
+        public int ShellConditionLevel4 = 100;
+
+        [Name("Gunsmithing Level 5 Condition (%)")]
+        [Slider(0, 100, 101)]
+        public int ShellConditionLevel5 = 100;
 
         [Section("Shotgun Finds")]
         [Name("Spawn Usable Shotguns")]
@@ -359,19 +385,22 @@ namespace Shotgun
             Instance = this;
             ValidateSpawnChances();
             AddToModSettings("Shotgun");
-            if (ShotgunBalanceDefaults.Upgrade(ref SlugBaseDamage, ref WildlifeBalanceRevision))
+            bool shellConditionsClamped = ValidateShellConditions();
+            if (ShotgunBalanceDefaults.Upgrade(ref SlugBaseDamage, ref WildlifeBalanceRevision) || shellConditionsClamped)
             {
                 Save();
                 Reload(); // Update confirmed values too: Cancel must not resurrect the old slug damage.
             }
             SetFieldVisible(nameof(WildlifeBalanceRevision), false);
             SetFieldVisible(nameof(BirdshotCriticalPellets), false);
+            UpdateShellConditionVisibility();
             RefreshGUI();
         }
 
         protected override void OnConfirm()
         {
             ValidateSpawnChances();
+            ValidateShellConditions();
             base.OnConfirm();
             ShotgunSkill.ApplyAnimatorParams(Main.Instance?.Configuration?.Refs?.ModdedAnimator);
             ShotgunSkill.RefreshCurrentWeapon();
@@ -383,10 +412,34 @@ namespace Shotgun
             RuinedShotgunChance = Math.Clamp(RuinedShotgunChance, 0, 100 - UsableShotgunChance);
         }
 
+        internal bool ValidateShellConditions()
+        {
+            var previous = (ShellConditionLevel1, ShellConditionLevel2, ShellConditionLevel3, ShellConditionLevel4, ShellConditionLevel5);
+            ShellConditionLevel1 = Math.Clamp(ShellConditionLevel1, 0, 100);
+            ShellConditionLevel2 = Math.Clamp(ShellConditionLevel2, 0, 100);
+            ShellConditionLevel3 = Math.Clamp(ShellConditionLevel3, 0, 100);
+            ShellConditionLevel4 = Math.Clamp(ShellConditionLevel4, 0, 100);
+            ShellConditionLevel5 = Math.Clamp(ShellConditionLevel5, 0, 100);
+            return previous != (ShellConditionLevel1, ShellConditionLevel2, ShellConditionLevel3, ShellConditionLevel4, ShellConditionLevel5);
+        }
+
+        internal float ShellConditionForTier(int tier) => ShotgunShellConditions.ForTier(tier,
+            ShellConditionLevel1, ShellConditionLevel2, ShellConditionLevel3, ShellConditionLevel4, ShellConditionLevel5);
+
+        private void UpdateShellConditionVisibility()
+        {
+            bool expanded = ShellConditionDisplay == ShellConditionControls.Expanded;
+            foreach (string field in new[] { nameof(ShellConditionLevel1), nameof(ShellConditionLevel2),
+                nameof(ShellConditionLevel3), nameof(ShellConditionLevel4), nameof(ShellConditionLevel5) })
+                SetFieldVisible(field, expanded);
+        }
+
         protected override void OnChange(FieldInfo field, object oldValue, object newValue)
         {
             base.OnChange(field, oldValue, newValue);
-            if (field.Name == nameof(UsableShotgunChance))
+            if (field.Name == nameof(ShellConditionDisplay))
+                UpdateShellConditionVisibility();
+            else if (field.Name == nameof(UsableShotgunChance))
                 RuinedShotgunChance = Math.Min(RuinedShotgunChance, 100 - UsableShotgunChance);
             else if (field.Name == nameof(RuinedShotgunChance))
                 UsableShotgunChance = Math.Min(UsableShotgunChance, 100 - RuinedShotgunChance);

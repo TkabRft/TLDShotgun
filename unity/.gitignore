@@ -6,6 +6,22 @@ Temp
 UserSettings
 .vsconfig
 *.meta
+
+# Source metadata for load-specific ammunition color variants.
+!Assets/Shotgun/Icons/Crafting.meta
+!Assets/Shotgun/Icons/Crafting/*.meta
+!Assets/Shotgun/Imports/ShotgunBuckshot*.fbx.meta
+!Assets/Shotgun/Imports/ShotgunSlug*.fbx.meta
+!Assets/Shotgun/Imports/ShotgunBirdshot*.fbx.meta
+!Assets/Shotgun/Materials/ShotgunBuckshot*.mat.meta
+!Assets/Shotgun/Materials/ShotgunSlug*.mat.meta
+!Assets/Shotgun/Materials/ShotgunBirdshot*.mat.meta
+!Assets/Shotgun/Textures/ShotgunBuckshot*_BaseColor.png.meta
+!Assets/Shotgun/Textures/ShotgunSlug*_BaseColor.png.meta
+!Assets/Shotgun/Textures/ShotgunBirdshot*_BaseColor.png.meta
+!Assets/Shotgun/Icons/ico_GearItem__DoubleBarrelAmmo*Buckshot.PNG.meta
+!Assets/Shotgun/Icons/ico_GearItem__DoubleBarrelAmmo*Slug.PNG.meta
+!Assets/Shotgun/Icons/ico_GearItem__DoubleBarrelAmmo*Birdshot.PNG.meta
 Assets/_ModComponent/DataAssets/
 
 # Source metadata for the new ammunition authoring inputs.

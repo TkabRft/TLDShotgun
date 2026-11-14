@@ -683,24 +683,28 @@ namespace Shotgun
         internal void ConfigureShotgunAmmoSingle(ConfigurationReferences refs, string ammoType)
         {
             var ammoRefs = refs.Shotgun.AmmoTypes[ammoType];
+            ShotgunAmmoHarvest.Configure(ammoRefs.AmmoSingle.Harvest!);
             ammoRefs.AmmoSingle.AmmoItem.m_AmmoForGunType = GunTypeCustom;
             ammoRefs.AmmoSingle.AmmoItem.m_LoadedHudIconSpriteName = "";
             ammoRefs.AmmoSingle.AmmoItem.m_EmptyHudIconSpriteName = "";
             ammoRefs.AmmoSingle.GearItem.m_GearItemData.name = $"GEAR_DoubleBarrelAmmoSingle{ammoType}";
             CustomAddressablesPatch.customAddressablePaths[$"ModdedGearItemData_DoubleBarrelAmmoSingle{ammoType}"] = ammoRefs.AmmoSingle.GearItem.m_GearItemData;
             ammoRefs.AmmoSingle.GearItem.m_AmmoItem = ammoRefs.AmmoSingle.AmmoItem;
+            ShotgunAmmoPresentation.Validate(ammoRefs.AmmoSingle.GearItem, $"GEAR_DoubleBarrelAmmoSingle{ammoType}");
         }
 
 
         internal void ConfigureShotgunAmmoBox(ConfigurationReferences refs, string ammoType)
         {
             var ammoRefs = refs.Shotgun.AmmoTypes[ammoType];
+            ShotgunAmmoHarvest.Configure(ammoRefs.AmmoBox.Harvest!);
             ammoRefs.AmmoBox.AmmoItem.m_AmmoForGunType = GunTypeCustom;
             ammoRefs.AmmoBox.AmmoItem.m_LoadedHudIconSpriteName = "";
             ammoRefs.AmmoBox.AmmoItem.m_EmptyHudIconSpriteName = "";
             ammoRefs.AmmoBox.GearItem.m_GearItemData.name = $"GEAR_DoubleBarrelAmmoBox{ammoType}";
             CustomAddressablesPatch.customAddressablePaths[$"ModdedGearItemData_DoubleBarrelAmmoBox{ammoType}"] = ammoRefs.AmmoBox.GearItem.m_GearItemData;
             ammoRefs.AmmoBox.GearItem.m_AmmoItem = ammoRefs.AmmoBox.AmmoItem;
+            ShotgunAmmoPresentation.Validate(ammoRefs.AmmoBox.GearItem, $"GEAR_DoubleBarrelAmmoBox{ammoType}");
 
             CustomAmmoHUD.HUDPreset preset = new CustomAmmoHUD.HUDPreset();
             preset.LoadedSprite = Addressables.LoadAssetAsync<Sprite>($"ico_DoubleBarrel{ammoType}HUD").WaitForCompletion();

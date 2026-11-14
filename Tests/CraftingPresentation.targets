@@ -1,0 +1,13 @@
+<Project>
+  <!-- Reuse the workspace inspector's SDK project; isolate this fixture's output
+       with BaseIntermediateOutputPath and OutputPath on the command line. -->
+  <Target Name="SelectCraftingPresentationSources" BeforeTargets="CoreCompile">
+    <ItemGroup>
+      <Compile Remove="@(Compile)" />
+      <Compile Include="$(MSBuildThisFileDirectory)CraftingPresentationHarness.cs" />
+      <Compile Include="$(MSBuildThisFileDirectory)../Main/ShotgunCraftingPresentation.cs" />
+      <Compile Include="$(MSBuildThisFileDirectory)../Main/ShotgunAmmoPresentation.cs" />
+      <Compile Include="$(MSBuildThisFileDirectory)../../Custom/Scripts/ModBuild/tests/AmmoPresentationHarness.cs" />
+    </ItemGroup>
+  </Target>
+</Project>

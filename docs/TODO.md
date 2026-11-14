@@ -18,7 +18,7 @@ Recorded: 2026-10-31; updated: 2026-11-01. This backlog includes future ideas an
 
 8. [ ] **Test slug balance against large predators and moose.** Test cougar, bear, and moose, comparing the shotgun with the standard rifle and every rifle variant available in the supported game version. Cover hit regions, distance/falloff, skill levels, critical kills, bleed behavior where applicable, follow-up shots, and both-barrel fire. Record the tested game and mod versions.
 
-9. [ ] **Validate ammunition weight and balance weapon weight.** Source and generated package definitions use **40 g per round**, including scrapshot, twice the vanilla rifle round. Structural checks confirm 240 g six-shell boxes; verify loaded/stacked weights in game. Weapon/casing weights remain unchanged; retain the [ammunition reference](AMMUNITION.md) and the historical baseline below for comparisons.
+9. [ ] **Validate ammunition weight and balance weapon weight.** Source and generated package definitions use **40 g per round**, including scrapshot, twice the vanilla rifle round. The box-weight correction uses a 240 g base item divided across six default units; regressions cover quantities 1/6/14/100 and reject the former 40 g whole-box value. Verify loaded/stacked weights and native quality labels in game on new/existing saves. Weapon/casing weights remain unchanged; retain the [ammunition reference](AMMUNITION.md) and the historical baseline below for comparisons.
 
 10. [ ] **Load different ammunition into each barrel.** Design independent barrel contents, firing order, HUD, ammo switching, and save migration while preserving existing uniformly loaded guns.
 
@@ -36,7 +36,7 @@ Recorded: 2026-10-31; updated: 2026-11-01. This backlog includes future ideas an
 
 Checked against the Unity item definitions and the matching entries in the original `DoubleBarrel.modcomponent` on 2026-10-31. These are historical 20 g shell values from the immutable template, not an in-game weighing test. Current source and generated packages use 40 g shells; see AMMUNITION.md.
 
-| Item | Configured unit weight | Stack size / calculated weight |
+| Item | Configured single-item weight | Single-form stack size / calculated weight |
 |---|---:|---|
 | Shotgun | 3.00 kg | Weapon item; verify loaded-ammunition accounting in game |
 | Slug shell | 0.020 kg (20 g) | 6 shells = 0.120 kg; 100 shells = 2.00 kg |
@@ -44,7 +44,7 @@ Checked against the Unity item definitions and the matching entries in the origi
 | Birdshot shell | 0.020 kg (20 g) | 6 shells = 0.120 kg; 100 shells = 2.00 kg |
 | Empty shotgun casing | 0.010 kg (10 g) | 6 casings = 0.060 kg; 100 casings = 1.00 kg |
 
-At that baseline, each ammo-box definition had `WeightKG: 0.02` and `UnitsPerItem: 6`. The historical 0.120 kg box figures above are calculated as six ammunition units. Current boxes total 0.240 kg; confirm stack behavior and the displayed inventory total in game. No separate packaging weight is declared.
+At that baseline, each ammo-box definition had `WeightKG: 0.02` and `UnitsPerItem: 6`. That field represented the whole default six-round item, so the original box form carried only 0.020 kg per six rounds. The table's 0.120 kg figures describe six single-form shells, not those original boxes. A later 0.040 kg whole-box definition still undercounted rounds by six. Corrected boxes use a 0.240 kg base item; both forms now provide 0.040 kg per round. Confirm displayed stack and loaded weights in game. No separate packaging weight is declared.
 
 Sources: [weapon](../unity/Assets/_ModComponent/shotgun/auto-mapped/DoubleBarrel.json), [casing](../unity/Assets/_ModComponent/shotgun/auto-mapped/DoubleBarrelAmmoCasing.json), [slug](../unity/Assets/_ModComponent/shotgun/auto-mapped/DoubleBarrelAmmoSingleSlug.json), [buckshot](../unity/Assets/_ModComponent/shotgun/auto-mapped/DoubleBarrelAmmoSingleBuckshot.json), [birdshot](../unity/Assets/_ModComponent/shotgun/auto-mapped/DoubleBarrelAmmoSingleBirdshot.json), and box definitions in the same directory.
 

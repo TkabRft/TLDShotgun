@@ -15,7 +15,9 @@ CATALOG=[('ShotgunLeadBuckshot','ico_GearItem__DoubleBarrelLeadBuckshot.png'),
  ('ShotgunLeadBirdshot','ico_GearItem__DoubleBarrelLeadBirdshot.png'),
  ('ShotgunScrapBuckshot','ico_GearItem__DoubleBarrelScrapBuckshot.png'),
  ('ShotgunScrapshotShell','ico_GearItem__DoubleBarrelAmmoSingleScrapshot.png'),
- ('ShotgunScrapshotBox','ico_GearItem__DoubleBarrelAmmoBoxScrapshot.png')]
+ ('ShotgunScrapshotBox','ico_GearItem__DoubleBarrelAmmoBoxScrapshot.png')]+[
+ ('Shotgun'+kind+form,'ico_GearItem__DoubleBarrelAmmo'+('Single' if form=='Shell' else 'Box')+kind+'.PNG')
+ for kind in ['Buckshot','Slug','Birdshot'] for form in ['Shell','Box']]
 
 def scene():
     s=bpy.data.scenes.get(SCENE) or bpy.data.scenes.new(SCENE)
@@ -269,7 +271,10 @@ def frame(name,resolution=512):
         o=objects[0];uv=o.data.uv_layers.active.data
         candidates=[(abs(uv[l.index].uv.x-.26)+abs(uv[l.index].uv.y-.62),o.matrix_world@o.data.vertices[l.vertex_index].co) for l in o.data.loops]
         direction=min(candidates,key=lambda item:item[0])[1]-center;direction.z=.03
-    elif name.endswith('Box'):direction=Vector((6,-4,3.2))
+    elif name.endswith('Box'):
+        # Factory cartons have the opposite label orientation to the open scrap
+        # carton. View their printed front from its reading side.
+        direction=Vector((6,-4,3.2)) if name=='ShotgunScrapshotBox' else Vector((-6,4,3.2))
     s.camera.location=center+direction.normalized()*.9;s.camera.rotation_euler=(center-s.camera.location).to_track_quat('-Z','Y').to_euler()
     bpy.context.view_layer.update();inv=s.camera.matrix_world.inverted();pts=[inv@(o.matrix_world@Vector(c)) for o in objects for c in o.bound_box]
     s.camera.data.ortho_scale=max(max(p.x for p in pts)-min(p.x for p in pts),max(p.y for p in pts)-min(p.y for p in pts))*1.20

@@ -94,7 +94,9 @@ def main():
             components = read(source) if source.exists() else read(DATA / "auto-mapped" / ("DoubleBarrelAmmo"+form+"Buckshot.json"))
             if kind == "Scrapshot":
                 components = json.loads(json.dumps(components).replace("Buckshot", "Scrapshot"))
-            components["ModAmmoComponent"]["WeightKG"] = 0.04
+            units = 1 if form == "Single" else 6
+            # WeightKG is the full default item; native stacks divide by UnitsPerItem.
+            components["ModAmmoComponent"]["WeightKG"] = 0.04 * units
             components["ModHarvestableBehaviour"]["YieldNames"] = ["GEAR_DoubleBarrelAmmoCasing", projectile]
             components["ModHarvestableBehaviour"]["YieldCounts"] = [1, 1]
             write(source, components)
@@ -104,13 +106,16 @@ def main():
                 bp = recipe(recipe_name, [gear("GEAR_DoubleBarrelAmmoCasing"), gear(projectile)],
                             "GEAR_"+name, 1, "Workbench" if kind == "Scrapshot" else "AmmoWorkbench", 5, powder=0.01)
                 write(DATA / "blueprints" / ("ShotgunAmmoSingle"+kind+".json"), bp)
+            localize(f"GAMEPLAY_DoubleBarrel_Ammo{form}{kind}Name", kind + " Ammunition")
+            for quality in ("Perfect", "Great", "Good", "Mediocre", "Poor", "Ruined"):
+                localize(f"GAMEPLAY_DoubleBarrel_Ammo{form}{kind}Name_{quality}", quality + " " + kind + " Ammunition")
             if kind == "Scrapshot":
-                localize(f"GAMEPLAY_DoubleBarrel_Ammo{form}ScrapshotName", "Scrapshot Shell" if form == "Single" else "Scrapshot Shells")
                 localize(f"GAMEPLAY_DoubleBarrel_Ammo{form}ScrapshotDescription", "Improvised shotgun ammunition loaded with prepared scrap-metal shot.")
             definitions.append({"name": "GEAR_"+name, "material": False, "components": components, "recipe": bp,
                                 "template": "GEAR_DoubleBarrelAmmo"+form+"Buckshot",
-                                "model": "ShotgunScrapshot"+("Shell" if form == "Single" else "Box")+".fbx" if kind == "Scrapshot" else "",
-                                "icon": "ico_GearItem__"+name+".png"})
+                                "model": "Shotgun"+kind+("Shell" if form == "Single" else "Box")+".fbx",
+                                "replaceExisting": kind != "Scrapshot",
+                                "icon": "ico_GearItem__"+name+(".png" if kind == "Scrapshot" else ".PNG")})
             # Existing source prefabs remain authoritative for SDK re-export.
             prefab = ROOT / "unity/Assets/Shotgun/Prefabs" / ("GEAR_"+name+".prefab")
             if prefab.exists():
@@ -122,7 +127,10 @@ def main():
                 if match and not meta.exists():
                     meta.write_text("fileFormatVersion: 2\nguid: "+match[1]+"\nPrefabImporter:\n  externalObjects: {}\n  userData: \n  assetBundleName: \n  assetBundleVariant: \n", encoding="utf-8")
                 text = prefab.read_text(encoding="utf-8")
-                text = re.sub(r"(?m)^  WeightKG: 0\.02$", "  WeightKG: 0.04", text)
+                text, replacements = re.subn(r"(?m)^  WeightKG: [^\r\n]+$",
+                                             f"  WeightKG: {0.04 * units:g}", text)
+                if replacements != 1:
+                    raise ValueError(f"Expected one ammunition weight in {prefab}")
                 if kind in ("Buckshot", "Birdshot"):
                     replacement = reference_guids["Lead"+kind]
                     # Preserve every existing component/file identifier. Replace only

@@ -35,7 +35,7 @@ def verify():
     exec(compile(script.read_text(encoding='utf-8-sig'),str(script),'exec'),ns)
     expected=json.loads((ART/'asset-geometry.json').read_text())
     report={'scene':s.name,'units':'metres','meshes':{},'packed_textures':{},'sphere_clearances_m':{}}
-    assert len([o for o in bpy.data.objects if o.type=='MESH'])==6
+    assert len([o for o in bpy.data.objects if o.type=='MESH'])==12
     for name,objects in ns['assets']():
         actual=ns['geometry_report'](objects)
         assert actual['triangles']==expected[name]['triangles']
@@ -70,9 +70,9 @@ def verify():
                 if neighbor in remaining:remaining.remove(neighbor);stack.append(neighbor)
     assert components==6
     report['visible_box_shells']=components
-    assert len(report['packed_textures'])==4
+    assert len(report['packed_textures'])==10
     report['blend_sha256']=hashlib.sha256(TARGET.read_bytes()).hexdigest()
     (ART/'asset-blend-validation.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
-    print('AMMUNITION_BLEND_VERIFIED: 1 scene, 6 closed meshes, 6 visible carton shells, 4 matching packed textures; no lettering geometry.')
+    print('AMMUNITION_BLEND_VERIFIED: 1 scene, 12 closed meshes, 6 visible carton shells, 10 matching packed textures; no lettering geometry.')
 
 verify()

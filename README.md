@@ -26,6 +26,12 @@ If aiming or weapon switching stops responding, enable **Aim Diagnostics** in Mo
 
 Slug shells use the vanilla Bullet component. Buckshot and birdshot use their own lead-shot portions, while scrapshot uses prepared scrap buckshot. Each portion supplies one shell, regardless of pellet-count settings. All finished shotgun shells weigh 40 g; a six-shell box weighs 240 g.
 
+In inventory, loose rounds and boxes display condition labels such as **Perfect Buckshot Ammunition** at 100%. Slug, birdshot and scrapshot ammunition follow the same naming rule. Crafting recipes use **Slug Shell**, **Buckshot Shell**, **Birdshot Shell**, and **Scrapshot Shell**. A single round in the world uses its shell name when highlighted or inspected; multi-round boxes keep their ammunition names. Picking up a loose shell restores the usual inventory quality name.
+
+Crafting shells improves **Gunsmithing**. By default, Gunsmithing levels 1–5 produce shells at **40%, 60%, 80%, 100% and 100% condition**. Under **Crafted Shell Condition** in Mod Options, change **Gunsmithing Condition Controls** from **Collapsed** to **Expanded** to reveal five condition sliders. Confirmed values affect subsequent completed shells, including resumed crafting; existing ammunition keeps its condition. Harvesting ammunition gives no Gunsmithing XP, matching vanilla.
+
+Shells and their boxes use matching colors: **red buckshot, dark blue slugs, green birdshot, and grey scrapshot**. Harvesting live ammunition recovers its casing, matching projectile material, and **10 g of gunpowder per round**. A full six-round box returns 60 g; partial stacks return powder for the rounds harvested. Empty casings contain no recoverable gunpowder.
+
 | Preparation | Output | Location | Base time |
 |---|---|---|---:|
 | 1 scrap lead | 6 lead buckshot portions | Lit ammunition forge | 60 minutes |

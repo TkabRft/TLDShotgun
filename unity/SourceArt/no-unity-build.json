@@ -1,35 +1,178 @@
 {
   "version": 1,
   "namespace": "DoubleBarrel",
-  "validators": ["shotgun-ammunition"],
+  "validators": [
+    "shotgun-ammunition"
+  ],
   "basePackage": "DoubleBarrel.modcomponent",
   "baseSha256": "1000a4d12fcda90ad2af4fade3d2e4c934231205536a0f2ce3c67a4a53c378a3",
   "bundleEntry": "bundle/shotgun_assets_all.bundle",
   "catalogEntry": "bundle/catalog_shotgun.json",
   "assetRoot": "Assets/Shotgun",
-  "templates": {"Mesh": "ShotgunAmmoSingleMesh", "Material": "Shotgun_Material_AmmoSingle"},
+  "templates": {
+    "Mesh": "ShotgunAmmoSingleMesh",
+    "Material": "Shotgun_Material_AmmoSingle"
+  },
   "authoringItems": "unity/SourceArt/ammunition-definitions.json",
   "exports": "unity/SourceArt/exports",
   "icons": "unity/Assets/Shotgun/Icons",
   "data": "unity/Assets/_ModComponent/shotgun",
-  "textureSettings": {"opaqueFormat": "BC1", "alphaFormat": "BC3", "materialMipmaps": true, "iconMipmaps": false},
+  "textureSettings": {
+    "opaqueFormat": "BC1",
+    "alphaFormat": "BC3",
+    "materialMipmaps": true,
+    "iconMipmaps": false
+  },
   "materials": [
-    {"name": "ShotgunCastLead", "texture": "unity/Assets/Shotgun/Textures/ShotgunCastLead_BaseColor.png", "metallic": 0.30, "roughness": 0.68},
-    {"name": "ShotgunCutSteel", "texture": "unity/Assets/Shotgun/Textures/ShotgunCutSteel_BaseColor.png", "metallic": 0.45, "roughness": 0.62},
-    {"name": "ShotgunScrapshotShell", "texture": "unity/Assets/Shotgun/Textures/ShotgunScrapshotShell_BaseColor.png", "metallic": 0.15, "roughness": 0.70},
-    {"name": "ShotgunScrapshotBox", "texture": "unity/Assets/Shotgun/Textures/ShotgunScrapshotBox_BaseColor.png", "metallic": 0, "roughness": 0.82}
+    {
+      "name": "ShotgunCastLead",
+      "texture": "unity/Assets/Shotgun/Textures/ShotgunCastLead_BaseColor.png",
+      "metallic": 0.3,
+      "roughness": 0.68
+    },
+    {
+      "name": "ShotgunCutSteel",
+      "texture": "unity/Assets/Shotgun/Textures/ShotgunCutSteel_BaseColor.png",
+      "metallic": 0.45,
+      "roughness": 0.62
+    },
+    {
+      "name": "ShotgunScrapshotShell",
+      "texture": "unity/Assets/Shotgun/Textures/ShotgunScrapshotShell_BaseColor.png",
+      "metallic": 0.15,
+      "roughness": 0.7
+    },
+    {
+      "name": "ShotgunScrapshotBox",
+      "texture": "unity/Assets/Shotgun/Textures/ShotgunScrapshotBox_BaseColor.png",
+      "metallic": 0,
+      "roughness": 0.82
+    },
+    {
+      "name": "ShotgunBuckshotShell",
+      "texture": "unity/Assets/Shotgun/Textures/ShotgunBuckshotShell_BaseColor.png",
+      "metallic": 0.15,
+      "roughness": 0.7
+    },
+    {
+      "name": "ShotgunBuckshotBox",
+      "texture": "unity/Assets/Shotgun/Textures/ShotgunBuckshotBox_BaseColor.png",
+      "metallic": 0,
+      "roughness": 0.82
+    },
+    {
+      "name": "ShotgunSlugShell",
+      "texture": "unity/Assets/Shotgun/Textures/ShotgunSlugShell_BaseColor.png",
+      "metallic": 0.15,
+      "roughness": 0.7
+    },
+    {
+      "name": "ShotgunSlugBox",
+      "texture": "unity/Assets/Shotgun/Textures/ShotgunSlugBox_BaseColor.png",
+      "metallic": 0,
+      "roughness": 0.82
+    },
+    {
+      "name": "ShotgunBirdshotShell",
+      "texture": "unity/Assets/Shotgun/Textures/ShotgunBirdshotShell_BaseColor.png",
+      "metallic": 0.15,
+      "roughness": 0.7
+    },
+    {
+      "name": "ShotgunBirdshotBox",
+      "texture": "unity/Assets/Shotgun/Textures/ShotgunBirdshotBox_BaseColor.png",
+      "metallic": 0,
+      "roughness": 0.82
+    }
   ],
   "prefabTemplateAddress": "GEAR_DoubleBarrelAmmoSingleBuckshot",
   "iconTemplateAddress": "ico_GearItem__DoubleBarrelAmmoSingleBuckshot",
   "spriteTemplateAddress": "ico_DoubleBarrelBuckshotHUD",
-  "additionalSprites": [{"name": "ico_DoubleBarrelScrapshotHUD", "file": "ico_DoubleBarrelScrapshotHUD.png", "rect": [0, 0, 183, 436]}],
+  "additionalSprites": [
+    {
+      "name": "ico_DoubleBarrelScrapshotHUD",
+      "file": "ico_DoubleBarrelScrapshotHUD.png",
+      "rect": [
+        0,
+        0,
+        183,
+        436
+      ]
+    },
+    {
+      "name": "ico_CraftItem__DoubleBarrelAmmoSingleSlug",
+      "file": "Crafting/ico_CraftItem__DoubleBarrelAmmoSingleSlug.png"
+    },
+    {
+      "name": "ico_CraftingPreview__DoubleBarrelAmmoSingleSlug",
+      "file": "Crafting/ico_CraftingPreview__DoubleBarrelAmmoSingleSlug.png"
+    },
+    {
+      "name": "ico_CraftItem__DoubleBarrelAmmoSingleBuckshot",
+      "file": "Crafting/ico_CraftItem__DoubleBarrelAmmoSingleBuckshot.png"
+    },
+    {
+      "name": "ico_CraftingPreview__DoubleBarrelAmmoSingleBuckshot",
+      "file": "Crafting/ico_CraftingPreview__DoubleBarrelAmmoSingleBuckshot.png"
+    },
+    {
+      "name": "ico_CraftItem__DoubleBarrelAmmoSingleBirdshot",
+      "file": "Crafting/ico_CraftItem__DoubleBarrelAmmoSingleBirdshot.png"
+    },
+    {
+      "name": "ico_CraftingPreview__DoubleBarrelAmmoSingleBirdshot",
+      "file": "Crafting/ico_CraftingPreview__DoubleBarrelAmmoSingleBirdshot.png"
+    },
+    {
+      "name": "ico_CraftItem__DoubleBarrelAmmoSingleScrapshot",
+      "file": "Crafting/ico_CraftItem__DoubleBarrelAmmoSingleScrapshot.png"
+    },
+    {
+      "name": "ico_CraftingPreview__DoubleBarrelAmmoSingleScrapshot",
+      "file": "Crafting/ico_CraftingPreview__DoubleBarrelAmmoSingleScrapshot.png"
+    },
+    {
+      "name": "ico_CraftItem__DoubleBarrelAmmoCasing",
+      "file": "Crafting/ico_CraftItem__DoubleBarrelAmmoCasing.png"
+    },
+    {
+      "name": "ico_CraftItem__DoubleBarrelLeadBuckshot",
+      "file": "Crafting/ico_CraftItem__DoubleBarrelLeadBuckshot.png"
+    },
+    {
+      "name": "ico_CraftItem__DoubleBarrelLeadBirdshot",
+      "file": "Crafting/ico_CraftItem__DoubleBarrelLeadBirdshot.png"
+    },
+    {
+      "name": "ico_CraftItem__DoubleBarrelScrapBuckshot",
+      "file": "Crafting/ico_CraftItem__DoubleBarrelScrapBuckshot.png"
+    }
+  ],
   "animations": [],
   "audio": [
-    {"id": "GAMEPLAY_DoubleBarrel_Discharge", "file": "unity/Assets/Shotgun/Sounds/GAMEPLAY_DoubleBarrel_Discharge.wav"},
-    {"id": "GAMEPLAY_DoubleBarrel_Insert", "file": "unity/Assets/Shotgun/Sounds/GAMEPLAY_DoubleBarrel_Insert.wav"},
-    {"id": "GAMEPLAY_DoubleBarrel_Remove", "file": "unity/Assets/Shotgun/Sounds/GAMEPLAY_DoubleBarrel_Remove.wav"},
-    {"id": "GAMEPLAY_DoubleBarrel_Open", "file": "unity/Assets/Shotgun/Sounds/GAMEPLAY_DoubleBarrel_Open.wav"},
-    {"id": "GAMEPLAY_DoubleBarrel_Close", "file": "unity/Assets/Shotgun/Sounds/GAMEPLAY_DoubleBarrel_Close.wav"},
-    {"id": "GAMEPLAY_DoubleBarrel_ShellDrop_Hard", "file": "unity/Assets/Shotgun/Sounds/GAMEPLAY_DoubleBarrel_ShellDrop_Hard.wav"}
+    {
+      "id": "GAMEPLAY_DoubleBarrel_Discharge",
+      "file": "unity/Assets/Shotgun/Sounds/GAMEPLAY_DoubleBarrel_Discharge.wav"
+    },
+    {
+      "id": "GAMEPLAY_DoubleBarrel_Insert",
+      "file": "unity/Assets/Shotgun/Sounds/GAMEPLAY_DoubleBarrel_Insert.wav"
+    },
+    {
+      "id": "GAMEPLAY_DoubleBarrel_Remove",
+      "file": "unity/Assets/Shotgun/Sounds/GAMEPLAY_DoubleBarrel_Remove.wav"
+    },
+    {
+      "id": "GAMEPLAY_DoubleBarrel_Open",
+      "file": "unity/Assets/Shotgun/Sounds/GAMEPLAY_DoubleBarrel_Open.wav"
+    },
+    {
+      "id": "GAMEPLAY_DoubleBarrel_Close",
+      "file": "unity/Assets/Shotgun/Sounds/GAMEPLAY_DoubleBarrel_Close.wav"
+    },
+    {
+      "id": "GAMEPLAY_DoubleBarrel_ShellDrop_Hard",
+      "file": "unity/Assets/Shotgun/Sounds/GAMEPLAY_DoubleBarrel_ShellDrop_Hard.wav"
+    }
   ]
 }

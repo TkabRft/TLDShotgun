@@ -1,6 +1,6 @@
 """Write explicit opaque Unity Standard materials and stable metadata, without Unity.
 
-Only these four new materials/textures are owned here. Existing GUIDs are retained.
+Only the listed source materials/textures are owned here. Existing GUIDs are retained.
 Run with regular Python after authoring the texture images in Blender.
 """
 from pathlib import Path
@@ -9,7 +9,9 @@ import uuid
 
 ASSETS=Path(__file__).resolve().parents[2]/'Assets/Shotgun'
 MATERIALS=[('ShotgunCastLead',.30,.68),('ShotgunCutSteel',.45,.62),
-           ('ShotgunScrapshotShell',.15,.70),('ShotgunScrapshotBox',0,.82)]
+           ('ShotgunScrapshotShell',.15,.70),('ShotgunScrapshotBox',0,.82)]+[
+           ('Shotgun'+kind+form,.15 if form=='Shell' else 0,.70 if form=='Shell' else .82)
+           for kind in ['Buckshot','Slug','Birdshot'] for form in ['Shell','Box']]
 
 def metadata(path,body):
     meta=Path(str(path)+'.meta')
@@ -70,6 +72,6 @@ Material:
 '''
         mat.write_text(text,encoding='utf-8')
         metadata(mat,'NativeFormatImporter:\n  externalObjects: {}\n  mainObjectFileID: 2100000\n  userData:\n  assetBundleName:\n  assetBundleVariant:\n')
-    print('Four Unity materials and texture GUID references prepared; no editor/build invoked.')
+    print(f'{len(MATERIALS)} Unity materials and texture GUID references prepared; no editor/build invoked.')
 
 if __name__=='__main__':main()

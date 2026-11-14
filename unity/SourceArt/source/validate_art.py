@@ -15,6 +15,8 @@ UNITY=ART.parent
 ASSETS=UNITY/'Assets/Shotgun'
 NAMES=['ShotgunLeadBuckshot','ShotgunLeadBirdshot','ShotgunScrapBuckshot','ShotgunScrapshotShell','ShotgunScrapshotBox']
 MATS=['ShotgunCastLead','ShotgunCutSteel','ShotgunScrapshotShell','ShotgunScrapshotBox']
+NAMES += ['Shotgun'+kind+form for kind in ['Buckshot','Slug','Birdshot'] for form in ['Shell','Box']]
+MATS += NAMES[5:]
 
 def digest(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -29,6 +31,7 @@ def main():
     icons=list((ASSETS/'Icons').glob('*Scrapshot*.png'))
     icons += [ASSETS/'Icons'/('ico_GearItem__DoubleBarrel'+kind+'.png') for kind in ['LeadBuckshot','LeadBirdshot','ScrapBuckshot']]
     assert len(icons)==6
+    icons += [ASSETS/'Icons'/('ico_GearItem__DoubleBarrelAmmo'+form+kind+'.PNG') for kind in ['Buckshot','Slug','Birdshot'] for form in ['Single','Box']]
     for icon in icons:
         png=icon.read_bytes();assert png[:8]==b'\x89PNG\r\n\x1a\n'
         expected=(184,436) if icon.name=='ico_DoubleBarrelScrapshotHUD.png' else (256,256)
@@ -60,7 +63,7 @@ def main():
     dest=ART/'asset-file-manifest.json'
     if '--record' in sys.argv:dest.write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
     assert json.loads(dest.read_text())==manifest,'Changed final art inputs; rerun affected verification before --record'
-    print(f'PASS: {len(manifest)} source-art file hashes, 5 FBX/GLB pairs, 6 RGBA icons, 4 Unity material/texture references, 6 visible carton shells.')
+    print(f'PASS: {len(manifest)} source-art file hashes, 11 FBX/GLB pairs, 12 RGBA icons, 10 Unity material/texture references, 6 visible carton shells.')
     print('Source-art checks only; generated-package validation and game acceptance are separate checks.')
 
 if __name__=='__main__':main()

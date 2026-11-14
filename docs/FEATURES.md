@@ -19,6 +19,8 @@ Paths below are relative to the mod root.
 |---|---|
 | Planned work, balance tests, and recorded weight baseline | [To-do list](TODO.md) |
 | All ammunition, vanilla references, recipes, and selected shell-weight target | [Ammunition reference](AMMUNITION.md) |
+| Shell condition labels, Gunsmithing crafting quality/XP, and condition controls | [Ammunition quality](AMMUNITION.md#quality-labels-and-registration), `Main/ShotgunAmmoPresentation.cs`, `Main/ShotgunAmmoQuality.cs` |
+| Crafting icons/previews, shell recipe names, and loose-world names | [Crafting and loose-world presentation](AMMUNITION.md#crafting-and-loose-world-presentation), `Main/ShotgunCraftingPresentation.cs` |
 | Ruined/usable finds, milling restoration, and spawn persistence | [Restoration](RESTORATION.md), `Main/ShotgunSpawnPolicy.cs`, `Main/ShotgunRestoration.cs` |
 | Inventory harvesting, kit cleaning, milling parameters and maintenance preflight | [Maintenance and restoration](RESTORATION.md), `Main/ShotgunMaintenance.cs`, `Main/Configuration.cs` |
 | Projectile materials, optional recipe registration, and asset preparation | `Main/ShotgunCrafting.cs`, [source authoring handoff](../unity/SourceArt/README.md) |
@@ -72,4 +74,4 @@ C# compilation alone does not regenerate bundles or the `.modcomponent`. The ful
 The focused production-source spawn harness and its portable command are described
 under [restoration persistence](RESTORATION.md#focused-regression-harness).
 
-code-synced: 2026-11-03
+code-synced: 2026-11-08

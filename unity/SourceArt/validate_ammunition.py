@@ -2,6 +2,7 @@
 import json
 import re
 import struct
+import sys
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -39,6 +40,9 @@ def evaluate(expression, values):
 
 
 def main():
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from prepare_crafting_presentation import main as check_crafting_presentation
+    check_crafting_presentation(check=True)
     projectiles = {'Slug': 'GEAR_Bullet', 'Buckshot': 'GEAR_DoubleBarrelLeadBuckshot',
                    'Birdshot': 'GEAR_DoubleBarrelLeadBirdshot', 'Scrapshot': 'GEAR_DoubleBarrelScrapBuckshot'}
     for kind, projectile in projectiles.items():
@@ -49,10 +53,23 @@ def main():
         assert bp['RequiredCraftingLocation'] == ('Workbench' if kind == 'Scrapshot' else 'AmmoWorkbench')
         assert bp['RequiresLight'] and not bp['RequiresLitFire'] and not bp['RequiredTool']
         assert bp['DurationMinutes'] == 5 and bp['CraftedResultCount'] == 1
+        assert bp['AppliedSkill'] == bp['ImprovedSkill'] == 'Gunsmithing'
         for form, count in [('Single', 1), ('Box', 6)]:
             data = read(DATA / 'auto-mapped' / ('DoubleBarrelAmmo'+form+kind+'.json'))
-            assert data['ModAmmoComponent']['WeightKG'] == 0.04
+            weight = data['ModAmmoComponent']['WeightKG']
             assert data['ModStackableBehaviour']['UnitsPerItem'] == count
+            assert abs(weight / count - 0.04) < 1e-9, (kind, form, weight)
+            ammo = data['ModAmmoComponent']
+            key = f'GAMEPLAY_DoubleBarrel_Ammo{form}{kind}Name'
+            assert ammo['DisplayNameLocalizationId'] == key
+            assert read(DATA/'localizations/Localization.json')[key]['English'] == kind+' Ammunition'
+            for quality in ['Perfect','Great','Good','Mediocre','Poor','Ruined']:
+                assert read(DATA/'localizations/Localization.json')[key+'_'+quality]['English'] == quality+' '+kind+' Ammunition'
+            prefab = ROOT/'unity/Assets/Shotgun/Prefabs'/('GEAR_DoubleBarrelAmmo'+form+kind+'.prefab')
+            if prefab.exists():
+                text = prefab.read_text(encoding='utf-8')
+                assert float(re.search(r'^  WeightKG: (.+)$', text, re.M)[1]) == weight
+                assert int(re.search(r'^  UnitsPerItem: (.+)$', text, re.M)[1]) == count
             h = data['ModHarvestableBehaviour']
             assert h['YieldNames'] == ['GEAR_DoubleBarrelAmmoCasing', projectile] and h['YieldCounts'] == [1, 1]
     for kind, count, scrap in [('LeadBuckshot', 6, False), ('LeadBirdshot', 12, False), ('ScrapBuckshot', 6, True)]:
@@ -69,6 +86,10 @@ def main():
     alternatives = list((ROOT/'Crafting/Alternatives').glob('*.json'))
     assert len(alternatives) == 6
     assert len({read(p)['Name'] for p in alternatives}) == 6
+    for path in alternatives:
+        bp = read(path)
+        if bp['CraftedResult'].startswith('GEAR_DoubleBarrelAmmoSingle'):
+            assert bp['AppliedSkill'] == bp['ImprovedSkill'] == 'Gunsmithing'
     vanilla = read(ROOT/'Crafting/Alternatives/VanillaBulletForge.json')
     assert vanilla['AppliedSkill'] == 'None' and not vanilla['RequiresLight'] and vanilla['RequiresLitFire']
     assert vanilla['CraftedResult'] == 'GEAR_Bullet' and vanilla['CraftedResultCount'] == 6 and vanilla['DurationMinutes'] == 60
@@ -86,6 +107,9 @@ def main():
             png = icon.read_bytes()
             assert png[:8] == b'\x89PNG\r\n\x1a\n' and struct.unpack('>II', png[16:24]) == (256, 256)
             assert png[25] == 6 and Path(str(icon)+'.meta').exists()
+    if '--ammo-only' in sys.argv:
+        print('PASS: ammunition recipes, weights, material/casing yields, alternatives, 11 definitions and source artwork. Spawn-expression checks excluded explicitly; native powder recovery requires the production harvest harness and game checks.')
+        return
     policy = (ROOT/'Main/ShotgunSpawnPolicy.cs').read_text(encoding='utf-8')
     roll = re.search(r'internal static Outcome Roll\([^;]+?=>\s*(.*?);', policy, re.S)[1]
     for usable, ruined in [(0,0),(100,0),(0,100),(50,50),(0,50),(25,50),(37,13)]:

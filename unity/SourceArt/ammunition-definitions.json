@@ -320,8 +320,9 @@
         "ImprovedSkill": "Gunsmithing"
       },
       "template": "GEAR_DoubleBarrelAmmoSingleBuckshot",
-      "model": "",
-      "icon": "ico_GearItem__DoubleBarrelAmmoSingleSlug.png"
+      "model": "ShotgunSlugShell.fbx",
+      "replaceExisting": true,
+      "icon": "ico_GearItem__DoubleBarrelAmmoSingleSlug.PNG"
     },
     {
       "name": "GEAR_DoubleBarrelAmmoBoxSlug",
@@ -331,7 +332,7 @@
           "DisplayNameLocalizationId": "GAMEPLAY_DoubleBarrel_AmmoBoxSlugName",
           "DescriptionLocalizatonId": "GAMEPLAY_DoubleBarrel_AmmoBoxSlugDescription",
           "InventoryActionLocalizationId": "",
-          "WeightKG": 0.04,
+          "WeightKG": 0.24,
           "DaysToDecay": 0,
           "MaxHP": 100.0,
           "InitialCondition": "Perfect",
@@ -387,8 +388,9 @@
       },
       "recipe": null,
       "template": "GEAR_DoubleBarrelAmmoBoxBuckshot",
-      "model": "",
-      "icon": "ico_GearItem__DoubleBarrelAmmoBoxSlug.png"
+      "model": "ShotgunSlugBox.fbx",
+      "replaceExisting": true,
+      "icon": "ico_GearItem__DoubleBarrelAmmoBoxSlug.PNG"
     },
     {
       "name": "GEAR_DoubleBarrelAmmoSingleBuckshot",
@@ -488,8 +490,9 @@
         "ImprovedSkill": "Gunsmithing"
       },
       "template": "GEAR_DoubleBarrelAmmoSingleBuckshot",
-      "model": "",
-      "icon": "ico_GearItem__DoubleBarrelAmmoSingleBuckshot.png"
+      "model": "ShotgunBuckshotShell.fbx",
+      "replaceExisting": true,
+      "icon": "ico_GearItem__DoubleBarrelAmmoSingleBuckshot.PNG"
     },
     {
       "name": "GEAR_DoubleBarrelAmmoBoxBuckshot",
@@ -499,7 +502,7 @@
           "DisplayNameLocalizationId": "GAMEPLAY_DoubleBarrel_AmmoBoxBuckshotName",
           "DescriptionLocalizatonId": "GAMEPLAY_DoubleBarrel_AmmoBoxBuckshotDescription",
           "InventoryActionLocalizationId": "",
-          "WeightKG": 0.04,
+          "WeightKG": 0.24,
           "DaysToDecay": 0,
           "MaxHP": 100.0,
           "InitialCondition": "Perfect",
@@ -555,8 +558,9 @@
       },
       "recipe": null,
       "template": "GEAR_DoubleBarrelAmmoBoxBuckshot",
-      "model": "",
-      "icon": "ico_GearItem__DoubleBarrelAmmoBoxBuckshot.png"
+      "model": "ShotgunBuckshotBox.fbx",
+      "replaceExisting": true,
+      "icon": "ico_GearItem__DoubleBarrelAmmoBoxBuckshot.PNG"
     },
     {
       "name": "GEAR_DoubleBarrelAmmoSingleBirdshot",
@@ -656,8 +660,9 @@
         "ImprovedSkill": "Gunsmithing"
       },
       "template": "GEAR_DoubleBarrelAmmoSingleBuckshot",
-      "model": "",
-      "icon": "ico_GearItem__DoubleBarrelAmmoSingleBirdshot.png"
+      "model": "ShotgunBirdshotShell.fbx",
+      "replaceExisting": true,
+      "icon": "ico_GearItem__DoubleBarrelAmmoSingleBirdshot.PNG"
     },
     {
       "name": "GEAR_DoubleBarrelAmmoBoxBirdshot",
@@ -667,7 +672,7 @@
           "DisplayNameLocalizationId": "GAMEPLAY_DoubleBarrel_AmmoBoxBirdshotName",
           "DescriptionLocalizatonId": "GAMEPLAY_DoubleBarrel_AmmoBoxBirdshotDescription",
           "InventoryActionLocalizationId": "",
-          "WeightKG": 0.04,
+          "WeightKG": 0.24,
           "DaysToDecay": 0,
           "MaxHP": 100.0,
           "InitialCondition": "Perfect",
@@ -723,8 +728,9 @@
       },
       "recipe": null,
       "template": "GEAR_DoubleBarrelAmmoBoxBuckshot",
-      "model": "",
-      "icon": "ico_GearItem__DoubleBarrelAmmoBoxBirdshot.png"
+      "model": "ShotgunBirdshotBox.fbx",
+      "replaceExisting": true,
+      "icon": "ico_GearItem__DoubleBarrelAmmoBoxBirdshot.PNG"
     },
     {
       "name": "GEAR_DoubleBarrelAmmoSingleScrapshot",
@@ -825,6 +831,7 @@
       },
       "template": "GEAR_DoubleBarrelAmmoSingleBuckshot",
       "model": "ShotgunScrapshotShell.fbx",
+      "replaceExisting": false,
       "icon": "ico_GearItem__DoubleBarrelAmmoSingleScrapshot.png"
     },
     {
@@ -835,7 +842,7 @@
           "DisplayNameLocalizationId": "GAMEPLAY_DoubleBarrel_AmmoBoxScrapshotName",
           "DescriptionLocalizatonId": "GAMEPLAY_DoubleBarrel_AmmoBoxScrapshotDescription",
           "InventoryActionLocalizationId": "",
-          "WeightKG": 0.04,
+          "WeightKG": 0.24,
           "DaysToDecay": 0,
           "MaxHP": 100.0,
           "InitialCondition": "Perfect",
@@ -892,6 +899,7 @@
       "recipe": null,
       "template": "GEAR_DoubleBarrelAmmoBoxBuckshot",
       "model": "ShotgunScrapshotBox.fbx",
+      "replaceExisting": false,
       "icon": "ico_GearItem__DoubleBarrelAmmoBoxScrapshot.png"
     }
   ]

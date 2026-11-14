@@ -69,5 +69,92 @@
       "ShotgunScrapshotBox",
       "ShotgunScrapshotShell"
     ]
+  },
+  "ShotgunBuckshotShell": {
+    "dimensions_m": [
+      0.043629154562950134,
+      0.04362913966178894,
+      0.12764769792556763
+    ],
+    "triangles": 552,
+    "vertices": 278,
+    "nonmanifold_edges": 0,
+    "mesh_count": 1,
+    "materials": [
+      "ShotgunBuckshotShell"
+    ]
+  },
+  "ShotgunBuckshotBox": {
+    "dimensions_m": [
+      0.2459319829940796,
+      0.13935770094394684,
+      0.1366785317659378
+    ],
+    "triangles": 3084,
+    "vertices": 1556,
+    "nonmanifold_edges": 0,
+    "mesh_count": 1,
+    "materials": [
+      "ShotgunBuckshotBox",
+      "ShotgunBuckshotShell"
+    ]
+  },
+  "ShotgunSlugShell": {
+    "dimensions_m": [
+      0.043629154562950134,
+      0.04362913966178894,
+      0.12764769792556763
+    ],
+    "triangles": 552,
+    "vertices": 278,
+    "nonmanifold_edges": 0,
+    "mesh_count": 1,
+    "materials": [
+      "ShotgunSlugShell"
+    ]
+  },
+  "ShotgunSlugBox": {
+    "dimensions_m": [
+      0.2459319829940796,
+      0.13935770094394684,
+      0.1366785317659378
+    ],
+    "triangles": 3084,
+    "vertices": 1556,
+    "nonmanifold_edges": 0,
+    "mesh_count": 1,
+    "materials": [
+      "ShotgunSlugBox",
+      "ShotgunSlugShell"
+    ]
+  },
+  "ShotgunBirdshotShell": {
+    "dimensions_m": [
+      0.043629154562950134,
+      0.04362913966178894,
+      0.12764769792556763
+    ],
+    "triangles": 552,
+    "vertices": 278,
+    "nonmanifold_edges": 0,
+    "mesh_count": 1,
+    "materials": [
+      "ShotgunBirdshotShell"
+    ]
+  },
+  "ShotgunBirdshotBox": {
+    "dimensions_m": [
+      0.2459319829940796,
+      0.13935770094394684,
+      0.1366785317659378
+    ],
+    "triangles": 3084,
+    "vertices": 1556,
+    "nonmanifold_edges": 0,
+    "mesh_count": 1,
+    "materials": [
+      "ShotgunBirdshotBox",
+      "ShotgunBirdshotShell"
+    ]
   }
 }

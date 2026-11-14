@@ -72,18 +72,111 @@
         "ShotgunScrapshotBox",
         "ShotgunScrapshotShell"
       ]
+    },
+    "ShotgunBuckshotShell": {
+      "dimensions_m": [
+        0.043629154562950134,
+        0.04362913966178894,
+        0.12764769792556763
+      ],
+      "triangles": 552,
+      "vertices": 278,
+      "nonmanifold_edges": 0,
+      "mesh_count": 1,
+      "materials": [
+        "ShotgunBuckshotShell"
+      ]
+    },
+    "ShotgunBuckshotBox": {
+      "dimensions_m": [
+        0.2459319829940796,
+        0.13935770094394684,
+        0.1366785317659378
+      ],
+      "triangles": 3084,
+      "vertices": 1556,
+      "nonmanifold_edges": 0,
+      "mesh_count": 1,
+      "materials": [
+        "ShotgunBuckshotBox",
+        "ShotgunBuckshotShell"
+      ]
+    },
+    "ShotgunSlugShell": {
+      "dimensions_m": [
+        0.043629154562950134,
+        0.04362913966178894,
+        0.12764769792556763
+      ],
+      "triangles": 552,
+      "vertices": 278,
+      "nonmanifold_edges": 0,
+      "mesh_count": 1,
+      "materials": [
+        "ShotgunSlugShell"
+      ]
+    },
+    "ShotgunSlugBox": {
+      "dimensions_m": [
+        0.2459319829940796,
+        0.13935770094394684,
+        0.1366785317659378
+      ],
+      "triangles": 3084,
+      "vertices": 1556,
+      "nonmanifold_edges": 0,
+      "mesh_count": 1,
+      "materials": [
+        "ShotgunSlugBox",
+        "ShotgunSlugShell"
+      ]
+    },
+    "ShotgunBirdshotShell": {
+      "dimensions_m": [
+        0.043629154562950134,
+        0.04362913966178894,
+        0.12764769792556763
+      ],
+      "triangles": 552,
+      "vertices": 278,
+      "nonmanifold_edges": 0,
+      "mesh_count": 1,
+      "materials": [
+        "ShotgunBirdshotShell"
+      ]
+    },
+    "ShotgunBirdshotBox": {
+      "dimensions_m": [
+        0.2459319829940796,
+        0.13935770094394684,
+        0.1366785317659378
+      ],
+      "triangles": 3084,
+      "vertices": 1556,
+      "nonmanifold_edges": 0,
+      "mesh_count": 1,
+      "materials": [
+        "ShotgunBirdshotBox",
+        "ShotgunBirdshotShell"
+      ]
     }
   },
   "packed_textures": {
     "ShotgunCastLead_BaseColor.png": "6b98ab20e29a0ec0cb32aa5f6c03813ddda2c1cadd2d7aa455a94a9e79d9d7d0",
     "ShotgunCutSteel_BaseColor.png": "e5a4d3b4c3bda19a6fbfc4ec5105b037be8885ff8aa17d8e3dac991b1f479435",
     "ShotgunScrapshotShell_BaseColor.png": "32839bb6b1b6297a8ccfc931dd8d088bb2a986026c16dfb677932f145e15adc8",
-    "ShotgunScrapshotBox_BaseColor.png": "aaf1d4e397ece26eb6519093583c3c7d7ca6f4adf99414ff3e8098617c6e7567"
+    "ShotgunScrapshotBox_BaseColor.png": "e23051561853a3625cea6e1e02c4b5dbd35b31942e0f62468056d9d6ade68456",
+    "ShotgunBuckshotShell_BaseColor.png": "7f27e60df2e80d9b197cff6057174e5c05aab2ebb1196c02466c25ac9bf0f091",
+    "ShotgunBuckshotBox_BaseColor.png": "46f48beb4279a463625d94d2b73392b770c1541f7349150d7a220bc18ce93dc6",
+    "ShotgunSlugShell_BaseColor.png": "ebb02422ee3e5317b36a7d37e0d06516a565beab0e0f56dcd753a59cbbf4e85b",
+    "ShotgunSlugBox_BaseColor.png": "55893a47a11b0f669a176420ac22ed76c5b523ff9b2ae6e581b284e191dc9ef8",
+    "ShotgunBirdshotShell_BaseColor.png": "bdae834ac6fcfd497b8b243e1e08318956b97a46129892d0b2ed53506e068bf4",
+    "ShotgunBirdshotBox_BaseColor.png": "d1f5863a1a197be3313e7b6efb13562bc1f9f6d92e71335a753765fe03750a7d"
   },
   "sphere_clearances_m": {
     "ShotgunLeadBuckshot": 3.6358454782053386e-05,
     "ShotgunLeadBirdshot": 4.170365150194108e-05
   },
   "visible_box_shells": 6,
-  "blend_sha256": "a32d3d66f8d19cb8defcba3153dafef162fe119fcf19fd247d49862eb2dbefdd"
+  "blend_sha256": "dc585bd3e54aca493a640ad91312c669ed3e75d6998b8d96d8235572c39b8c87"
 }

@@ -205,7 +205,10 @@ public static class PrepareAmmunitionAssets
             {
                 string name = materials[i] == null ? "" : materials[i].name;
                 if (name != "ShotgunCastLead" && name != "ShotgunCutSteel" &&
-                    name != "ShotgunScrapshotShell" && name != "ShotgunScrapshotBox")
+                    name != "ShotgunScrapshotShell" && name != "ShotgunScrapshotBox" &&
+                    name != "ShotgunBuckshotShell" && name != "ShotgunBuckshotBox" &&
+                    name != "ShotgunSlugShell" && name != "ShotgunSlugBox" &&
+                    name != "ShotgunBirdshotShell" && name != "ShotgunBirdshotBox")
                     throw new InvalidOperationException("Unexpected ammunition material: " + name);
                 var material = AssetDatabase.LoadAssetAtPath<Material>(Root + "Materials/" + name + ".mat");
                 if (material == null || material.mainTexture == null)
