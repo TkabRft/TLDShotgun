@@ -1,0 +1,1010 @@
+{
+  "version": 1,
+  "nativeGeometryRedistributed": false,
+  "scope": "Base entries use nine-point support, active BoxCollider and grouped/fixed mod-loot clearance with 0.5m loot-origin exclusion. Farmhouse auditVersion=2 entries additionally check the rendered shotgun envelope, resolved native MeshColliders, furniture render bounds and structural mesh triangles with 0.1m horizontal clearance. Door movement, customized furniture and pickup/physics require game acceptance.",
+  "placements": [
+    {
+      "id": "SG_Shotgun_004",
+      "scene": "SafeHouseA",
+      "prefab": "GEAR_DoubleBarrel",
+      "position": [
+        -2.58971,
+        0.029194,
+        4.564384
+      ],
+      "rotation": [
+        0,
+        0,
+        90
+      ],
+      "sourceBundle": "8bed210ebc0c026e1d9e7b880d155cd5.bundle",
+      "sourceSha256": "79ae1fdef3615831e3ad4a61d09659847e0df22d8002659b4122c0362ca1d28b",
+      "prefabSha256": "764ede9a3a24c9e3599350d9680c9cc1e8966c54fcde34772202a83909e8b12a",
+      "support": "Root/Art/Geo/OBJ_RugA_Prefab/OBJ_RugA_LOD0",
+      "supportTriangles": 54,
+      "placedBounds": [
+        [
+          -2.747604985559316,
+          -2.428732505559316
+        ],
+        [
+          -0.009529557483759728,
+          0.06817059251624036
+        ],
+        [
+          3.772618961092819,
+          5.357176261092819
+        ]
+      ],
+      "boxCollidersChecked": 90,
+      "nativeGearOriginsChecked": 59,
+      "modLootCollidersChecked": 2,
+      "minimumLootOriginClearanceM": 1.152776975624814
+    },
+    {
+      "id": "SG_PartStock_006",
+      "scene": "SafeHouseA",
+      "prefab": "GEAR_DoubleBarrelPartStock",
+      "position": [
+        -1.514402,
+        0.737834,
+        5.512568
+      ],
+      "rotation": [
+        0,
+        90,
+        90
+      ],
+      "sourceBundle": "8bed210ebc0c026e1d9e7b880d155cd5.bundle",
+      "sourceSha256": "79ae1fdef3615831e3ad4a61d09659847e0df22d8002659b4122c0362ca1d28b",
+      "prefabSha256": "6da463c03add899485806c71b7725dff6662b52bb596f851ae52ebbd246e4321",
+      "support": "Root/Design/Interactive/INTERACTIVE_WorkBench",
+      "supportTriangles": 72,
+      "placedBounds": [
+        [
+          -1.8709009115586006,
+          -1.1579033515586004
+        ],
+        [
+          0.7068865654498586,
+          0.7687819054498588
+        ],
+        [
+          5.3567855981914265,
+          5.668350298191426
+        ]
+      ],
+      "boxCollidersChecked": 90,
+      "nativeGearOriginsChecked": 59,
+      "modLootCollidersChecked": 2,
+      "minimumLootOriginClearanceM": 0.5095549590401226
+    },
+    {
+      "id": "SG_Shotgun_005",
+      "scene": "HuntingLodgeA",
+      "prefab": "GEAR_DoubleBarrel",
+      "position": [
+        -10.519304,
+        -3.053663,
+        3.096383
+      ],
+      "rotation": [
+        0,
+        0,
+        90
+      ],
+      "sourceBundle": "39e148d13247f9130ceb6b9b53a64375.bundle",
+      "sourceSha256": "6b4112abbfc9f5721fc55b9773287769ae5f238021cd165fee238ecc9fdb2b77",
+      "prefabSha256": "764ede9a3a24c9e3599350d9680c9cc1e8966c54fcde34772202a83909e8b12a",
+      "support": "Root/Art/Geo/OBJ_MetalShelfB_Prefab (1)/OBJ_MetalShelfB_LOD0",
+      "supportTriangles": 2,
+      "placedBounds": [
+        [
+          -10.677199071302743,
+          -10.358326591302744
+        ],
+        [
+          -3.0923871526122095,
+          -3.0146870026122095
+        ],
+        [
+          2.3046176173870716,
+          3.8891749173870718
+        ]
+      ],
+      "boxCollidersChecked": 437,
+      "nativeGearOriginsChecked": 86,
+      "modLootCollidersChecked": 2,
+      "minimumLootOriginClearanceM": 0.6134269526634535
+    },
+    {
+      "id": "SG_Shotgun_006",
+      "scene": "FarmHouseA",
+      "prefab": "GEAR_DoubleBarrel",
+      "position": [
+        1.65554,
+        3.603151,
+        5.909959
+      ],
+      "rotation": [
+        0,
+        0,
+        90
+      ],
+      "sourceBundle": "92f3b48ed58def1dc64813c58685d3da.bundle",
+      "sourceSha256": "1a23b12fe48e2f79916fd450ef4e9e5daac8039e8e7ebb176816feb18400c609",
+      "prefabSha256": "764ede9a3a24c9e3599350d9680c9cc1e8966c54fcde34772202a83909e8b12a",
+      "support": "RootSandbox/Art/Props_Sandbox_Ver/OBJ_RugM_Prefab/OBJ_RugM_LOD0",
+      "supportTriangles": 2,
+      "placedBounds": [
+        [
+          1.4976448977036907,
+          1.8165173777036907
+        ],
+        [
+          3.5644268041849134,
+          3.6421269541849135
+        ],
+        [
+          5.118193955947314,
+          6.702751255947314
+        ]
+      ],
+      "boxCollidersChecked": 433,
+      "nativeGearOriginsChecked": 96,
+      "modLootCollidersChecked": 1,
+      "minimumLootOriginClearanceM": 1.3984281536206338
+    },
+    {
+      "id": "SG_PartStock_008",
+      "scene": "FarmHouseA",
+      "prefab": "GEAR_DoubleBarrelPartStock",
+      "position": [
+        1.221291,
+        3.595374,
+        5.658043
+      ],
+      "rotation": [
+        0,
+        0,
+        90
+      ],
+      "sourceBundle": "92f3b48ed58def1dc64813c58685d3da.bundle",
+      "sourceSha256": "1a23b12fe48e2f79916fd450ef4e9e5daac8039e8e7ebb176816feb18400c609",
+      "prefabSha256": "6da463c03add899485806c71b7725dff6662b52bb596f851ae52ebbd246e4321",
+      "support": "RootSandbox/Art/Props_Sandbox_Ver/OBJ_RugM_Prefab/OBJ_RugM_LOD0",
+      "supportTriangles": 2,
+      "placedBounds": [
+        [
+          1.0655090859512566,
+          1.3770737859512565
+        ],
+        [
+          3.5644268041849134,
+          3.626322144184914
+        ],
+        [
+          5.301543873567596,
+          6.0145414335675955
+        ]
+      ],
+      "boxCollidersChecked": 433,
+      "nativeGearOriginsChecked": 96,
+      "modLootCollidersChecked": 1,
+      "minimumLootOriginClearanceM": 0.502089768200866
+    },
+    {
+      "id": "SG_PartStock_007",
+      "scene": "FarmHouseB",
+      "prefab": "GEAR_DoubleBarrelPartStock",
+      "position": [
+        7.312179,
+        0.085513,
+        -1.65356
+      ],
+      "rotation": [
+        0,
+        0,
+        90
+      ],
+      "sourceBundle": "bd8e8988df4c2d3a759f00c28d421d94.bundle",
+      "sourceSha256": "d76ad2d0f5de669022ed5db33703d7442b12ca39f5c14a2437c139b19af8c1ed",
+      "prefabSha256": "6da463c03add899485806c71b7725dff6662b52bb596f851ae52ebbd246e4321",
+      "support": "Root/Art/Geo/OBJ_RugR_Prefab/OBJ_RugR_LOD0",
+      "supportTriangles": 2,
+      "placedBounds": [
+        [
+          7.156396705243753,
+          7.467961405243753
+        ],
+        [
+          0.054565816177055235,
+          0.11646115617705531
+        ],
+        [
+          -2.010059150625809,
+          -1.2970615906258094
+        ]
+      ],
+      "boxCollidersChecked": 231,
+      "nativeGearOriginsChecked": 106,
+      "modLootCollidersChecked": 1,
+      "minimumLootOriginClearanceM": 1.577833931148247
+    },
+    {
+      "id": "SG_Shotgun_008",
+      "scene": "QuonsetGasStation",
+      "prefab": "GEAR_DoubleBarrel",
+      "position": [
+        11.819746,
+        1.666267,
+        3.616069
+      ],
+      "rotation": [
+        0,
+        90,
+        90
+      ],
+      "sourceBundle": "61294e84744cc1a75943195b6f02e9dc.bundle",
+      "sourceSha256": "959b7cc1df59cb461ebc3e879653bcc6635f8243fca06beb106d40a5b0c74b47",
+      "prefabSha256": "764ede9a3a24c9e3599350d9680c9cc1e8966c54fcde34772202a83909e8b12a",
+      "support": "Root/Art/Geo/OBJ_MetalShelfA_Prefab/OBJ_MetalShelfA_LOD0",
+      "supportTriangles": 2,
+      "placedBounds": [
+        [
+          11.027981397912598,
+          12.612538697912598
+        ],
+        [
+          1.6275429821014404,
+          1.7052431321014405
+        ],
+        [
+          3.4550914623315427,
+          3.773963942331543
+        ]
+      ],
+      "boxCollidersChecked": 237,
+      "nativeGearOriginsChecked": 131,
+      "modLootCollidersChecked": 3,
+      "minimumLootOriginClearanceM": 0.9316246571479025
+    },
+    {
+      "id": "SG_Shotgun_009",
+      "scene": "CrashMountainRegion",
+      "prefab": "GEAR_DoubleBarrel",
+      "position": [
+        886.273275,
+        161.554604,
+        344.328603
+      ],
+      "rotation": [
+        0,
+        0,
+        90
+      ],
+      "sourceBundle": "59b6b53613e31f61df4319842e9b2f85.bundle",
+      "sourceSha256": "2a2c742d1bfadd94e70bfb921119e823b73622b1ca1a94921977866998517443",
+      "prefabSha256": "764ede9a3a24c9e3599350d9680c9cc1e8966c54fcde34772202a83909e8b12a",
+      "support": "Design/INTERACTIVE_WorkBench",
+      "supportTriangles": 72,
+      "placedBounds": [
+        [
+          886.1153801358953,
+          886.4342526158953
+        ],
+        [
+          161.51587996459307,
+          161.59358011459307
+        ],
+        [
+          343.5368379808926,
+          345.12139528089256
+        ]
+      ],
+      "boxCollidersChecked": 1109,
+      "nativeGearOriginsChecked": 239,
+      "modLootCollidersChecked": 0,
+      "minimumLootOriginClearanceM": 0.5651747217830075
+    },
+    {
+      "id": "SG_PartForend_004",
+      "scene": "CrashMountainRegion",
+      "prefab": "GEAR_DoubleBarrelPartForend",
+      "position": [
+        887.128954,
+        161.550249,
+        343.762463
+      ],
+      "rotation": [
+        0,
+        0,
+        90
+      ],
+      "sourceBundle": "59b6b53613e31f61df4319842e9b2f85.bundle",
+      "sourceSha256": "2a2c742d1bfadd94e70bfb921119e823b73622b1ca1a94921977866998517443",
+      "prefabSha256": "dc528e0bda7a6416e108bf014b9d1b24e84966869aaa92fe2b3a686965630635",
+      "support": "Design/INTERACTIVE_WorkBench",
+      "supportTriangles": 72,
+      "placedBounds": [
+        [
+          887.0915853744151,
+          887.1663219544151
+        ],
+        [
+          161.51587996459307,
+          161.58461901459304
+        ],
+        [
+          343.55516493209046,
+          343.96976167209044
+        ]
+      ],
+      "boxCollidersChecked": 1109,
+      "nativeGearOriginsChecked": 239,
+      "modLootCollidersChecked": 0,
+      "minimumLootOriginClearanceM": 0.5741386504209408
+    },
+    {
+      "id": "SG_Shotgun_010",
+      "scene": "WhalingWarehouseA",
+      "prefab": "GEAR_DoubleBarrel",
+      "position": [
+        -7.880541,
+        4.35868,
+        -22.759513
+      ],
+      "rotation": [
+        0,
+        0,
+        90
+      ],
+      "sourceBundle": "2a4ff23205e128983e61dab8da1d6686.bundle",
+      "sourceSha256": "c6009136d17b4966a61564e0c014bb1ee3bc0e15d1c9012c05a9ab1057b4531c",
+      "prefabSha256": "764ede9a3a24c9e3599350d9680c9cc1e8966c54fcde34772202a83909e8b12a",
+      "support": "Root/Art/Props/OBJ_MetalCounterB_Prefab 2/OBJ_MetalCounterB_LOD0",
+      "supportTriangles": 2,
+      "placedBounds": [
+        [
+          -8.038436426920166,
+          -7.719563946920166
+        ],
+        [
+          4.3199564909934995,
+          4.3976566409935
+        ],
+        [
+          -23.55127752084961,
+          -21.96672022084961
+        ]
+      ],
+      "boxCollidersChecked": 289,
+      "nativeGearOriginsChecked": 86,
+      "modLootCollidersChecked": 1,
+      "minimumLootOriginClearanceM": 1.1917969342464743
+    },
+    {
+      "id": "SG_PartBarrel_005",
+      "scene": "WhalingWarehouseA",
+      "prefab": "GEAR_DoubleBarrelPartBarrel",
+      "position": [
+        -7.879,
+        5.034891,
+        -22.758999
+      ],
+      "rotation": [
+        0,
+        0,
+        90
+      ],
+      "sourceBundle": "2a4ff23205e128983e61dab8da1d6686.bundle",
+      "sourceSha256": "c6009136d17b4966a61564e0c014bb1ee3bc0e15d1c9012c05a9ab1057b4531c",
+      "prefabSha256": "d588aef6e24010de4d909f25f5ec3bcbabf333f4d10f00b66ae19e9722a87f5d",
+      "support": "Root/Art/Props/OBJ_MetalCounterB_Prefab 2/OBJ_MetalCounterB_LOD0",
+      "supportTriangles": 2,
+      "placedBounds": [
+        [
+          -7.924790591920166,
+          -7.833209781920166
+        ],
+        [
+          5.006350765228271,
+          5.063432062228271
+        ],
+        [
+          -23.24128682084961,
+          -22.27671092084961
+        ]
+      ],
+      "boxCollidersChecked": 289,
+      "nativeGearOriginsChecked": 86,
+      "modLootCollidersChecked": 1,
+      "minimumLootOriginClearanceM": 0.6762133646195688
+    },
+    {
+      "id": "SG_PartTrigger_005",
+      "scene": "WhalingWarehouseA",
+      "prefab": "GEAR_DoubleBarrelPartTrigger",
+      "position": [
+        -8.366963,
+        4.787195,
+        -14.135254
+      ],
+      "rotation": [
+        0,
+        0,
+        90
+      ],
+      "sourceBundle": "2a4ff23205e128983e61dab8da1d6686.bundle",
+      "sourceSha256": "c6009136d17b4966a61564e0c014bb1ee3bc0e15d1c9012c05a9ab1057b4531c",
+      "prefabSha256": "3a0ec0778e6db8d5b1012f095c278e298b9857958d4bdf5ab52dbc3bd44662a2",
+      "support": "Root/Art/Warehouse Props/OBJ_TableWoodC_Prefab/OBJ_TableWoodC_LOD0",
+      "supportTriangles": 70,
+      "placedBounds": [
+        [
+          -8.412560251468715,
+          -8.321364821468716
+        ],
+        [
+          4.7651745176315305,
+          4.80921557763153
+        ],
+        [
+          -14.199932384251133,
+          -14.070576584251134
+        ]
+      ],
+      "boxCollidersChecked": 289,
+      "nativeGearOriginsChecked": 86,
+      "modLootCollidersChecked": 1,
+      "minimumLootOriginClearanceM": 4.8289923911232355
+    },
+    {
+      "id": "SG_Shotgun_011",
+      "scene": "AFHangar",
+      "prefab": "GEAR_DoubleBarrel",
+      "position": [
+        -25.002994,
+        1.157507,
+        -10.880236
+      ],
+      "rotation": [
+        0,
+        90,
+        90
+      ],
+      "sourceBundle": "cc070768f4cb1cb72d3ccfefd9b69be9.bundle",
+      "sourceSha256": "74364ee6bbb95e9ffa79031bac424d36ef5bcd6d63d11fe2600dd445747271bb",
+      "prefabSha256": "764ede9a3a24c9e3599350d9680c9cc1e8966c54fcde34772202a83909e8b12a",
+      "support": "Root/Art/Geo/OBJ_MetalShelfE_Prefab (2)",
+      "supportTriangles": 2,
+      "placedBounds": [
+        [
+          -25.794758956825863,
+          -24.210201656825863
+        ],
+        [
+          1.118783781528473,
+          1.196483931528473
+        ],
+        [
+          -11.041212980953997,
+          -10.722340500953997
+        ]
+      ],
+      "boxCollidersChecked": 841,
+      "nativeGearOriginsChecked": 144,
+      "modLootCollidersChecked": 1,
+      "minimumLootOriginClearanceM": 1.4199938143633484
+    },
+    {
+      "id": "SG_PartBarrel_006",
+      "scene": "AFHangar",
+      "prefab": "GEAR_DoubleBarrelPartBarrel",
+      "position": [
+        -25.967865,
+        0.934915,
+        -2.303341
+      ],
+      "rotation": [
+        0,
+        90,
+        90
+      ],
+      "sourceBundle": "cc070768f4cb1cb72d3ccfefd9b69be9.bundle",
+      "sourceSha256": "74364ee6bbb95e9ffa79031bac424d36ef5bcd6d63d11fe2600dd445747271bb",
+      "prefabSha256": "d588aef6e24010de4d909f25f5ec3bcbabf333f4d10f00b66ae19e9722a87f5d",
+      "support": "Root/Art/Geo/OBJ_StoreShelfA_Prefab/OBJ_StoreShelfA_LOD0",
+      "supportTriangles": 2,
+      "placedBounds": [
+        [
+          -26.450152641940754,
+          -25.485576741940754
+        ],
+        [
+          0.906374454728857,
+          0.9634557517288571
+        ],
+        [
+          -2.3491312963781037,
+          -2.2575504863781037
+        ]
+      ],
+      "boxCollidersChecked": 841,
+      "nativeGearOriginsChecked": 144,
+      "modLootCollidersChecked": 1,
+      "minimumLootOriginClearanceM": 3.384590873193291
+    },
+    {
+      "id": "SG_PartBarrel_004",
+      "scene": "MaintenanceShedB",
+      "prefab": "GEAR_DoubleBarrelPartBarrel",
+      "position": [
+        8.786504,
+        0.354957,
+        -15.067483
+      ],
+      "rotation": [
+        0,
+        0,
+        90
+      ],
+      "sourceBundle": "25840acf98860d4b13d78ed2ae9a53bb.bundle",
+      "sourceSha256": "4b2ed01212d9f10deae083f68da5eefcf15eb5c42e33acf7097a54a554a65ffc",
+      "prefabSha256": "d588aef6e24010de4d909f25f5ec3bcbabf333f4d10f00b66ae19e9722a87f5d",
+      "support": "Root/Art/Geo/OBJ_PalletA_Prefab (4)",
+      "supportTriangles": 2,
+      "placedBounds": [
+        [
+          8.740713852398033,
+          8.832294662398033
+        ],
+        [
+          0.3264159208536148,
+          0.3834972178536149
+        ],
+        [
+          -15.549771110319355,
+          -14.585195210319355
+        ]
+      ],
+      "boxCollidersChecked": 194,
+      "nativeGearOriginsChecked": 102,
+      "modLootCollidersChecked": 1,
+      "minimumLootOriginClearanceM": 3.410584105912828
+    },
+    {
+      "id": "SG_PartTrigger_004",
+      "scene": "MaintenanceShedB",
+      "prefab": "GEAR_DoubleBarrelPartTrigger",
+      "position": [
+        9.104252,
+        0.348436,
+        -14.664966
+      ],
+      "rotation": [
+        0,
+        0,
+        90
+      ],
+      "sourceBundle": "25840acf98860d4b13d78ed2ae9a53bb.bundle",
+      "sourceSha256": "4b2ed01212d9f10deae083f68da5eefcf15eb5c42e33acf7097a54a554a65ffc",
+      "prefabSha256": "3a0ec0778e6db8d5b1012f095c278e298b9857958d4bdf5ab52dbc3bd44662a2",
+      "support": "Root/Art/Geo/OBJ_PalletA_Prefab (4)",
+      "supportTriangles": 2,
+      "placedBounds": [
+        [
+          9.058654379366741,
+          9.14984980936674
+        ],
+        [
+          0.3264159208536148,
+          0.3704569808536149
+        ],
+        [
+          -14.729643953609902,
+          -14.600288153609903
+        ]
+      ],
+      "boxCollidersChecked": 194,
+      "nativeGearOriginsChecked": 102,
+      "modLootCollidersChecked": 1,
+      "minimumLootOriginClearanceM": 0.5128608594600231
+    },
+    {
+      "id": "SG_PartTrigger_006",
+      "scene": "MineConcentratorBuilding",
+      "prefab": "GEAR_DoubleBarrelPartTrigger",
+      "position": [
+        -17.619007,
+        44.341977,
+        61.960003
+      ],
+      "rotation": [
+        0,
+        0,
+        90
+      ],
+      "sourceBundle": "e23143d0f78af030442fb71d5ecde299.bundle",
+      "sourceSha256": "e207c00eabe3de623d7f2705a046eeffc138317ef80b9adfa8db6c60e9648239",
+      "prefabSha256": "3a0ec0778e6db8d5b1012f095c278e298b9857958d4bdf5ab52dbc3bd44662a2",
+      "support": "Root /Art/MineConcentrator_Int_Prefab/PropGroup/OBJ_MetalCounterC_Prefab (2)/OBJ_MetalCounterC_LOD0",
+      "supportTriangles": 2,
+      "placedBounds": [
+        [
+          -17.664604825595703,
+          -17.573409395595704
+        ],
+        [
+          44.3199564909935,
+          44.363997550993496
+        ],
+        [
+          61.89532547600708,
+          62.02468127600708
+        ]
+      ],
+      "boxCollidersChecked": 1398,
+      "nativeGearOriginsChecked": 291,
+      "modLootCollidersChecked": 1,
+      "minimumLootOriginClearanceM": 8.331306034814745
+    },
+    {
+      "id": "SG_PartForend_005",
+      "scene": "LighthouseA",
+      "prefab": "GEAR_DoubleBarrelPartForend",
+      "position": [
+        0.027829,
+        9.00129,
+        3.372693
+      ],
+      "rotation": [
+        0,
+        0,
+        90
+      ],
+      "sourceBundle": "f586b8a3297590092280caa4d74952ae.bundle",
+      "sourceSha256": "1d25a9acfe85ac8981041641be3eb4974fe13406fcc5d6c612f63d370ec95b7e",
+      "prefabSha256": "dc528e0bda7a6416e108bf014b9d1b24e84966869aaa92fe2b3a686965630635",
+      "support": "Root/Art/Geo/OBJ_MetalShelfA_Prefab/OBJ_MetalShelfA_LOD0",
+      "supportTriangles": 2,
+      "placedBounds": [
+        [
+          -0.009539358191528333,
+          0.06519722180847169
+        ],
+        [
+          8.966919997930527,
+          9.035659047930528
+        ],
+        [
+          3.1653944647550873,
+          3.5799912047550877
+        ]
+      ],
+      "boxCollidersChecked": 149,
+      "nativeGearOriginsChecked": 82,
+      "modLootCollidersChecked": 1,
+      "minimumLootOriginClearanceM": 0.5050797317209356
+    },
+    {
+      "id": "SG_PartForend_006",
+      "scene": "BarnHouseA",
+      "prefab": "GEAR_DoubleBarrelPartForend",
+      "position": [
+        -7.196,
+        1.006293,
+        -5.74
+      ],
+      "rotation": [
+        0,
+        0,
+        90
+      ],
+      "sourceBundle": "fc81f6deac1f254098038dc93478d795.bundle",
+      "sourceSha256": "fdaaf443d9882d0ddce3fe8a6b7ef613ba4e9a92d6ebd0c1fc61a8dbf4f887ba",
+      "prefabSha256": "dc528e0bda7a6416e108bf014b9d1b24e84966869aaa92fe2b3a686965630635",
+      "support": "Root/Art/Geo/OBJ_MetalShelfA_Prefab/OBJ_MetalShelfA_LOD0",
+      "supportTriangles": 2,
+      "placedBounds": [
+        [
+          -7.233368389182129,
+          -7.158631809182129
+        ],
+        [
+          0.9719233906269074,
+          1.0406624406269074
+        ],
+        [
+          -5.947298141118164,
+          -5.532701401118164
+        ]
+      ],
+      "boxCollidersChecked": 160,
+      "nativeGearOriginsChecked": 67,
+      "modLootCollidersChecked": 2,
+      "minimumLootOriginClearanceM": 0.5722267999265599
+    },
+    {
+      "id": "SG_Shotgun_007",
+      "scene": "FarmHouseB",
+      "prefab": "GEAR_DoubleBarrel",
+      "position": [
+        3.949525,
+        0.051936,
+        -1.272726
+      ],
+      "rotation": [
+        0,
+        90,
+        90
+      ],
+      "auditVersion": 2,
+      "boxCollidersChecked": 231,
+      "meshCollidersChecked": 198,
+      "furnitureRenderMeshesChecked": 490,
+      "structuralRenderMeshesChecked": 40,
+      "cosmeticRenderMeshesExcluded": 10,
+      "sourceBundle": "bd8e8988df4c2d3a759f00c28d421d94.bundle",
+      "sourceSha256": "63347b38f72a849e2855f340e9460381b75ac0115d033dbbb084d6c0e415a7ea",
+      "geometryDependencies": [
+        {
+          "bundle": "0fdef26068bbfb5471e1d85601e34df1.bundle",
+          "sha256": "d73183ae938283d05af04fedf6014f04cff407cd4871de8f732dedc03fa9978a"
+        },
+        {
+          "bundle": "1a8a9df54187cd52265b8b968593ee63.bundle",
+          "sha256": "4f13973018e283a4645a2e68d5ca31aef1ffe0dde90680f72992dda871d32b45"
+        },
+        {
+          "bundle": "5c21e6c455f81af915584c6a69f43eda.bundle",
+          "sha256": "56c0d0f3e91a60b76a95bbe6e34be9be0eea9de92dd131e3e366ebe6168de925"
+        },
+        {
+          "bundle": "5fd4b9881401a1dcd9b3938104930784.bundle",
+          "sha256": "df44fcb7acf2c2534cabd4ae9fa40006b0d6d936bdbb95ac8fb358ce38aaacca"
+        },
+        {
+          "bundle": "bd8e8988df4c2d3a759f00c28d421d94.bundle",
+          "sha256": "63347b38f72a849e2855f340e9460381b75ac0115d033dbbb084d6c0e415a7ea"
+        },
+        {
+          "bundle": "d7382a1d62f16baa03da6f49268f1fbd.bundle",
+          "sha256": "a317f0411ac11bafad7b501f160ca4bd9b90e0304537a04476a7ace7e1d6e85f"
+        },
+        {
+          "bundle": "unity default resources",
+          "sha256": "d656c46a47e39c4346e1ae506f6cd8328408ff2d97156274d8ac7adf7b844513"
+        }
+      ],
+      "modelPackageSha256": "1000a4d12fcda90ad2af4fade3d2e4c934231205536a0f2ce3c67a4a53c378a3",
+      "renderersChecked": 1,
+      "localModelAndColliderBounds": [
+        [
+          -0.03872370719909668,
+          0.03897644579410553
+        ],
+        [
+          -0.16097724437713623,
+          0.15857450664043427
+        ],
+        [
+          -0.7917649745941162,
+          0.7927923202514648
+        ]
+      ],
+      "prefabSha256": "764ede9a3a24c9e3599350d9680c9cc1e8966c54fcde34772202a83909e8b12a",
+      "support": "Root/Art/Geo/STR_FarmHouseBFloorWood_Prefab",
+      "supportTriangles": 4,
+      "placedBounds": [
+        [
+          3.1577600254058833,
+          4.742317320251465
+        ],
+        [
+          0.013212292800903282,
+          0.09091244579410557
+        ],
+        [
+          -1.4337032443771365,
+          -1.1141514933595655
+        ]
+      ],
+      "supportSamples": 9,
+      "horizontalObstacleClearanceM": 0.1,
+      "minimumFurnitureBoundsClearanceM": 0.16155571007286107,
+      "nativeGearOriginsChecked": 106,
+      "modLootCollidersChecked": 6,
+      "unresolvedRelevantMeshes": 0,
+      "minimumLootOriginClearanceM": 1.5162807466394126
+    },
+    {
+      "id": "SG_Shotgun_007",
+      "scene": "FarmHouseB",
+      "prefab": "GEAR_DoubleBarrel",
+      "position": [
+        7.654459,
+        0.051936,
+        -4.409514
+      ],
+      "rotation": [
+        0,
+        0,
+        90
+      ],
+      "auditVersion": 2,
+      "boxCollidersChecked": 231,
+      "meshCollidersChecked": 198,
+      "furnitureRenderMeshesChecked": 490,
+      "structuralRenderMeshesChecked": 40,
+      "cosmeticRenderMeshesExcluded": 10,
+      "sourceBundle": "bd8e8988df4c2d3a759f00c28d421d94.bundle",
+      "sourceSha256": "63347b38f72a849e2855f340e9460381b75ac0115d033dbbb084d6c0e415a7ea",
+      "geometryDependencies": [
+        {
+          "bundle": "0fdef26068bbfb5471e1d85601e34df1.bundle",
+          "sha256": "d73183ae938283d05af04fedf6014f04cff407cd4871de8f732dedc03fa9978a"
+        },
+        {
+          "bundle": "1a8a9df54187cd52265b8b968593ee63.bundle",
+          "sha256": "4f13973018e283a4645a2e68d5ca31aef1ffe0dde90680f72992dda871d32b45"
+        },
+        {
+          "bundle": "5c21e6c455f81af915584c6a69f43eda.bundle",
+          "sha256": "56c0d0f3e91a60b76a95bbe6e34be9be0eea9de92dd131e3e366ebe6168de925"
+        },
+        {
+          "bundle": "5fd4b9881401a1dcd9b3938104930784.bundle",
+          "sha256": "df44fcb7acf2c2534cabd4ae9fa40006b0d6d936bdbb95ac8fb358ce38aaacca"
+        },
+        {
+          "bundle": "bd8e8988df4c2d3a759f00c28d421d94.bundle",
+          "sha256": "63347b38f72a849e2855f340e9460381b75ac0115d033dbbb084d6c0e415a7ea"
+        },
+        {
+          "bundle": "d7382a1d62f16baa03da6f49268f1fbd.bundle",
+          "sha256": "a317f0411ac11bafad7b501f160ca4bd9b90e0304537a04476a7ace7e1d6e85f"
+        },
+        {
+          "bundle": "unity default resources",
+          "sha256": "d656c46a47e39c4346e1ae506f6cd8328408ff2d97156274d8ac7adf7b844513"
+        }
+      ],
+      "modelPackageSha256": "1000a4d12fcda90ad2af4fade3d2e4c934231205536a0f2ce3c67a4a53c378a3",
+      "renderersChecked": 1,
+      "localModelAndColliderBounds": [
+        [
+          -0.03872370719909668,
+          0.03897644579410553
+        ],
+        [
+          -0.16097724437713623,
+          0.15857450664043427
+        ],
+        [
+          -0.7917649745941162,
+          0.7927923202514648
+        ]
+      ],
+      "prefabSha256": "764ede9a3a24c9e3599350d9680c9cc1e8966c54fcde34772202a83909e8b12a",
+      "support": "Root/Art/Geo/STR_FarmHouseBFloorWood_Prefab",
+      "supportTriangles": 4,
+      "placedBounds": [
+        [
+          7.495884493359566,
+          7.815436244377136
+        ],
+        [
+          0.013212292800903282,
+          0.09091244579410557
+        ],
+        [
+          -5.201278974594116,
+          -3.616721679748535
+        ]
+      ],
+      "supportSamples": 9,
+      "horizontalObstacleClearanceM": 0.1,
+      "minimumFurnitureBoundsClearanceM": 0.13862406613557443,
+      "nativeGearOriginsChecked": 106,
+      "modLootCollidersChecked": 6,
+      "unresolvedRelevantMeshes": 0,
+      "minimumLootOriginClearanceM": 1.6201093014864711,
+      "alternative": "bedroom"
+    },
+    {
+      "id": "SG_Shotgun_007",
+      "scene": "FarmHouseB",
+      "prefab": "GEAR_DoubleBarrel",
+      "position": [
+        -2.402514,
+        0.051936,
+        -0.802459
+      ],
+      "rotation": [
+        0,
+        90,
+        90
+      ],
+      "auditVersion": 2,
+      "boxCollidersChecked": 231,
+      "meshCollidersChecked": 198,
+      "furnitureRenderMeshesChecked": 490,
+      "structuralRenderMeshesChecked": 40,
+      "cosmeticRenderMeshesExcluded": 10,
+      "sourceBundle": "bd8e8988df4c2d3a759f00c28d421d94.bundle",
+      "sourceSha256": "63347b38f72a849e2855f340e9460381b75ac0115d033dbbb084d6c0e415a7ea",
+      "geometryDependencies": [
+        {
+          "bundle": "0fdef26068bbfb5471e1d85601e34df1.bundle",
+          "sha256": "d73183ae938283d05af04fedf6014f04cff407cd4871de8f732dedc03fa9978a"
+        },
+        {
+          "bundle": "1a8a9df54187cd52265b8b968593ee63.bundle",
+          "sha256": "4f13973018e283a4645a2e68d5ca31aef1ffe0dde90680f72992dda871d32b45"
+        },
+        {
+          "bundle": "5c21e6c455f81af915584c6a69f43eda.bundle",
+          "sha256": "56c0d0f3e91a60b76a95bbe6e34be9be0eea9de92dd131e3e366ebe6168de925"
+        },
+        {
+          "bundle": "5fd4b9881401a1dcd9b3938104930784.bundle",
+          "sha256": "df44fcb7acf2c2534cabd4ae9fa40006b0d6d936bdbb95ac8fb358ce38aaacca"
+        },
+        {
+          "bundle": "bd8e8988df4c2d3a759f00c28d421d94.bundle",
+          "sha256": "63347b38f72a849e2855f340e9460381b75ac0115d033dbbb084d6c0e415a7ea"
+        },
+        {
+          "bundle": "d7382a1d62f16baa03da6f49268f1fbd.bundle",
+          "sha256": "a317f0411ac11bafad7b501f160ca4bd9b90e0304537a04476a7ace7e1d6e85f"
+        },
+        {
+          "bundle": "unity default resources",
+          "sha256": "d656c46a47e39c4346e1ae506f6cd8328408ff2d97156274d8ac7adf7b844513"
+        }
+      ],
+      "modelPackageSha256": "1000a4d12fcda90ad2af4fade3d2e4c934231205536a0f2ce3c67a4a53c378a3",
+      "renderersChecked": 1,
+      "localModelAndColliderBounds": [
+        [
+          -0.03872370719909668,
+          0.03897644579410553
+        ],
+        [
+          -0.16097724437713623,
+          0.15857450664043427
+        ],
+        [
+          -0.7917649745941162,
+          0.7927923202514648
+        ]
+      ],
+      "prefabSha256": "764ede9a3a24c9e3599350d9680c9cc1e8966c54fcde34772202a83909e8b12a",
+      "support": "Root/Art/Geo/STR_FarmHouseBFloorCarpet_Prefab",
+      "supportTriangles": 2,
+      "placedBounds": [
+        [
+          -3.1942789745941162,
+          -1.609721679748535
+        ],
+        [
+          0.013212292800903282,
+          0.09091244579410557
+        ],
+        [
+          -0.9634362443771365,
+          -0.6438844933595655
+        ]
+      ],
+      "supportSamples": 9,
+      "horizontalObstacleClearanceM": 0.1,
+      "minimumFurnitureBoundsClearanceM": 0.10682843154839805,
+      "nativeGearOriginsChecked": 106,
+      "modLootCollidersChecked": 6,
+      "unresolvedRelevantMeshes": 0,
+      "minimumLootOriginClearanceM": 1.0942377662597618,
+      "alternative": "office"
+    }
+  ]
+}

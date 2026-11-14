@@ -97,6 +97,15 @@ namespace Shotgun
         [Name("Minimum Resources For Ruined Shotguns")]
         public ShotgunResourceLevel RuinedShotgunMinimumResources = ShotgunResourceLevel.Medium;
 
+        [Name("Replace Standard Rifle Finds")]
+        [Description("Replace fresh loose standard rifles in newly explored scenes with usable, unloaded shotguns. Named rifles, carried items and saved scenes are preserved. Default: Off")]
+        public bool ReplaceStandardRifleFinds = false;
+
+        [Name("Replacement Chance")]
+        [Description("Independent percentage per eligible standard rifle. Requires usable shotguns to be enabled at this resource level. Changes affect newly explored scenes. Default: 25%")]
+        [Slider(0, 100)]
+        public int RifleReplacementChance = 25;
+
         [Section("Slug Settings")]
         [Name("Slug Base Damage")]
         [Description("Base damage dealt by slugs within accuracy range. Default: 150")]

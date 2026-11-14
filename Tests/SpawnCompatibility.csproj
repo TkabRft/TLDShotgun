@@ -11,6 +11,9 @@
     <Compile Include="../Main/GroupSpawner.cs" Link="Production/GroupSpawner.cs" />
     <Compile Include="../Main/SpawnLedger.cs" Link="Production/SpawnLedger.cs" />
     <Compile Include="../Main/ShotgunSpawnPolicy.cs" Link="Production/ShotgunSpawnPolicy.cs" />
+    <Compile Include="../Main/ShotgunDistribution.cs" Link="Production/ShotgunDistribution.cs" />
+    <Compile Include="../Main/ShotgunContainerLoot.cs" Link="Production/ShotgunContainerLoot.cs" />
+    <Compile Include="../Main/ShotgunRifleReplacement.cs" Link="Production/ShotgunRifleReplacement.cs" />
     <EmbeddedResource Include="../Spawns/groupspawns.txt" LogicalName="Shotgun.groupspawns.txt" />
     <EmbeddedResource Include="../Spawns/legacy-v1-groupspawns.txt" LogicalName="Shotgun.legacy-v1-groupspawns.txt" />
   </ItemGroup>

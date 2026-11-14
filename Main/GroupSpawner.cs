@@ -17,18 +17,21 @@ namespace Shotgun
     internal static class GroupSpawner
     {
         internal sealed record Member(string Id, string Scene, string Prefab, Vector3 Position, Quaternion Rotation);
+        internal sealed record Alternative(string Name, Vector3 Position, Quaternion Rotation);
         internal sealed class Group
         {
             public string Name = "";
             public string? Scene;
             public Dictionary<string, int> Picks = new(StringComparer.OrdinalIgnoreCase);
             public List<Member> Members = new();
+            public Dictionary<string, List<Alternative>> Alternatives = new(StringComparer.Ordinal);
         }
 
         internal const string BaselineHash = "6d45d47219273def9c7a2aeb7f629bdf8eb077ffdf55485b0b87e147564e972c";
         private static readonly Regex GroupLine = new(@"^group\s*=\s*(\w+)((?:\s+\w+\s*=\s*\w+)*)$", RegexOptions.IgnoreCase);
         private static readonly Regex Keys = new(@"(\w+)\s*=\s*(\w+)");
         private static readonly Regex ItemLine = new(@"^item\s*=\s*(\w+)\s+id\s*=\s*(\w+)(?:\s+scene\s*=\s*(\w+))?\s+p\s*=\s*([-\d.,\s]+?)\s+r\s*=\s*([-\d.,\s]+?)$", RegexOptions.IgnoreCase);
+        private static readonly Regex AlternativeLine = new(@"^alternative\s*=\s*(\w+)\s+for\s*=\s*(\w+)\s+p\s*=\s*([-\d.,\s]+?)\s+r\s*=\s*([-\d.,\s]+?)$", RegexOptions.IgnoreCase);
         private static List<Group>? groups;
         private static List<Group>? baseline;
         private static readonly Dictionary<string, bool> scenes = new(StringComparer.OrdinalIgnoreCase);
@@ -43,6 +46,12 @@ namespace Shotgun
         private static string? lastWarning;
 
         internal static void SetGroups(IEnumerable<Group> source) => groups = source.ToList();
+
+        internal static (IReadOnlyList<Group> Current, IReadOnlyList<Group> Baseline) Catalogs()
+        {
+            EnsureLoaded();
+            return (groups!, baseline!);
+        }
 
         private static string Resource(string name)
         {
@@ -104,7 +113,20 @@ namespace Shotgun
                         if (!ids.Add(id)) throw new InvalidDataException($"Repeated spawn ID {id}");
                         current.Members.Add(new Member(id, scene, match.Groups[1].Value, Vec(match.Groups[4].Value), Quaternion.Euler(Vec(match.Groups[5].Value))));
                     }
-                    else throw new InvalidDataException("Expected a group or an item with a permanent id");
+                    else if (current != null && (match = AlternativeLine.Match(line)).Success)
+                    {
+                        string name = match.Groups[1].Value;
+                        string owner = match.Groups[2].Value;
+                        if (!current.Members.Any(m => m.Id == owner))
+                            throw new InvalidDataException($"Alternative owner {owner} must precede it in the same group");
+                        if (!current.Alternatives.TryGetValue(owner, out var alternatives))
+                            current.Alternatives.Add(owner, alternatives = new());
+                        if (name.Equals("default", StringComparison.OrdinalIgnoreCase)
+                            || alternatives.Any(a => a.Name.Equals(name, StringComparison.OrdinalIgnoreCase)))
+                            throw new InvalidDataException($"Repeated or reserved alternative name {name}");
+                        alternatives.Add(new Alternative(name, Vec(match.Groups[3].Value), Quaternion.Euler(Vec(match.Groups[4].Value))));
+                    }
+                    else throw new InvalidDataException("Expected a group, item with a permanent id, or position alternative");
                 }
                 catch (Exception e) { throw new InvalidDataException($"Spawn line {number}: {e.Message}", e); }
             }
@@ -169,6 +191,16 @@ namespace Shotgun
                 pool.RemoveAt(index);
             }
             return picked;
+        }
+
+        // Position choice has its own RNG and never enters the world lottery or ledger identity.
+        internal static Member ResolvePlacement(Group group, Member member)
+        {
+            if (!group.Alternatives.TryGetValue(member.Id, out var alternatives) || alternatives.Count == 0) return member;
+            int index = RngFor("ShotgunPlacement:" + member.Id).Next(alternatives.Count + 1);
+            if (index == 0) return member;
+            var alternative = alternatives.OrderBy(a => a.Name, StringComparer.Ordinal).ElementAt(index - 1);
+            return member with { Position = alternative.Position, Rotation = alternative.Rotation };
         }
 
         internal static void ResetAttempts()

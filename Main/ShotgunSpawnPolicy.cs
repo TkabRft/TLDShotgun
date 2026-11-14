@@ -56,11 +56,12 @@ namespace Shotgun
                 {
                     string? legacy = Data.Load(LegacySaveKey);
                     candidate = SpawnLedger.Migrate(legacy, savedScenes, baseline, level, GroupSpawner.SceneInGame,
-                        GroupSpawner.RngFor, CandidateCount(level));
+                        GroupSpawner.RngFor, LegacyCandidateCount(level));
                     if (savedScenes.Count > 0 || legacy != null)
                         MelonLogger.Msg("Spawn V2 migration prepared: V1 decisions take priority; missing history reconstructed from the 0.13.5 pool, current resource level and available regions. Written on the next normal save.");
                 }
                 SpawnLedger.ReconcileSavedScenes(candidate, savedScenes);
+                SpawnLedger.ExpandDistribution(candidate, level);
                 SpawnLedger.Update(candidate, groups, level, GroupSpawner.SceneInGame, GroupSpawner.RngFor, CandidateCount(level));
                 state = candidate;
                 return true;
@@ -99,6 +100,10 @@ namespace Shotgun
             {
                 SpawnLedger.Update(state!, groups, level, GroupSpawner.SceneInGame, GroupSpawner.RngFor, CandidateCount(level));
                 plan = SpawnLedger.Plan(state!, groups, scene, (group, member) => ForMember(group, member, level));
+                plan = plan.Select(p => p with
+                {
+                    Member = GroupSpawner.ResolvePlacement(groups.Single(g => g.Name == p.Group), p.Member)
+                }).ToList();
                 plans.Add(scene, plan);
                 return true;
             }
@@ -112,11 +117,23 @@ namespace Shotgun
 
         internal static void ForgetScene(string scene) => plans.Remove(scene);
 
+        internal static SpawnLedger.State? DistributionState()
+        {
+            if (!ModComponent.Public.IsReady() || GameManager.m_SceneTransitionData == null) return null;
+            string? level = GroupSpawner.CurrentLevel();
+            if (level == null) return null;
+            var catalogs = GroupSpawner.Catalogs();
+            return EnsureState(catalogs.Current, catalogs.Baseline, level) ? state : null;
+        }
+
         internal static int ResourceRank(string level) =>
             Enum.TryParse(level, true, out ShotgunResourceLevel rank) && Enum.IsDefined(typeof(ShotgunResourceLevel), rank)
                 ? (int)rank : throw new InvalidDataException($"Unknown resource level {level}");
 
         internal static int CandidateCount(string level)
+            => LegacyCandidateCount(level) > 0 ? SpawnLedger.DistributionQuota(level) : 0;
+
+        internal static int LegacyCandidateCount(string level)
         {
             Settings s = Settings.Instance;
             int rank = ResourceRank(level);

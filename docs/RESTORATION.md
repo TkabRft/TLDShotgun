@@ -4,7 +4,7 @@ Status: implemented in the rebuilt runtime DLL. The complete ammunition asset pa
 
 ## Find controls
 
-The existing `SG_Shotgun` pool remains shared by usable and ruined finds. Its scene names and positions are unchanged; optional scenes absent from the installed game are still excluded.
+The expanded `SG_Shotgun` pool is shared by usable and ruined finds. Original scene names, IDs and positions are preserved; optional scenes absent from the installed game are still excluded. See [distribution](DISTRIBUTION.md) for the added candidates.
 
 | Option | Default |
 |---|---|
@@ -15,9 +15,9 @@ The existing `SG_Shotgun` pool remains shared by usable and ruined finds. Its sc
 | Ruined chance per selected location | 50% |
 | Minimum resources for ruined shotguns | Medium |
 
-Minimum resources can be Low, Medium, High, or Very High. An eligible Low/Medium/High game selects one candidate; Very High selects two. Low selects none with the defaults. A disabled or ineligible type contributes zero chance, with no redistribution: default Medium gives 50% ruined and 50% empty. High/Very High give 50% usable and 50% ruined at each selected location.
+Minimum resources can be Low, Medium, High, or Very High. Complete-gun capacities are 0 / 2 / 3 / 4 at Low / Medium / High / Very High, gated by eligibility. A disabled or ineligible type contributes zero chance, with no redistribution: default Medium gives 50% ruined and 50% empty. High/Very High give 50% usable and 50% ruined at each selected location. See [distribution](DISTRIBUTION.md) for new locations, container parts and optional rifle swaps.
 
-Changing one percentage reduces the other if their sum would exceed 100. Invalid configuration loading clamps usable to 0вЂ“100, then ruined to the remaining percentage. No-firearm and custom no-shotgun bans still apply. These options do not alter part/ammo group counts or replace vanilla rifles.
+Changing one percentage reduces the other if their sum would exceed 100. Invalid configuration loading clamps usable to 0вЂ“100, then ruined to the remaining percentage. No-firearm and custom no-shotgun bans still apply. These outcome settings do not alter part/ammo group counts; the separate optional rifle replacement chance is independent.
 
 ## Inventory maintenance
 
@@ -63,7 +63,7 @@ The shotgun receives a `Millable` component configured for Gunsmithing. Recover 
 
 ## Persistence
 
-code-synced: 2026-11-03
+code-synced: 2026-11-04
 
 `SpawnLedger` records placement decisions for all groups: complete shotguns, parts
 and grouped ammunition. Native scene/inventory serialization owns actual gear,
@@ -79,13 +79,31 @@ retired ID for another prefab/group. Parsing rejects missing/duplicate IDs,
 repeated groups, unknown lines/fields and malformed vectors/counts. Persisted
 identity records also detect prefab/group reuse and ID case changes.
 
+An optional `alternative=<name> for=<permanent-id> p=<x,y,z> r=<x,y,z>` row adds
+a position to a member declared earlier in the same group. The alternative
+inherits that member's scene and prefab; overrides and unknown fields are
+rejected. Names must be unique per member, including case variants; `default`
+is reserved for the original transform. These rows are not additional members
+or permanent spawn IDs. The original position and named alternatives have equal
+chance, chosen from the save seed and member ID independently of world selection
+and outcome rolls. Alternative names are sorted ordinally before selection.
+
+Adding or correcting position alternatives does not change the roster fingerprint
+or pending reservations. Already visited scenes and native saved items remain
+untouched. Unprocessed reservations use the current position choices when their
+scene is first planned; retries retain that resolved transform. No new save fields
+or migration are required. [Paradise Meadows](DISTRIBUTION.md#paradise-meadows-farmhouse)
+currently uses this format for three indoor positions under one candidate.
+
 ### Quotas and pool updates
 
 Each group records its initial resource-level quota, processed IDs/outcomes,
-pending selections and a roster fingerprint. Complete-gun capacity is one slot,
-or two at Very High, with current usable/ruined eligibility controlling whether
+pending selections and a roster fingerprint. Complete-gun capacity is 0 / 2 / 3 / 4
+at Low / Medium / High / Very High, with usable/ruined eligibility controlling whether
 unprocessed slots are selected. Other groups use their original count table.
-Their capacity is fixed for that save; future count-table edits do not silently
+Their capacity is fixed for that save. The explicit [distribution upgrade](DISTRIBUTION.md#upgrade-persistence)
+raises only gun capacity once, retaining spent slots and excluding visited scenes.
+Other future count-table edits do not silently
 increase an existing group's quota. New independent groups receive their own
 capacity and can fill only unvisited scenes.
 

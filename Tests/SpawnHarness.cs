@@ -50,6 +50,64 @@ internal static class SpawnHarness
         Check(Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(frozen))).ToLowerInvariant() == GroupSpawner.BaselineHash, "Migration baseline seal");
         var baseline = GroupSpawner.Parse(frozen);
         var current = GroupSpawner.Parse(Resource("Shotgun.groupspawns.txt"));
+        var evidence=JsonDocument.Parse(File.ReadAllText(Path.Combine(root,"Spawns/placement-evidence.json")));
+        Check(current.Sum(g=>g.Members.Count)==303 && evidence.RootElement.GetProperty("placements").GetArrayLength()==22,"Twenty measured additions and two position alternatives");
+        var farm = current.Single(g => g.Name == "SG_Shotgun");
+        Check(farm.Members.Count(m => m.Id == "SG_Shotgun_007") == 1
+            && farm.Alternatives["SG_Shotgun_007"].Select(a => a.Name).OrderBy(x => x).SequenceEqual(new[] { "bedroom", "office" }),
+            "Farmhouse remains one candidate with two alternatives");
+        foreach(var entry in evidence.RootElement.GetProperty("placements").EnumerateArray())
+        {
+            string id=entry.GetProperty("id").GetString()!;
+            var member=current.SelectMany(g=>g.Members).Single(m=>m.Id==id);
+            if (entry.TryGetProperty("alternative", out var variant))
+            {
+                var alternative = current.Single(g => g.Members.Contains(member)).Alternatives[id].Single(a => a.Name == variant.GetString());
+                member = member with { Position = alternative.Position, Rotation = alternative.Rotation };
+            }
+            if (id == "SG_Shotgun_007")
+            {
+                Check(entry.GetProperty("auditVersion").GetInt32() == 2
+                    && entry.GetProperty("meshCollidersChecked").GetInt32() > 0
+                    && entry.GetProperty("furnitureRenderMeshesChecked").GetInt32() > 0
+                    && entry.GetProperty("structuralRenderMeshesChecked").GetInt32() > 0
+                    && entry.GetProperty("renderersChecked").GetInt32() > 0
+                    && entry.GetProperty("unresolvedRelevantMeshes").GetInt32() == 0
+                    && entry.GetProperty("horizontalObstacleClearanceM").GetDouble() >= .1
+                    && entry.GetProperty("minimumFurnitureBoundsClearanceM").GetDouble() >= .1,
+                    "Farmhouse evidence requires complete mesh coverage and ten-centimetre clearance");
+                string template = Path.Combine(root, "DoubleBarrel.modcomponent");
+                Check(Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(template))).ToLowerInvariant()
+                    == entry.GetProperty("modelPackageSha256").GetString(), "Farmhouse rendered-model template seal");
+            }
+            var xyz=entry.GetProperty("position").EnumerateArray().Select(n=>n.GetSingle()).ToArray();
+            var angles=entry.GetProperty("rotation").EnumerateArray().Select(n=>n.GetSingle()).ToArray();
+            Check(member.Scene==entry.GetProperty("scene").GetString() && member.Prefab==entry.GetProperty("prefab").GetString()
+                && member.Position.x==xyz[0] && member.Position.y==xyz[1] && member.Position.z==xyz[2]
+                && member.Rotation.Equals(Quaternion.Euler(new Vector3(angles[0], angles[1], angles[2]))),"Measured source transform: "+id);
+            string prefab=Path.Combine(root,"unity/Assets/Shotgun/Prefabs",member.Prefab+".prefab");
+            Check(Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(prefab))).ToLowerInvariant()==entry.GetProperty("prefabSha256").GetString(),"Placement prefab envelope current: "+id);
+            var placed=entry.GetProperty("placedBounds").EnumerateArray().Select(a=>a.EnumerateArray().Select(v=>v.GetDouble()).ToArray()).ToArray();
+            foreach(var old in baseline.SelectMany(g=>g.Members).Where(m=>m.Scene==member.Scene))
+            {
+                string oldPrefab=Path.Combine(root,"unity/Assets/Shotgun/Prefabs",old.Prefab+".prefab");
+                if(!File.Exists(oldPrefab))continue;
+                string yaml=File.ReadAllText(oldPrefab);
+                float[]? Vector(string key)
+                {
+                    var match=Regex.Match(yaml,key+@": \{x: ([^,]+), y: ([^,]+), z: ([^}]+)");
+                    return match.Success?match.Groups.Cast<Group>().Skip(1).Select(g=>float.Parse(g.Value,System.Globalization.CultureInfo.InvariantCulture)).ToArray():null;
+                }
+                var size=Vector("m_Size");var centre=Vector("m_Center");if(size==null || centre==null)continue;
+                const float radians=MathF.PI/180;
+                var rotation=System.Numerics.Quaternion.CreateFromYawPitchRoll(old.Rotation.y*radians,old.Rotation.x*radians,old.Rotation.z*radians);
+                var vertices=(from x in new[]{-1,1} from y in new[]{-1,1} from z in new[]{-1,1}
+                    select System.Numerics.Vector3.Transform(new(centre[0]+x*size[0]/2,centre[1]+y*size[1]/2,centre[2]+z*size[2]/2),rotation)
+                        +new System.Numerics.Vector3(old.Position.x,old.Position.y,old.Position.z)).ToArray();
+                double[][] oldBounds={new[]{(double)vertices.Min(v=>v.X),vertices.Max(v=>v.X)},new[]{(double)vertices.Min(v=>v.Y),vertices.Max(v=>v.Y)},new[]{(double)vertices.Min(v=>v.Z),vertices.Max(v=>v.Z)}};
+                Check(!Enumerable.Range(0,3).All(a=>Math.Min(placed[a][1],oldBounds[a][1])-Math.Max(placed[a][0],oldBounds[a][0])>.002),"New placement clears original collider: "+id+" / "+old.Id);
+            }
+        }
         Check(baseline.Count == 110 && baseline.Sum(g => g.Members.Count) == 283, "Original 110 groups / 283 points");
         Check(Ledger.LegacyAliases(baseline).Count == 283, "One unambiguous old key per point");
         var gunBaseline = baseline.Single(g => g.Name == "SG_Shotgun");
@@ -58,8 +116,8 @@ internal static class SpawnHarness
         foreach (var old in baseline)
         {
             var now = current.Single(g => g.Name == old.Name);
-            Check(old.Picks.OrderBy(p => p.Key).SequenceEqual(now.Picks.OrderBy(p => p.Key)), $"Counts unchanged: {old.Name}");
-            Check(old.Members.SequenceEqual(now.Members), $"Identity, prefab, scene, position and rotation unchanged: {old.Name}");
+            Check(old.Name=="SG_Shotgun" || old.Picks.OrderBy(p => p.Key).SequenceEqual(now.Picks.OrderBy(p => p.Key)), $"Part/ammo counts unchanged: {old.Name}");
+            Check(old.Members.All(m=>now.Members.Contains(m)), $"Original identity, prefab, scene, position and rotation unchanged: {old.Name}");
         }
         string catalog = File.ReadAllText(Path.Combine(root, "Main/ShotgunAmmoCatalog.cs"));
         var loads = Regex.Matches(catalog, @"new\(ShotgunPellets\.ShotgunAmmo\.(\w+),").Select(m => m.Groups[1].Value);
@@ -191,6 +249,7 @@ internal static class SpawnHarness
         // A fixture reset simulates process restart, including Addressables ownership.
         ((System.Collections.IDictionary)typeof(GroupSpawner).GetField("prefabHandles", BindingFlags.Static | BindingFlags.NonPublic)!.GetValue(null)!).Clear();
         GameObject.Spawned.Clear(); GameObject.FailInstantiate = false; Time.realtimeSinceStartup += 2;
+        GearManager.m_Gear.Clear(); GearItem.FailStartName=null; GameManager.Story=false; ExperienceModeManager.Challenge=false;
         MelonLoader.MelonLogger.Messages.Clear();
     }
     private static void Enter(string scene = "Scene1") { GameManager.m_ActiveScene = scene; GroupSpawner.RequestScene(scene); }
@@ -257,8 +316,8 @@ internal static class SpawnHarness
     private static void Chances()
     {
         Reset();
-        Check(ShotgunSpawnPolicy.CandidateCount("Low") == 0 && ShotgunSpawnPolicy.CandidateCount("Medium") == 1
-            && ShotgunSpawnPolicy.CandidateCount("High") == 1 && ShotgunSpawnPolicy.CandidateCount("VeryHigh") == 2, "Resource-level defaults");
+        Check(ShotgunSpawnPolicy.CandidateCount("Low") == 0 && ShotgunSpawnPolicy.CandidateCount("Medium") == 2
+            && ShotgunSpawnPolicy.CandidateCount("High") == 3 && ShotgunSpawnPolicy.CandidateCount("VeryHigh") == 4, "Resource-level defaults");
         Check(ShotgunSpawnPolicy.Roll(0, 0, 0) == Ledger.Outcome.Empty && ShotgunSpawnPolicy.Roll(99, 100, 0) == Ledger.Outcome.Usable
             && ShotgunSpawnPolicy.Roll(99, 0, 100) == Ledger.Outcome.Ruined && ShotgunSpawnPolicy.Roll(50, 50, 0) == Ledger.Outcome.Empty, "Chance endpoints and empty remainder");
         var gun = Group("SG_Shotgun"); var state = Fresh(gun, 0);
@@ -271,13 +330,180 @@ internal static class SpawnHarness
         Check(GameObject.Spawned.Count == 1 && GameObject.Spawned[0].Ruined, "Production outcome marks only newly spawned ruined gun");
     }
 
+    private static void AlternativePlacements()
+    {
+        string source = Resource("Shotgun.groupspawns.txt");
+        var group = GroupSpawner.Parse(source).Single(g => g.Name == "SG_Shotgun");
+        var unchanged = GroupSpawner.Parse(string.Join('\n', source.Split('\n').Where(l => !l.StartsWith("alternative="))))
+            .Single(g => g.Name == group.Name);
+        var farm = group.Members.Single(m => m.Id == "SG_Shotgun_007");
+        var alternatives = group.Alternatives[farm.Id];
+        string valid = "group=Fixture scene=Scene1 high=1\nitem=GEAR_DoubleBarrel id=Fixture_001 p=1,2,3 r=0,0,0\n";
+        string row = "alternative=office for=Fixture_001 p=4,5,6 r=0,90,90\n";
+        Check(GroupSpawner.Parse(valid + row).Single().Members.Count == 1, "Alternative is not a lottery member");
+        Reject(() => GroupSpawner.Parse(valid + row + row.Replace("office", "Office")), "Case-colliding alternative names rejected");
+        Reject(() => GroupSpawner.Parse(valid + row.Replace("office", "default")), "Default position name reserved");
+        Reject(() => GroupSpawner.Parse(valid + row.Replace("Fixture_001", "Absent")), "Missing alternative owner rejected");
+        Reject(() => GroupSpawner.Parse(valid + "group=Other scene=Scene2 high=1\n" + row), "Cross-group alternative owner rejected");
+        Reject(() => GroupSpawner.Parse(valid + row.Replace("4,5,6", "4,5")), "Malformed alternative vector rejected");
+        Reject(() => GroupSpawner.Parse(valid + row.Replace(" p=", " scene=Scene2 p=")), "Alternative cannot override scene");
+        Reject(() => GroupSpawner.Parse(valid + row.Replace(" p=", " item=GEAR_Rifle p=")), "Alternative cannot override prefab");
+        Reject(() => GroupSpawner.Parse(valid + row.TrimEnd() + " unknown=1"), "Unknown alternative field rejected");
+
+        int oldSeed = GameManager.m_SceneTransitionData!.m_GameRandomSeed;
+        var reached = new HashSet<float>();
+        for (int seed = 0; seed < 96; seed++)
+        {
+            GameManager.m_SceneTransitionData.m_GameRandomSeed = seed;
+            var before = Ledger.Migrate(null, Array.Empty<string>(), new[] { unchanged }, "High", _ => true, GroupSpawner.RngFor, 3);
+            var after = Ledger.Migrate(null, Array.Empty<string>(), new[] { group }, "High", _ => true, GroupSpawner.RngFor, 3);
+            Check(JsonSerializer.Serialize(before) == JsonSerializer.Serialize(after), "Alternatives preserve lottery, identities and fingerprint");
+            var resolved = GroupSpawner.ResolvePlacement(group, farm);
+            reached.Add(resolved.Position.x);
+            Check(resolved.Id == farm.Id && resolved.Scene == farm.Scene && resolved.Prefab == farm.Prefab,
+                "Resolved position preserves permanent identity");
+            Check(GroupSpawner.ResolvePlacement(group, farm) == resolved, "Same seed repeats position");
+            alternatives.Reverse();
+            Check(GroupSpawner.ResolvePlacement(group, farm) == resolved, "Alternative text order cannot change position");
+            var beforeRoll = GroupSpawner.RngFor("ShotgunOutcome:" + farm.Id).Next(100);
+            GroupSpawner.ResolvePlacement(group, farm);
+            Check(GroupSpawner.RngFor("ShotgunOutcome:" + farm.Id).Next(100) == beforeRoll, "Position RNG leaves outcome roll unchanged");
+        }
+        GameManager.m_SceneTransitionData.m_GameRandomSeed = oldSeed;
+        Check(reached.SetEquals(new[] { farm.Position.x }.Concat(alternatives.Select(a => a.Position.x))), "All three farmhouse positions reachable");
+        Check(ReferenceEquals(GroupSpawner.ResolvePlacement(group, group.Members[0]), group.Members[0]), "Non-alternative members retain original placement");
+
+        var pending = Fresh(unchanged);
+        string reservations = JsonSerializer.Serialize(pending);
+        Update(pending, group);
+        Check(JsonSerializer.Serialize(pending) == reservations, "Adding alternatives retains existing pending reservations");
+        var fixture = new GroupSpawner.Group { Name = group.Name, Picks = group.Picks,
+            Members = new() { farm }, Alternatives = group.Alternatives };
+        Reset(); GroupSpawner.SetGroups(new[] { fixture });
+        // Persist a pre-alternative pending candidate, then load it through the production policy.
+        var previous = Fresh(new GroupSpawner.Group { Name = group.Name, Picks = group.Picks, Members = new() { farm } });
+        Ledger.ExpandDistribution(previous, "High");
+        ModDataManager.Values[("fixture", ShotgunSpawnPolicy.SaveKey)] = JsonSerializer.Serialize(previous);
+        var expected = GroupSpawner.ResolvePlacement(fixture, farm);
+        GameObject.FailInstantiate = true; Enter(farm.Scene);
+        Check(GameObject.Spawned.Count == 0, "Failed alternative instantiation leaves no object");
+        GameObject.FailInstantiate = false; Tick(); Enter(farm.Scene); Tick();
+        Check(GameObject.Spawned.Count == 1 && GameObject.Spawned.Single().Position.Equals(expected.Position)
+            && GameObject.Spawned.Single().transform.rotation.Equals(expected.Rotation), "Retry and repeated callbacks use exactly one resolved transform");
+        Check(ShotgunSpawnPolicy.Save() && Stored().Groups[group.Name].Processed.Keys.SequenceEqual(new[] { farm.Id }),
+            "Resolved farm position spends one original candidate slot");
+        Reset(preserveData: true); GroupSpawner.SetGroups(new[] { fixture }); Enter(farm.Scene);
+        Check(GameObject.Spawned.Count == 0, "Reloaded farm cannot refill a processed alternative");
+        SaveGameSystem.CurrentSave = "second-slot"; Tick(); Enter(farm.Scene);
+        Check(GameObject.Spawned.Count == 1, "Second save slot has its own farm opportunity");
+        Reset(); GroupSpawner.SetGroups(new[] { fixture }); SaveGameSlots.Scenes!.Add(farm.Scene); Enter(farm.Scene);
+        Check(GameObject.Spawned.Count == 0, "Native visited farmhouse remains untouched");
+        Reset(); GroupSpawner.SetGroups(new[] { fixture });
+        Settings.Instance.UsableShotgunChance = 0; Settings.Instance.RuinedShotgunChance = 0;
+        Enter(farm.Scene);
+        Check(GameObject.Spawned.Count == 0 && ShotgunSpawnPolicy.Save()
+            && Stored().Groups[group.Name].Processed[farm.Id].Outcome == Ledger.Outcome.Empty, "Empty farm outcome spends one slot");
+        Settings.Instance.UsableShotgunChance = 100; Enter(farm.Scene); Tick();
+        Check(GameObject.Spawned.Count == 0, "Enabling finds cannot reroll an empty farm outcome");
+        Reset();
+    }
+
     private static int Main(string[] args)
     {
         try
         {
-            DataContracts(args[0]); QuotasAndUpdates(); MigrationAndValidation(); RuntimeLifecycle(); Chances();
+            DataContracts(args[0]); QuotasAndUpdates(); MigrationAndValidation(); RuntimeLifecycle(); Chances(); DistributionChecks(); AlternativePlacements();
             Console.WriteLine($"PASS: {checks} spawn compatibility checks; native game execution remains separate."); return 0;
         }
         catch (Exception e) { Console.Error.WriteLine(e); return 1; }
+    }
+
+    private static void DistributionChecks()
+    {
+        var guns=Group("SG_Shotgun",members:8); var state=Fresh(guns);
+        var old=state.Groups[guns.Name].Pending.Single(); Process(state,guns,old.Scene,Ledger.Outcome.Empty);
+        state.VisitedScenes.Add("OldUnopenedContainer");
+        Ledger.ExpandDistribution(state,"High"); Update(state,guns,gunCount:3);
+        Check(state.Groups[guns.Name].Quota==3 && state.Groups[guns.Name].Pending.Count==2,"Expansion subtracts old empty slot");
+        Check(!ShotgunDistribution.AllowsScene(state,"oldunopenedcontainer") && ShotgunDistribution.AllowsScene(state,"NewInterior"),"Frozen old scenes exclude containers; new interior allowed");
+        state.VisitedScenes.Add("NewInterior"); Ledger.ExpandDistribution(state,"High");
+        Check(ShotgunDistribution.AllowsScene(state,"NewInterior"),"New scene retains expanded container rules after revisit");
+        Check(Ledger.Read(JsonSerializer.Serialize(state)).DistributionVersion==1,"Distribution state roundtrip");
+        var incomplete=JsonSerializer.SerializeToNode(state)!;incomplete.AsObject().Remove("PreDistributionScenes");
+        Reject(()=>Ledger.Read(incomplete.ToJsonString()),"Expanded state without frozen scene snapshot fails closed");
+        Check(Ledger.DistributionQuota("Low")==0 && Ledger.DistributionQuota("Medium")==2 && Ledger.DistributionQuota("VeryHigh")==4,"Expansion quota table");
+        int rolls=0;
+        Check(!ShotgunDistribution.ChooseRifle(state,"NewInterior","zero",true,0,()=>{rolls++;return 0;}),"Zero percent retains rifle");
+        Check(ShotgunDistribution.ChooseRifle(state,"NewInterior","full",true,100,()=>99),"100 percent replaces rifle");
+        Check(ShotgunDistribution.ChooseRifle(state,"NewInterior","quarter",true,25,()=>24)
+            && !ShotgunDistribution.ChooseRifle(state,"NewInterior","quarter2",true,25,()=>25),"25 percent boundary");
+        Check(!ShotgunDistribution.ChooseRifle(state,"NewInterior","zero",true,100,()=>throw new Exception("reroll")),"Retained decision cannot reroll");
+        Check(!ShotgunDistribution.ChooseRifle(state,"NewInterior","disabled",false,100,()=>throw new Exception("disabled roll")),"Disabled replacements recorded retained");
+        var restored=Ledger.Read(JsonSerializer.Serialize(state));
+        Check(ShotgunDistribution.ChooseRifle(restored,"NewInterior","full",false,0,()=>throw new Exception("reload roll")),"Saved replacement decision survives reload/settings");
+
+        var table=new LootTableData {name="LootTableLockerLocked"};
+        table.m_BaseEntries.Add(new(){m_Item=new AssetReferenceGearItem("GEAR_Vanilla"),m_Weight=73});
+        var container=new Container {m_LootTable=table,m_LootTableData=table};
+        var scope=new ShotgunContainerLoot.Scope(container); var copy=scope.Copy(table);
+        Check(copy.m_BaseEntries.Count==5 && table.m_BaseEntries.Count==1 && copy.m_BaseEntries[0].m_Weight==73,"Scoped parts preserve original entries and weights");
+        Check(!ReferenceEquals(copy.m_BaseEntries[0],table.m_BaseEntries[0]) && !ReferenceEquals(copy.m_BaseEntries[0].m_Item,table.m_BaseEntries[0].m_Item),"Native asset-reference ownership is not shared");
+        Check(copy.m_BaseEntries.Skip(1).All(e=>e.m_Weight==1) && ReferenceEquals(copy,scope.Copy(table)),"Weight one, alias reuse and no duplicate entries");
+        container.m_LootTable=copy; scope.Restore();
+        Check(ReferenceEquals(container.m_LootTable,table) && ReferenceEquals(container.m_LootTableData,table) && copy.Released,"Scope restores references and releases clone");
+
+        object? BeginContainer(Container value)
+        {
+            object?[] arguments={value,null};
+            typeof(ShotgunContainerLoot).GetMethod("Prefix",BindingFlags.Static|BindingFlags.NonPublic)!.Invoke(null,arguments);
+            return arguments[1];
+        }
+        Reset(); SaveGameSlots.Scenes!.Add("OldContainerScene"); Enter("OldContainerScene"); ExperienceModeManager.Level=ResourceLevel.Medium;
+        Check(BeginContainer(container)==null,"Previously visited unopened container gets no parts");
+        GameManager.m_ActiveScene="NewContainerScene";
+        var newScope=(ShotgunContainerLoot.Scope?)BeginContainer(container);
+        Check(newScope!=null && container.m_LootTable.m_BaseEntries.Count==5,"Native prefix injects parts in a new Medium scene");
+        typeof(ShotgunContainerLoot).GetMethod("Finalizer",BindingFlags.Static|BindingFlags.NonPublic)!.Invoke(null,new object?[]{newScope});
+        Check(ReferenceEquals(container.m_LootTable,table),"Native finalizer restores container table");
+        ShotgunAvailability.Allowed=false;Check(BeginContainer(container)==null,"Bans suppress container parts");ShotgunAvailability.Allowed=true;
+        ExperienceModeManager.Level=ResourceLevel.Low;Check(BeginContainer(container)==null,"Low suppresses container parts");
+
+        Reset(); var sourceObject=new GameObject{name="GEAR_Rifle"};var source=sourceObject.GetComponent<GearItem>();
+        Check(ShotgunRifleReplacement.IsCandidate(source),"Loose ordinary rifle eligible");
+        source.m_BeenInPlayerInventory=true;Check(!ShotgunRifleReplacement.IsCandidate(source),"Player dropped rifle excluded");source.m_BeenInPlayerInventory=false;
+        source.m_InsideContainer=true;Check(!ShotgunRifleReplacement.IsCandidate(source),"Container rifle excluded");source.m_InsideContainer=false;
+        sourceObject.name="GEAR_RifleVariant";Check(!ShotgunRifleReplacement.IsCandidate(source),"Named/modded rifle excluded");sourceObject.name="GEAR_Rifle";
+        source.m_MissionObject=new();Check(!ShotgunRifleReplacement.IsCandidate(source),"Mission rifle excluded");source.m_MissionObject=null;
+        source.GetComponent<GunItem>().m_Clip=new(){0,0,0};
+        Check(ShotgunRifleReplacement.Replace(source) && sourceObject.Destroyed,"Successful replacement removes rifle");
+        var replacement=GameObject.Spawned.Single(o=>o.name=="GEAR_DoubleBarrel");
+        Check(replacement.GetComponent<GearItem>().Condition==source.Condition && replacement.GetComponent<GunItem>().m_Clip.Count==0,"Replacement inherits condition and is unloaded");
+        Check(GameObject.Spawned.Count(o=>o.name=="GEAR_RifleAmmoSingle")==3,"Loaded rifle rounds preserved");
+        GameObject.Spawned.Clear();sourceObject.Destroyed=false;GearItem.FailStartName="GEAR_RifleAmmoSingle";
+        Check(!ShotgunRifleReplacement.Replace(source) && !sourceObject.Destroyed && GameObject.Spawned.All(o=>o.Destroyed),"Ammo initialization failure rolls back all new objects and retains original");
+        GearItem.FailStartName=null;
+
+        void AddFreshRifle()
+        {
+            GameManager.m_ActiveScene="FreshRifleScene";Settings.Instance.ReplaceStandardRifleFinds=true;Settings.Instance.RifleReplacementChance=100;
+            GearManager.m_Gear.Add(new GameObject{name="GEAR_Rifle"}.GetComponent<GearItem>());
+            Time.realtimeSinceStartup+=2;
+        }
+        Reset();AddFreshRifle();ShotgunRifleReplacement.Tick();
+        Check(GameObject.Spawned.Any(g=>g.name=="GEAR_DoubleBarrel") && ShotgunSpawnPolicy.Save(),"Native update converts a fresh rifle and saves its decision");
+        Reset(preserveData:true);AddFreshRifle();ShotgunRifleReplacement.Tick();
+        Check(GameObject.Spawned.Count==0,"Reloaded scene cannot reroll or replace another rifle");
+        Reset();SaveGameSlots.Scenes!.Add("FreshRifleScene");AddFreshRifle();ShotgunRifleReplacement.Tick();
+        Check(GameObject.Spawned.Count==0,"Native saved scene protected even without distribution history");
+        Reset();AddFreshRifle();ShotgunAvailability.Allowed=false;ShotgunRifleReplacement.Tick();
+        Check(GameObject.Spawned.Count==0,"Native update obeys shotgun bans");
+        Reset();AddFreshRifle();ExperienceModeManager.Level=ResourceLevel.Medium;ShotgunRifleReplacement.Tick();
+        Check(GameObject.Spawned.Count==0,"Native update obeys usable minimum resources");
+        Reset();AddFreshRifle();ExperienceModeManager.Challenge=true;ShotgunRifleReplacement.Tick();
+        Check(GameObject.Spawned.Count==0,"Native update preserves challenge rifles");
+        Reset();AddFreshRifle();GameManager.Story=true;ShotgunRifleReplacement.Tick();
+        Check(GameObject.Spawned.Count==0,"Native update preserves story rifles");
+        Reset();AddFreshRifle();Settings.Instance.ReplaceStandardRifleFinds=false;ShotgunRifleReplacement.Tick();
+        Check(GameObject.Spawned.Count==0,"Off-by-default mode preserves rifle");
     }
 }

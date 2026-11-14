@@ -18,6 +18,10 @@ namespace Shotgun
             public Dictionary<string, GroupState> Groups { get; set; } = new(StringComparer.Ordinal);
             // Retained even after removal: an ID cannot acquire another prefab/group.
             public Dictionary<string, string> Identities { get; set; } = new(StringComparer.Ordinal);
+            public int DistributionVersion { get; set; }
+            public HashSet<string> PreDistributionScenes { get; set; } = new(StringComparer.OrdinalIgnoreCase);
+            public HashSet<string> RifleScenes { get; set; } = new(StringComparer.OrdinalIgnoreCase);
+            public Dictionary<string, bool> RifleDecisions { get; set; } = new(StringComparer.Ordinal);
         }
 
         internal sealed class GroupState
@@ -97,12 +101,19 @@ namespace Shotgun
                 foreach (var pending in entry.Value.GetProperty("Pending").EnumerateArray()) Require(pending, "Id", "Scene");
             }
             State state = JsonSerializer.Deserialize<State>(json) ?? throw new InvalidDataException("Null spawn state");
+            if (state.DistributionVersion == 1) Require(doc.RootElement, "PreDistributionScenes", "RifleScenes", "RifleDecisions");
             if (state.Version != 2 || state.VisitedScenes == null || state.Groups == null || state.Identities == null
                 || state.VisitedScenes.Any(string.IsNullOrWhiteSpace)
                 || state.Identities.Any(p => string.IsNullOrWhiteSpace(p.Key) || string.IsNullOrWhiteSpace(p.Value))
                 || state.Identities.Keys.Distinct(StringComparer.OrdinalIgnoreCase).Count() != state.Identities.Count)
                 throw new InvalidDataException("Unsupported or invalid spawn state");
             state.VisitedScenes = new(state.VisitedScenes, StringComparer.OrdinalIgnoreCase);
+            if (state.DistributionVersion is < 0 or > 1 || state.PreDistributionScenes == null || state.RifleScenes == null
+                || state.RifleDecisions == null || state.PreDistributionScenes.Concat(state.RifleScenes).Any(string.IsNullOrWhiteSpace)
+                || state.RifleDecisions.Keys.Any(string.IsNullOrWhiteSpace))
+                throw new InvalidDataException("Invalid shotgun distribution state");
+            state.PreDistributionScenes = new(state.PreDistributionScenes, StringComparer.OrdinalIgnoreCase);
+            state.RifleScenes = new(state.RifleScenes, StringComparer.OrdinalIgnoreCase);
             foreach (var pair in state.Groups)
             {
                 GroupState group = pair.Value;
@@ -142,9 +153,25 @@ namespace Shotgun
         }
 
         internal static bool IsGun(string group) => group == "SG_Shotgun";
+        // Historical capacity: migration must reconstruct old history before expansion.
         private static int Quota(GroupSpawner.Group group, string level) => IsGun(group.Name)
             ? (ShotgunSpawnPolicy.ResourceRank(level) == (int)ShotgunResourceLevel.VeryHigh ? 2 : 1)
             : GroupSpawner.PicksFor(group, level);
+
+        internal static int DistributionQuota(string level) => ShotgunSpawnPolicy.ResourceRank(level) switch
+        { 0 => 0, 1 => 2, 2 => 3, 3 => 4, _ => throw new InvalidDataException("Unknown resource level") };
+
+        internal static void ExpandDistribution(State state, string level)
+        {
+            if (state.DistributionVersion == 1) return;
+            state.PreDistributionScenes.UnionWith(state.VisitedScenes);
+            if (state.Groups.TryGetValue("SG_Shotgun", out var guns))
+            {
+                guns.Quota = Math.Max(guns.Quota, DistributionQuota(level));
+                guns.Fingerprint = "";
+            }
+            state.DistributionVersion = 1;
+        }
 
         private static void Register(State state, GroupSpawner.Group group)
         {
@@ -235,7 +262,8 @@ namespace Shotgun
             {
                 Register(state, source);
                 if (!state.Groups.TryGetValue(source.Name, out var group))
-                    state.Groups.Add(source.Name, group = new GroupState { Quota = Quota(source, level) });
+                    state.Groups.Add(source.Name, group = new GroupState { Quota = IsGun(source.Name) && state.DistributionVersion == 1
+                        ? DistributionQuota(level) : Quota(source, level) });
                 bool enabled = !IsGun(source.Name) || gunCount > 0;
                 string fingerprint = Fingerprint(source, available, enabled);
                 if (group.Fingerprint == fingerprint) continue;

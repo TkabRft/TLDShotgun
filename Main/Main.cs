@@ -73,6 +73,7 @@ namespace Shotgun
         {
             EmbeddedAssetPackage.Update();
             GroupSpawner.Tick();
+            ShotgunRifleReplacement.Tick();
             ShotgunAudio.Tick();
         }
 

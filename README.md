@@ -68,6 +68,14 @@ Without a separate Shotgun skill, **Use Rifle Skill Without Shotgun Skill** is o
 
 Usable and ruined shotguns share the existing complete-gun locations. Mod Settings independently control each type's availability, chance, and minimum resource level. Defaults are 50% usable at High or above, and 50% ruined at Medium or above. Blocked chances remain empty: on Medium the default is 50% ruined and 50% empty. Previously visited areas retain their saved finds.
 
+The world selects **0 / 2 / 3 / 4 complete-gun locations** at Low / Medium / High / Very High base resources. These are selected locations, not guaranteed usable guns. The wider pool includes hunting cabins, farmhouses, workshops and remote shelters. Existing saves gain only their remaining allowance in unexplored scenes; empty results still spend slots.
+
+From Medium resources upward, rare shotgun parts can also appear in rifle cargo, locked lockers, tool storage and vehicle trunks. Container tables add no complete shotguns.
+
+**Replace Standard Rifle Finds** is an optional Mod Settings switch, **off by default**. Its independent **Replacement Chance** defaults to **25%**. Eligible ordinary rifle finds in newly explored scenes can become usable, unloaded shotguns at the rifle's condition. Named rifles, mission items, container contents and player-carried or dropped weapons are preserved. Loaded rifle rounds are left as loose rifle ammunition. Usable shotguns must be enabled and permitted at that resource level. Replacements are additional to the world allowance.
+
+Previously visited exteriors and interiors, including unopened containers, keep their prior distribution. An unexplored building in a visited region can use the new rules. Settings changes never reroll a processed rifle find.
+
 Updates can change future finds in unexplored areas within each group's remaining allowance. This applies to grouped shotguns, parts and ammunition. A processed location spends its allowance even when its result is empty; picking up, moving or dismantling its loot does not create a replacement. Chance and eligibility settings affect newly explored areas. Existing fixed finds retain their usual placement rules.
 
 When upgrading from a version without complete spawn history, remaining allowances are reconstructed from the earlier placement rules. A different region-mod list or earlier settings can make that estimate differ from the actual past finds. Saved items keep the game's normal condition, ammunition and placement persistence.
@@ -78,6 +86,33 @@ Restore a ruined shotgun at a milling machine with **4 scrap metal and 1 fir fir
 
 <details>
 <summary><b>Spoilers: Geoguessing with a Double Barrel</b></summary>
+
+Complete guns share one world-wide pool:
+
+| Region | Possible location |
+|---|---|
+| Blackrock | Prison interior |
+| Zone of Contamination | Langston Mine |
+| Mystery Lake | Trapper's Homestead, by the gun-storage area |
+| Broken Railroad | Hunting Lodge basement |
+| Pleasant Valley | Farmstead bedroom |
+| Mountain Town | Paradise Meadows farmhouse: clear wooden floor near the bedroom doorway, beside the bedroom bed, or on the office floor beside the desk |
+| Coastal Highway | Quonset rear living/storage area |
+| Timberwolf Mountain | Mountaineer's Hut workbench |
+| Desolation Point | Hibernia upstairs counter |
+| Forsaken Airfield | Hangar equipment storage |
+| Optional mod region | Shattered Bunker |
+
+Paradise Meadows farmhouse is one candidate in this pool. If selected, its find
+uses one of the three indoor positions with equal chance; additional positions
+do not increase its selection chance or the world's shotgun allowance.
+Placement corrections apply to future finds; already saved shotguns keep their
+positions.
+
+Additional part candidates include the cannery workshop, Hibernia, hangar,
+mine concentrator, Trapper's, both farmhouses, Mountaineer's Hut, Lonely
+Lighthouse and the Pleasant Valley barn. These locations are candidates, not
+guaranteed finds.
 
 <img src="media/spot_Dam_Barrel.jpg" alt="Barrel: Upper Dam, Mystery Lake" width="49%">
 <img src="media/spot_CampOffice_Forend.jpg" alt="Forend: Camp Office, Mystery Lake" width="49%">
