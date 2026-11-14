@@ -14,8 +14,23 @@ internal static partial class ShotgunPellets
     {
         internal readonly ShotgunAmmo Ammo;
         internal readonly Shot? Previous;
+        internal readonly ShotgunAmmoCatalog.Stats Stats;
+        internal readonly ShotgunWildlifePolicy Policy;
         internal bool HitAnimal, Failed, Closed;
-        internal Shot(ShotgunAmmo ammo, Shot? previous) { Ammo = ammo; Previous = previous; }
+        internal Shot(ShotgunAmmo ammo, Shot? previous)
+        {
+            Ammo = ammo;
+            Previous = previous;
+            Stats = ShotgunAmmoCatalog.Read(ammo);
+            Policy = ShotgunWildlifePolicy.Capture(ammo.ToString(), ShotgunSkill.GetCurrentTier(), Stats.BleedPellets, Stats.CriticalPellets);
+        }
+    }
+
+    // Intentionally new output contract: old projectile adapters must opt out rather than bypass wildlife policy.
+    internal sealed class ShotResolutionState
+    {
+        internal readonly Shot Shot;
+        internal ShotResolutionState(Shot shot) => Shot = shot;
     }
 
     private static Shot? mShot;
@@ -63,29 +78,30 @@ internal static partial class ShotgunPellets
     [HarmonyPatch(typeof(vp_Bullet), nameof(vp_Bullet.Start))]
     internal static class vp_Bullet_ResolveShotgunShot
     {
-        internal static bool Prefix(vp_Bullet __instance, out Shot? __state)
+        internal static bool Prefix(vp_Bullet __instance, out ShotResolutionState? __state)
         {
             __state = null;
             if (__instance.m_GunType != GunTypeCustom) return true;
             ShotgunAmmo ammo = GetLoadedAmmo();
-            __state = BeginShot(ammo);
-            __instance.DamageFalloffPerMeterBeyondEffectiveRange = GetFalloffPerMeter(ammo);
-            __instance.MinimumDamageFalloffBeyondEffectiveRange = GetMinimumDamage(ammo);
+            if (ammo == ShotgunAmmo.None) return true;
+            __state = new(BeginShot(ammo));
+            __instance.DamageFalloffPerMeterBeyondEffectiveRange = __state.Shot.Stats.Falloff;
+            __instance.MinimumDamageFalloffBeyondEffectiveRange = __state.Shot.Stats.MinimumDamage;
             if (!IsPelletAmmo(ammo)) return true;
             try { ResolvePellets(__instance, ammo); }
             catch (Exception e)
             {
-                __state.Failed = true;
+                __state.Shot.Failed = true;
                 MelonLogger.Error($"Pellet resolution failed: {e}");
             }
             return false;
         }
 
-        internal static void Postfix(Shot? __state) => EndShot(__state);
+        internal static void Postfix(ShotResolutionState? __state) => EndShot(__state?.Shot);
 
-        internal static Exception? Finalizer(Shot? __state, Exception? __exception)
+        internal static Exception? Finalizer(ShotResolutionState? __state, Exception? __exception)
         {
-            EndShot(__state, __exception != null);
+            EndShot(__state?.Shot, __exception != null);
             return __exception;
         }
     }

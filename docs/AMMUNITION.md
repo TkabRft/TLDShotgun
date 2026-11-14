@@ -33,12 +33,14 @@ All damage totals below exclude animal/body-part multipliers, skill effects, and
 |---|---|---:|---:|---:|---:|---|
 | Vanilla rifle | Reference | 1 | 100 | 100 | 75 m | Not applicable |
 | Vanilla revolver | Reference | 1 | 100 | 100 | 30 m | Not applicable |
-| Slug | Implemented | 1 | 120 | 120 | 30 m | None added by the mod |
+| Slug | Implemented | 1 | 150 | 150 | 30 m | None added by the mod |
 | Buckshot | Implemented | 9 | 15 | 135 | 25 m | 2 degrees |
 | Birdshot | Implemented | 30 | 3 | 90 | 20 m | 4 degrees |
-| Scrapshot | Source; unbuilt | 6 | 13 | 78 | 25 m | **2.2 degrees** |
+| Scrapshot | Implemented | 6 | 13 | 78 | 25 m | **2.2 degrees** |
 
 The rifle and revolver both declare 100 base damage, but their animal damage is not equivalent. Vanilla animals have separate revolver-specific damage scales and critical/bleed data. Shotgun pellets request the generic scale with `WeaponSource.Unspecified`; their critical calculation references rifle critical chance. Do not compare raw totals as though every weapon shares every body-part multiplier.
+
+[Wildlife damage research](WILDLIFE-DAMAGE-RESEARCH.md) records the inspected generic/revolver scales, preserved pre-rebalance tables and current per-animal damage tables. `ShotgunWildlifePolicy` owns the implemented policy for standalone Shotgun and the updated optional Arsenal adapter. After regional scaling and each mode's own distance/minimum calculation, pellet hits kill rabbits/ptarmigans through ordinary damage; buckshot/scrapshot moose damage is multiplied by 0.4; birdshot deer/wolf head and other-region damage is multiplied by 0.225 and 0.1 respectively, and bear/moose/cougar damage by 0.02. At defaults this gives 6.75 birdshot head damage on deer/wolves. Unknown types and special story/challenge actors retain their previous handling.
 
 | Load | Damage lost per metre beyond range | Minimum damage on an out-of-range hit |
 |---|---:|---:|
@@ -49,23 +51,25 @@ The rifle and revolver both declare 100 base damage, but their animal damage is 
 | Birdshot | 0.2 per pellet | 1 per pellet |
 | Scrapshot | 1 per pellet | 5 per pellet |
 
-Vanilla falloff entries are serialized bullet-prefab defaults, not an in-game measurement across skills or variants. For implemented pellet loads, the mod applies body-part scaling first, subtracts distance falloff, clamps out-of-range damage to the per-pellet minimum, and sums hits per animal. Missed pellets contribute nothing. Slugs retain the game's single-projectile resolution path with the mod's falloff settings.
+Vanilla falloff entries are serialized bullet-prefab defaults, not an in-game measurement across skills or variants. Standalone pellets apply body-part scaling, subtract distance falloff and clamp the out-of-range minimum, then apply wildlife policy and sum hits per animal. Policy reductions therefore cannot be undone by the minimum. Arsenal applies its distance curve and generic region scale before that same policy. Missed pellets contribute nothing. Slugs retain native single-projectile resolution with scoped generic-scale and half-timer hooks; endpoint queries have an exception-safe recursion guard.
 
 ## Bleeding, criticals, and both barrels
 
 | Load | Bleeding eligibility | Critical-roll eligibility |
 |---|---|---|
 | Vanilla rifle / revolver | Game handling and animal/body-part data | Game handling, weapon skill, and animal/body-part data |
-| Slug | Single-projectile game handling | Single-projectile handling with the mod's shotgun critical adjustment |
+| Slug | One hit; half the positive native generic timer | Single-projectile handling with the captured shotgun critical adjustment |
 | Buckshot | At least 3 pellets hit one animal in one shell | At least 6 in-range pellets hit that animal |
-| Birdshot | At least 15 pellets hit one animal in one shell | Disabled by default |
-| Scrapshot | At least 3 pellets hit one animal in one shell | All 6 pellets hit that animal within range |
+| Birdshot | Deer/wolves only: at least 15 hits and one 15% roll; timer max(240 minutes, native timer × 4) | Disabled; legacy setting key retained and hidden |
+| Scrapshot | At least 3 hits; native timer × 1.5 | All 6 pellets hit that animal within range |
 
 Bleeding eligibility does not override an animal's inability to bleed. Pellet bleeding uses the shortest positive eligible timer among hit regions; it does not stack one bleed timer per pellet. Eligible pellet hits give one critical roll per animal per shell, using the region with the highest individual pellet damage. Targets that ignore critical hits retain that protection.
 
 Current shotgun critical chance is the region's rifle critical chance multiplied by `0.3125 x GetCurrentTier()`. The selected tier comes from the separate Shotgun skill when available, otherwise Rifle when the default-on fallback option is enabled. Disabling that option without a separate skill retains fixed internal tier 3, giving 0.9375 times the region baseline. Tiers remain zero-based; see [skills and condition](SKILLS-AND-CONDITION.md).
 
-Both-barrel fire resolves two separate shots and consumes two shells. Full-hit base totals are 240 for slugs, 270 for buckshot, 180 for birdshot, and 156 for scrapshot. Bleeding and critical thresholds are checked separately per shell; pellets from the two barrels do not combine to meet one shell's threshold.
+For buckshot/scrapshot only, the critical chance above is multiplied by 0.1 on moose and 0.25 on cougars. Small-game pellet kills use ordinary damage, without critical or bleeding rolls. Birdshot's bleeding trial is consumed once per animal per shell; later streaming batches cannot retry a failure or lengthen a successful timer. The new hidden settings revision forces all existing slug-damage values to 150 once, saves/reloads the confirmed settings snapshot and preserves later customization. Other existing setting keys and values are retained.
+
+Both-barrel fire resolves two separate shots and consumes two shells. Full-hit base totals are 300 for slugs, 270 for buckshot, 180 for birdshot, and 156 for scrapshot. Wildlife policy must still be applied to those totals. Bleeding and critical thresholds are checked separately per shell; pellets from the two barrels do not combine to meet one shell's threshold.
 
 ## Crafting pipeline
 

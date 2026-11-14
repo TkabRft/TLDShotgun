@@ -36,8 +36,9 @@ Disassembly recovers a casing and matching scrap buckshot portion per shell usin
 ## Balance and integration
 
 - Scrapshot deals approximately 13% less damage per pellet with one-third fewer pellets: about 58% of lead buckshot's full-hit base damage.
-- Three hits require half its pattern to connect for bleeding eligibility. All six must connect in range for one critical roll. Thresholds apply independently to each animal and shell; animals that cannot bleed or ignore criticals retain those protections.
+- Three hits require half its pattern to connect for bleeding eligibility; the native regional timer is multiplied by 1.5. All six must connect in range for one critical roll. Thresholds apply independently to each animal and shell; animals that cannot bleed or ignore criticals retain those protections.
 - Use the existing shotgun skill/critical calculation and ordinary ammo-quality behavior. No additional misfire, weapon-wear, or range penalty is added.
+- The shared wildlife rebalance makes one pellet lethal to a rabbit/ptarmigan after distance loss. Moose damage is multiplied by 0.4 on every region and critical chance by 0.1; cougar critical chance is multiplied by 0.25. Other ordinary damage retains the six-versus-nine and 13-versus-15 relationship. See [wildlife damage](WILDLIFE-DAMAGE-RESEARCH.md) for current tables and validation boundaries.
 - At damage scale 1, full patterns deal 78 at 25 m, 48 at 30 m, and 30 at 35 m. These are calculations, not measured game results.
 - Both barrels consume two shells and resolve separate thresholds, for up to 156 base damage. Mixed-barrel loading is separate TODO work.
 - Scrapshot is crafting-only initially. It appends to the existing load order as enum value 4, with distinct single-shell, six-shell-box, and HUD addresses. Existing load IDs/indices remain intact.
@@ -45,6 +46,6 @@ Disassembly recovers a casing and matching scrap buckshot portion per shell usin
 
 ## Pending acceptance
 
-Verify crafting, material consumption, disassembly, quality/progression, stacks, loaded weights, inventory/radial/HUD names, reload/swapping, both barrels, casing recovery, and save/load after building. Compare close-range wolf defense and partial patterns against lead buckshot; test large animals and small game before adding penalties. Combat-mod compatibility remains unverified.
+Verify crafting, material consumption, disassembly, quality/progression, stacks, loaded weights, inventory/radial/HUD names, reload/swapping, both barrels, casing recovery, and save/load after building. Compare close-range wolf defense and partial patterns against lead buckshot; test large animals and small game before adding penalties. The updated Adaptive Arsenal adapter consumes the same policy; game acceptance remains pending. BleedingRevamped compatibility remains unverified.
 
 Sources: [ammo catalog](../Main/ShotgunAmmoCatalog.cs), [pellet resolution](../Main/ShotgunPellets.cs), [settings](../Settings/Settings.cs), [shared ammunition reference](AMMUNITION.md), and [authoring definitions](../unity/SourceArt/ammunition-definitions.json).

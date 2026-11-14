@@ -73,9 +73,12 @@ namespace Shotgun
 
         [Section("Slug Settings")]
         [Name("Slug Base Damage")]
-        [Description("Base damage dealt by slugs within accuracy range. Default: 120")]
+        [Description("Base damage dealt by slugs within accuracy range. Default: 150")]
         [Slider(50, 150)]
-        public int SlugBaseDamage = 120;
+        public int SlugBaseDamage = 150;
+
+        [Name("Internal wildlife balance revision")]
+        public int WildlifeBalanceRevision;
 
         [Name("Slug Accuracy Range")]
         [Description("Distance before damage begins to drop per meter. Default: 30m")]
@@ -167,7 +170,7 @@ namespace Shotgun
         public int BirdshotPelletCount = 30;
 
         [Name("Birdshot Pellets To Bleed")]
-        [Description("Pellets that must hit one animal in a single shot to start a bleed. 0 = never. Default: 15")]
+        [Description("Hits on deer or wolves required for one 15% bleeding roll per shell. Bleeding takes at least 4 game hours. 0 disables the roll. Default: 15")]
         [Slider(0, 40)]
         public int BirdshotBleedPellets = 15;
 
@@ -356,6 +359,13 @@ namespace Shotgun
             Instance = this;
             ValidateSpawnChances();
             AddToModSettings("Shotgun");
+            if (ShotgunBalanceDefaults.Upgrade(ref SlugBaseDamage, ref WildlifeBalanceRevision))
+            {
+                Save();
+                Reload(); // Update confirmed values too: Cancel must not resurrect the old slug damage.
+            }
+            SetFieldVisible(nameof(WildlifeBalanceRevision), false);
+            SetFieldVisible(nameof(BirdshotCriticalPellets), false);
             RefreshGUI();
         }
 

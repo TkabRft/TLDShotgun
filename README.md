@@ -36,6 +36,16 @@ Combine one matching portion (or one Bullet for a slug), one recovered shotgun c
 
 Three options, off by default, add ordinary-forge bullet casting, ordinary-forge lead-shot casting, and ordinary-workbench lead shotgun shell assembly. They take effect on the next game load and preserve the default recipes. Vanilla rifle and revolver cartridge recipes are unchanged. Scrapshot is crafting-only and uses six slightly weaker pellets with a slightly wider pattern than lead buckshot.
 
+### Hunting with different loads
+
+Slugs are the strongest large-game load. At default settings, two landed headshots within 30 metres are designed to kill a full-health Aurora bear without a lucky critical. Slug wounds bleed out twice as quickly as equivalent buckshot wounds on animals that can bleed.
+
+One birdshot, buckshot or scrapshot pellet kills a rabbit or ptarmigan, including after distance loss. Birdshot is otherwise a small-game load: a concentrated head pattern can kill a deer or wolf, but body hits are weak and it does almost nothing to bears, moose or cougars. It cannot cause critical kills. Fifteen hits on one deer or wolf allow one 15% bleeding chance per shell; a successful wound takes at least four game hours to bleed out. Birdshot never makes bears bleed.
+
+Buckshot retains nine strong pellets for deer, wolves and close-range bear hunting. Scrapshot retains six weaker pellets and its wider pattern; its bleeding wounds take 50% longer. Both need three hits on one animal for bleeding and six hits within their effective range for one critical chance. Moose take substantially less damage from either load across every body part and have much lower critical chances; cougar critical chances are also reduced. Moose and cougars do not bleed. Each barrel resolves its own shell and thresholds.
+
+These rules also apply with the updated Adaptive Arsenal integration; its projectile flight and distance loss remain in effect. Combat acceptance in the game is still pending. On the first start of this update, **Slug Base Damage resets to 150 even if customized**. You can change it again afterward; later starts preserve your choice. Other saved settings and existing items are retained.
+
 ## Maintenance
 
 Each successfully fired barrel costs **1% condition**, reduced by skill to **0.5% at maximum level**. A double shot costs twice as much. Misses still wear the weapon; empty triggers, jams and misfires do not.

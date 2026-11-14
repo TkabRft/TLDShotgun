@@ -26,7 +26,8 @@ Paths below are relative to the mod root.
 | Initialization, embedded assets, resource registration, scene lifecycle | [Embedded asset loading](ASSET-LOADING.md), `Main/Main.cs`, `Util/General.cs` |
 | Weapon and item configuration | `Main/Configuration.cs`, then the specific patch in `Main/Patches.cs` |
 | Firing both barrels | `Main/DoubleFire.cs` |
-| Pellets, damage, and associated effects | `Main/ShotgunPellets.cs` |
+| Pellets, damage, and associated effects | `Main/ShotgunPellets.cs`, `Main/ShotgunWildlifePolicy.cs` |
+| Wildlife damage, bleeding, criticals and shared Adaptive Arsenal policy | [Wildlife damage research](WILDLIFE-DAMAGE-RESEARCH.md), `Main/ShotgunSlugPolicy.cs` |
 | Ammo wheel and selection | `Main/AmmoRadial.cs`, `Main/AmmoSwapPrompt.cs` |
 | Ammo HUD | `Main/CustomAmmoHUD.cs` |
 | Weapon actions and animation callbacks | `Main/Actions.cs`, `Main/AnimationEventProxy.cs` |
