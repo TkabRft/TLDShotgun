@@ -6,6 +6,7 @@ Temp
 UserSettings
 .vsconfig
 *.meta
+__pycache__/
 
 # Source metadata for load-specific ammunition color variants.
 !Assets/Shotgun/Icons/Crafting.meta
