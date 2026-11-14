@@ -1,6 +1,6 @@
 # Weapon animation and audio
 
-code-synced: 2026-11-01
+code-synced: 2026-11-14
 
 ## Symptoms and evidence
 
@@ -114,6 +114,13 @@ the preserved clips but are ignored by the proxy to avoid double playback.
 Reload sounds retain their animation events, gated to the current shotgun
 animator and weapon. `PlayOneShot` preserves overlapping discharge tails.
 
+Upstream 0.14.0's shell-drop attenuation runs inside `ShotgunAudio` after the
+existing readiness and ownership checks. `GAMEPLAY_DoubleBarrel_ShellDrop_Hard`
+uses a per-play volume scale of 0.25 on Snow, Dirt, Straw, Rug, Cloth and Flesh,
+queried through `Utils.GetMaterialTagUnderPosition` at the player position.
+Other surfaces, a missing player transform and all other sounds use 1.0.
+The source's SFX/master settings and verified PCM samples are unchanged.
+
 ## HUD artwork
 
 Scrapshot's loaded HUD is a white/alpha 183 x 436 shell silhouette with three
@@ -126,6 +133,14 @@ GUIDs, keys, visible geometry, UV transform and UI layout code are unchanged. Th
 [source-art guide](../unity/SourceArt/README.md) owns regeneration and validation.
 
 ## Validation and game acceptance
+
+`Tests/check_upstream_merge.py` runs the existing production weapon/PCM/skill/
+ammunition harness with extended native-only surface/audio stand-ins. Its 19
+additional checks cover all six soft tags, hard/unknown surfaces, a missing
+player, unaffected mechanical sounds and preservation of source volume. The
+original 41 weapon, 104 PCM, 88 progression, 462 ammunition-name and 353 quality
+checks also pass. Native surface detection and perceived loudness still need
+game acceptance on soft and hard ground.
 
 The existing isolated harness compiles the production aim, audio and double-fire
 implementations with stand-ins only at the native Unity/game boundary. Its 41

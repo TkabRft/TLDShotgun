@@ -7,6 +7,16 @@ namespace Shotgun;
 internal static class ShotgunAudio
 {
     internal const string Discharge = "GAMEPLAY_DoubleBarrel_Discharge";
+    internal const string ShellDrop = "GAMEPLAY_DoubleBarrel_ShellDrop_Hard";
+    private static readonly HashSet<string> softSurfaces = new() { "Snow", "Dirt", "Straw", "Rug", "Cloth", "Flesh" };
+
+    private static float VolumeScale(string key)
+    {
+        if (key != ShellDrop) return 1f;
+        var player = Il2Cpp.GameManager.GetPlayerTransform();
+        return player != null && softSurfaces.Contains(Il2Cpp.Utils.GetMaterialTagUnderPosition(player.position)) ? 0.25f : 1f;
+    }
+
     private sealed class PendingClip
     {
         internal AudioClip Clip = null!;
@@ -134,7 +144,7 @@ internal static class ShotgunAudio
             }
             if (source.mute || source.volume <= 0f || AudioListener.pause || AudioListener.volume <= 0f)
                 Failure(key, $"muted playback: sourceMute={source.mute}, SFX={source.volume}, listenerPause={AudioListener.pause}, master={AudioListener.volume}");
-            source.PlayOneShot(pending.Clip); // Preserve overlapping discharge tails, including both barrels.
+            source.PlayOneShot(pending.Clip, VolumeScale(key)); // Preserve overlapping discharge tails, including both barrels.
         }
         catch (Exception e) { Failure(key, e.Message); }
     }

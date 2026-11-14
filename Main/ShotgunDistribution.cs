@@ -22,11 +22,11 @@ internal static class ShotgunDistribution
 
     internal static bool AllowsScene(SpawnLedger.State state, string scene) => state.DistributionVersion == 1
         && !string.IsNullOrWhiteSpace(scene) && scene is not ("Boot" or "MainMenu" or "Empty")
-        && !state.PreDistributionScenes.Contains(scene);
+        && !state.PreDistributionScenes.Contains(ShotgunSceneNames.Canonical(scene));
 
     internal static bool ChooseRifle(SpawnLedger.State state, string scene, string id, bool enabled, int chance, Func<int> roll)
     {
-        string key = scene + "\n" + id;
+        string key = ShotgunSceneNames.Canonical(scene) + "\n" + id;
         if (!state.RifleDecisions.TryGetValue(key, out bool replace))
             state.RifleDecisions.Add(key, replace = enabled && roll() < Math.Clamp(chance, 0, 100));
         return replace;

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Shotgun
 {
-    internal static class ShotgunAvailabilityPatches
+    internal static partial class ShotgunAvailabilityPatches
     {
         [HarmonyPatch(typeof(Panel_CustomXPSetup), nameof(Panel_CustomXPSetup.Initialize))]
         internal static class PanelCustomXPSetup_AddShotgunsRow
@@ -80,17 +80,5 @@ namespace Shotgun
         }
 
 
-        [HarmonyPatch("GearSpawner.LootTableManager", "ConfigureLootTableData")]
-        internal static class LootTableManager_RefilterWithModes
-        {
-            internal static void Prefix(LootTableData lootTableData, out int __state) => __state = lootTableData?.m_BaseEntries?.Count ?? 0;
-
-
-            internal static void Postfix(LootTableData lootTableData, int __state)
-            {
-                if (lootTableData?.m_BaseEntries == null || lootTableData.m_BaseEntries.Count == __state) return;
-                lootTableData.FilterEntries();
-            }
-        }
     }
 }

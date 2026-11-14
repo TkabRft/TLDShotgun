@@ -117,7 +117,7 @@ internal static class SpawnHarness
         {
             var now = current.Single(g => g.Name == old.Name);
             Check(old.Name=="SG_Shotgun" || old.Picks.OrderBy(p => p.Key).SequenceEqual(now.Picks.OrderBy(p => p.Key)), $"Part/ammo counts unchanged: {old.Name}");
-            Check(old.Members.All(m=>now.Members.Contains(m)), $"Original identity, prefab, scene, position and rotation unchanged: {old.Name}");
+            Check(old.Members.All(m=>now.Members.Contains(m with { Scene = ShotgunSceneNames.Canonical(m.Scene) })), $"Original identity, prefab, scene, position and rotation unchanged: {old.Name}");
         }
         string catalog = File.ReadAllText(Path.Combine(root, "Main/ShotgunAmmoCatalog.cs"));
         var loads = Regex.Matches(catalog, @"new\(ShotgunPellets\.ShotgunAmmo\.(\w+),").Select(m => m.Groups[1].Value);
@@ -412,7 +412,7 @@ internal static class SpawnHarness
     {
         try
         {
-            DataContracts(args[0]); QuotasAndUpdates(); MigrationAndValidation(); RuntimeLifecycle(); Chances(); DistributionChecks(); AlternativePlacements();
+            DataContracts(args[0]); UpstreamSpawnTests.Run(); QuotasAndUpdates(); MigrationAndValidation(); RuntimeLifecycle(); Chances(); DistributionChecks(); AlternativePlacements();
             Console.WriteLine($"PASS: {checks} spawn compatibility checks; native game execution remains separate."); return 0;
         }
         catch (Exception e) { Console.Error.WriteLine(e); return 1; }

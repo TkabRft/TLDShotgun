@@ -1,6 +1,6 @@
 # Shotgun distribution
 
-code-synced: 2026-11-13
+code-synced: 2026-11-14
 
 Status: implemented. Native pickup, physics, scene restoration and interactions
 with other loot mods still require game acceptance.
@@ -79,6 +79,13 @@ Copies preserve original entries/weights, deduplicate parts, and own separate
 mutable lists and Addressables operations. A Harmony finalizer restores table
 references and destroys copies even on native failure. Original table names
 remain, allowing ModComponent's existing ammunition additions to apply.
+
+`ShotgunLootTablePatch` retains upstream's `ConfigureLootTableData` postfix:
+refilter only when the newly appended entries include a `GEAR_DoubleBarrel`
+prefix. A shotgun already in the table does not trigger refiltering after
+unrelated fishing/beach loot additions. This keeps the upstream interoperability
+fix alongside the local scoped part-table copies; native outdoor-load acceptance
+with other loot mods remains pending.
 
 ## Optional rifle replacements
 

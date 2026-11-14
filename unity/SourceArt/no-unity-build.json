@@ -5,7 +5,7 @@
     "shotgun-ammunition"
   ],
   "basePackage": "DoubleBarrel.modcomponent",
-  "baseSha256": "1000a4d12fcda90ad2af4fade3d2e4c934231205536a0f2ce3c67a4a53c378a3",
+  "baseSha256": "9c47c4f5517c1723e137f30e1da518157941cbae51d7a82e7e6b764a86bda362",
   "bundleEntry": "bundle/shotgun_assets_all.bundle",
   "catalogEntry": "bundle/catalog_shotgun.json",
   "assetRoot": "Assets/Shotgun",

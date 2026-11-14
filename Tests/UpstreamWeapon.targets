@@ -1,0 +1,12 @@
+<Project>
+  <Import Project="$(MSBuildThisFileDirectory)../../Custom/Scripts/ModBuild/BuildOverrides.targets" />
+  <Target Name="UseSurfaceAwareNativeAudioBoundary" BeforeTargets="CoreCompile">
+    <ItemGroup>
+      <Compile Remove="@(Compile)" Condition="'%(Compile.Filename)%(Compile.Extension)' == 'WeaponHarness.cs'" />
+      <Compile Remove="@(Compile)" Condition="'%(Compile.Filename)%(Compile.Extension)' == 'ShotgunWildlifeBoundary.cs'" />
+      <Compile Include="$(MergeWeaponBoundaryPath)" />
+      <Compile Include="$(MergeWildlifeBoundaryPath)" />
+      <Compile Include="$(MSBuildThisFileDirectory)UpstreamAudioTests.cs" />
+    </ItemGroup>
+  </Target>
+</Project>

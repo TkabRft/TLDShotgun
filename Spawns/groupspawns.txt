@@ -72,15 +72,15 @@ item=GEAR_DoubleBarrelPartBarrel id=SG_IslandPartBarrel_001 scene=TrainRepairDep
 item=GEAR_DoubleBarrelPartBarrel id=SG_IslandPartBarrel_002 scene=TrainRepairDepotB p=-6.947,1.088,2.436 r=0,201,0
 
 group=SG_IslandPartStock low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelPartStock id=SG_IslandPartStock_001 scene=WoodCabinC_IronRoad p=1.518,1.157,-2.203 r=0,186,0
+item=GEAR_DoubleBarrelPartStock id=SG_IslandPartStock_001 scene=WoodCabinCIronRoad p=1.518,1.157,-2.203 r=0,186,0
 
 group=SG_IslandPartForend low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelPartForend id=SG_IslandPartForend_001 scene=CoastalHouseH1_IronRoad p=-4.361,-0.163,-0.142 r=0,202,0
-item=GEAR_DoubleBarrelPartForend id=SG_IslandPartForend_002 scene=WoodCabinC_IronRoad p=-1.383,0.039,-2.948 r=0,243,0
+item=GEAR_DoubleBarrelPartForend id=SG_IslandPartForend_001 scene=CoastalHouseH1IronRoad p=-4.361,-0.163,-0.142 r=0,202,0
+item=GEAR_DoubleBarrelPartForend id=SG_IslandPartForend_002 scene=WoodCabinCIronRoad p=-1.383,0.039,-2.948 r=0,243,0
 
 group=SG_IslandPartTrigger low=0 medium=1 high=1 veryhigh=2
-item=GEAR_DoubleBarrelPartTrigger id=SG_IslandPartTrigger_001 scene=CoastalHouseH1_IronRoad p=-2.323,-0.154,-3.69 r=0,268,0
-item=GEAR_DoubleBarrelPartTrigger id=SG_IslandPartTrigger_002 scene=LakeCabinD_IronRoad p=1.692,0.046,2.287 r=0,269,0
+item=GEAR_DoubleBarrelPartTrigger id=SG_IslandPartTrigger_001 scene=CoastalHouseH1IronRoad p=-2.323,-0.154,-3.69 r=0,268,0
+item=GEAR_DoubleBarrelPartTrigger id=SG_IslandPartTrigger_002 scene=LakeCabinDIronRoad p=1.692,0.046,2.287 r=0,269,0
 
 group=AF_Out_Boxes scene=AirfieldRegion low=0 medium=0 high=1 veryhigh=1
 item=GEAR_DoubleBarrelAmmoBoxBirdshot id=AF_Out_Boxes_001 p=37.989,155.876,383.69 r=24,8,15

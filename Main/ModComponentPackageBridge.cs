@@ -132,6 +132,7 @@ internal sealed class ModComponentPackageBridge
             // Immutable template and the previously shipped, case-broken package.
             if (digest != ContentHash
                 && digest != "1000a4d12fcda90ad2af4fade3d2e4c934231205536a0f2ce3c67a4a53c378a3"
+                && digest != "9c47c4f5517c1723e137f30e1da518157941cbae51d7a82e7e6b764a86bda362"
                 && digest != "597e241e6eb8caa8138a1ceb314f411d1e90c48d587b658dfc4a2535d8a07178")
             {
                 warning("Standalone shotgun package was skipped but preserved because its hash is unknown: " + LegacyArchivePath);

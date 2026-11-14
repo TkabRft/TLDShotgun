@@ -132,6 +132,7 @@ namespace Shotgun
                         || group.Pending.Any(p => p.Id == id) && group.Processed.ContainsKey(id))
                         throw new InvalidDataException("Invalid spawn identity ownership");
             }
+            ShotgunSceneNames.Normalize(state);
             return state;
         }
 
@@ -147,8 +148,10 @@ namespace Shotgun
                     || p.Value.Any(string.IsNullOrWhiteSpace) || p.Value.Distinct().Count() != p.Value.Count)
                 || state.Outcomes.Any(p => !Enum.IsDefined(typeof(Outcome), p.Value)))
                 throw new InvalidDataException("Unsupported or invalid V1 state");
-            state.LegacyScenes = new(state.LegacyScenes, StringComparer.OrdinalIgnoreCase);
-            state.Selections = new(state.Selections, StringComparer.OrdinalIgnoreCase);
+            state.LegacyScenes = ShotgunSceneNames.MergeKeys(state.LegacyScenes,
+                ShotgunSceneNames.Canonical, StringComparer.OrdinalIgnoreCase);
+            state.Selections = state.Selections.GroupBy(p => ShotgunSceneNames.Canonical(p.Key), StringComparer.OrdinalIgnoreCase)
+                .ToDictionary(g => g.Key, g => g.SelectMany(p => p.Value).Distinct(StringComparer.Ordinal).ToList(), StringComparer.OrdinalIgnoreCase);
             return state;
         }
 
@@ -197,11 +200,20 @@ namespace Shotgun
             string level, Func<string, bool> available, Func<string, Random> rng, int gunCount)
         {
             LegacyState? legacy = legacyJson == null ? null : ReadLegacy(legacyJson);
-            State state = new() { VisitedScenes = new(savedScenes, StringComparer.OrdinalIgnoreCase) };
+            State state = new() { VisitedScenes = new(savedScenes.Select(ShotgunSceneNames.Canonical), StringComparer.OrdinalIgnoreCase) };
             if (legacy != null)
                 state.VisitedScenes.UnionWith(legacy.LegacyScenes.Keys.Concat(legacy.Selections.Keys));
             var aliases = LegacyAliases(baseline);
-            foreach (var source in baseline)
+            // Keep the frozen coordinate keys and also accept upstream's corrected scene spellings.
+            foreach (var source in baseline.Select(ShotgunSceneNames.Current))
+                foreach (var member in source.Members)
+                {
+                    string key = LegacyMemberKey(source.Name, member);
+                    if (aliases.TryGetValue(key, out var existing) && existing.Id != member.Id)
+                        throw new InvalidDataException("Ambiguous corrected legacy spawn key");
+                    aliases[key] = member;
+                }
+            foreach (var source in baseline.Select(ShotgunSceneNames.Current))
             {
                 Register(state, source);
                 GroupState group = new() { Quota = Quota(source, level) };
@@ -214,11 +226,12 @@ namespace Shotgun
                                 throw new InvalidDataException("V1 selection has no matching outcome/group");
                             string id = aliases.TryGetValue(key, out var member) ? member.Id
                                 : "legacy:" + Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(key)));
-                            if (member != null && !string.Equals(member.Scene, selection.Key, StringComparison.OrdinalIgnoreCase))
+                            if (member != null && !string.Equals(ShotgunSceneNames.Canonical(member.Scene), selection.Key, StringComparison.OrdinalIgnoreCase))
                                 throw new InvalidDataException("V1 selection belongs to another scene");
                             state.Identities.TryAdd(id, source.Name + ":<legacy>");
-                            if (!group.Processed.TryAdd(id, new Decision { Scene = selection.Key, Outcome = outcome }))
-                                throw new InvalidDataException("Repeated V1 selection");
+                            if (!group.Processed.TryAdd(id, new Decision { Scene = selection.Key, Outcome = outcome })
+                                && (group.Processed[id].Scene != selection.Key || group.Processed[id].Outcome != outcome))
+                                throw new InvalidDataException("Conflicting V1 selection");
                         }
 
                 var pool = source.Members.Where(m => available(m.Scene)).ToList();
@@ -241,7 +254,7 @@ namespace Shotgun
         // Covers a native scene save that succeeded while a ModData write did not.
         internal static void ReconcileSavedScenes(State state, IEnumerable<string> savedScenes)
         {
-            state.VisitedScenes.UnionWith(savedScenes);
+            state.VisitedScenes.UnionWith(savedScenes.Select(ShotgunSceneNames.Canonical));
             foreach (var group in state.Groups.Values)
                 foreach (var pending in group.Pending.Where(p => state.VisitedScenes.Contains(p.Scene)).ToList())
                 {

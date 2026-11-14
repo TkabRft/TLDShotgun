@@ -4,7 +4,7 @@ Status: implemented in the rebuilt runtime DLL. The complete ammunition asset pa
 
 ## Find controls
 
-The expanded `SG_Shotgun` pool is shared by usable and ruined finds. Original scene names, IDs and positions are preserved; optional scenes absent from the installed game are still excluded. See [distribution](DISTRIBUTION.md) for the added candidates.
+The expanded `SG_Shotgun` pool is shared by usable and ruined finds. Original IDs and positions are preserved; the three Iron Road interior scene names follow upstream's corrections described below. Optional scenes absent from the installed game are still excluded. See [distribution](DISTRIBUTION.md) for the added candidates.
 
 | Option | Default |
 |---|---|
@@ -63,7 +63,7 @@ The shotgun receives a `Millable` component configured for Gunsmithing. Recover 
 
 ## Persistence
 
-code-synced: 2026-11-04
+code-synced: 2026-11-14
 
 `SpawnLedger` records placement decisions for all groups: complete shotguns, parts
 and grouped ammunition. Native scene/inventory serialization owns actual gear,
@@ -135,6 +135,24 @@ SHA-256 is checked before use. It defines the exact old coordinate-key-to-ID map
 do not update it when editing current spawns. Historical alias collisions fail
 validation rather than choosing an arbitrary member.
 
+### Iron Road scene corrections
+
+Current grouped/fixed spawns use `WoodCabinCIronRoad`, `CoastalHouseH1IronRoad`
+and `LakeCabinDIronRoad`, replacing the corresponding `_IronRoad` spellings.
+`ShotgunSceneNames` maps only those three historical names. The frozen V1
+resource and its checksum remain unchanged; migration constructs a corrected
+in-memory view and recognizes both old and corrected coordinate keys.
+
+V2 loading normalizes visited/pre-distribution/rifle scene sets, processed and
+pending scenes, and scene prefixes in rifle decisions. Equivalent aliases
+collapse; contradictory decisions fail closed through the existing load guard.
+V1 migration retains authoritative outcomes and permanent IDs. Native saved-scene
+keys are normalized before reconciliation, so an explored renamed interior
+cannot acquire replacement quota. Save keys, schema version and native saved
+gear remain unchanged; normalization persists on the next normal slot save.
+
+### Migration persistence
+
 V1 selections and outcomes are authoritative, including empty selections and
 empty outcomes. Unrecognized old selected keys become retained historical
 tombstones and spend quota. For missing history, replay the frozen pool with the
@@ -176,6 +194,10 @@ The dependency-free .NET 6 harness links production parsing, ledger, migration a
 runtime-policy code. Only Unity/game/ModData boundaries are stand-ins. It seals
 the legacy snapshot, checks current IDs/counts/transforms and ammo order, and
 exercises pool edits, quotas, V1/V2 state, bans, readiness, retries and slot changes.
+The explicit compile list keeps the standalone crafting and optional-skill
+fixtures separate. The suite passes 962 existing checks plus 43 upstream scene
+and loot-filter checks, including all three aliases, old/new V1 keys, V2 pending
+and processed history, conflicting decisions, and prevention of refills.
 It does not execute native scene deserialization or establish in-game acceptance.
 
 ## Pending game checks

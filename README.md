@@ -18,6 +18,8 @@
 
 Aiming uses the game's hold/toggle preference. Shotgun sounds follow the SFX and master volume settings; all six sounds ship inside DoubleBarrel.dll, with no separate sound download. The loaded Scrapshot HUD uses the same white shell silhouette as the other ammunition, with cut-metal shapes inside.
 
+Spent shells land more quietly on snow, dirt, straw, rugs, cloth and flesh. Other weapon sounds retain their usual volume.
+
 If aiming will not start while walking, stop briefly to aim, then resume movement. If touchpad taps or its left button do not select radial entries, use a physical mouse's left button. Both behaviors were also reported with vanilla items/UI; see the [input observations](docs/VANILLA-INPUT-ISSUES.md).
 
 If aiming or weapon switching stops responding, enable **Aim Diagnostics** in Mod Settings and include the resulting MelonLoader log with your report. It is off by default.
@@ -75,6 +77,8 @@ From Medium resources upward, rare shotgun parts can also appear in rifle cargo,
 **Replace Standard Rifle Finds** is an optional Mod Settings switch, **off by default**. Its independent **Replacement Chance** defaults to **25%**. Eligible ordinary rifle finds in newly explored scenes can become usable, unloaded shotguns at the rifle's condition. Named rifles, mission items, container contents and player-carried or dropped weapons are preserved. Loaded rifle rounds are left as loose rifle ammunition. Usable shotguns must be enabled and permitted at that resource level. Replacements are additional to the world allowance.
 
 Previously visited exteriors and interiors, including unopened containers, keep their prior distribution. An unexplored building in a visited region can use the new rules. Settings changes never reroll a processed rifle find.
+
+Iron Road interior finds use the corrected scene names from upstream 0.14.0. Existing spawn history is retained across the name corrections, so revisiting an explored interior does not refill its grouped finds.
 
 Updates can change future finds in unexplored areas within each group's remaining allowance. This applies to grouped shotguns, parts and ammunition. A processed location spends its allowance even when its result is empty; picking up, moving or dismantling its loot does not create a replacement. Chance and eligibility settings affect newly explored areas. Existing fixed finds retain their usual placement rules.
 

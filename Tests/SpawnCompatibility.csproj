@@ -6,8 +6,14 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseAppHost>false</UseAppHost>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="SpawnHarness.cs" />
+    <Compile Include="SpawnBoundary.cs" />
+    <Compile Include="UpstreamSpawnTests.cs" />
+    <Compile Include="../Main/ShotgunLootTablePatch.cs" Link="Production/ShotgunLootTablePatch.cs" />
+    <Compile Include="../Main/ShotgunSceneNames.cs" Link="Production/ShotgunSceneNames.cs" />
     <Compile Include="../Main/GroupSpawner.cs" Link="Production/GroupSpawner.cs" />
     <Compile Include="../Main/SpawnLedger.cs" Link="Production/SpawnLedger.cs" />
     <Compile Include="../Main/ShotgunSpawnPolicy.cs" Link="Production/ShotgunSpawnPolicy.cs" />

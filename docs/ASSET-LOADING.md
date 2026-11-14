@@ -1,6 +1,6 @@
 # Embedded asset loading
 
-code-synced: 2026-11-01
+code-synced: 2026-11-14
 
 Status: implemented and tested in an isolated .NET 6 lifecycle harness, including
 the real JsonHandler source, Harmony 2.10.2 and API binding to the official
@@ -13,6 +13,15 @@ The authoring data root owns the complete `auto-mapped`, `blueprints`,
 template entries before writing current sources with lowercase filenames. An
 absent section directory means an empty section. Gear IDs, blueprint names,
 localization keys and Addressables keys inside the data retain their identities.
+
+The upstream 0.14.0 template SHA-256 is
+`9c47c4f5517c1723e137f30e1da518157941cbae51d7a82e7e6b764a86bda362`.
+Compared with the preceding template, only `gear-spawns/gearspawns.txt` changes:
+three Iron Road scene-name corrections. Every other archive member, including
+the model bundle and catalog, is byte-identical. The asset manifest pins the new
+archive. Placement evidence retains the existing geometry audit and binds its
+model-package seal to this verified equivalent template; no new rendering audit
+is claimed. The frozen grouped-spawn migration baseline is independent and unchanged.
 
 The earlier generated package retained old entries and added case-distinct new
 ones. ModComponent registers JSON by literal filename stem but looks it up with
@@ -136,7 +145,8 @@ those game results; see the owner page for the acceptance boundary.
 After embedded registration succeeds and `ModComponent.Public.IsReady()` confirms
 prefab mapping finished, the next update checks only the exact legacy archive path.
 It removes a regular file only when SHA-256 matches the current embedded package,
-the original template, or the previously shipped case-broken package. Unknown or
+either verified upstream template (0.13.5 or 0.14.0), or the previously shipped
+case-broken package. Unknown or
 modified files and links are preserved with a diagnostic. Cleanup is non-recursive;
 the settings/metadata directory, saves and other mods are untouched. An I/O failure
 leaves the file in place and is reported once.

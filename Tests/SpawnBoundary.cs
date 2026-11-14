@@ -188,6 +188,7 @@ namespace HarmonyLib
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
     public class HarmonyPatch : Attribute
     {
+        public HarmonyPatch(string type, string method) { }
         public HarmonyPatch(Type type, string method) { }
         public HarmonyPatch(Type type, string method, Type[] parameters) { }
     }
