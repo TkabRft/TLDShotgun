@@ -141,6 +141,16 @@ Three ModSettings options default to Off and take effect on the next game load:
 
 Defaults remain available alongside alternatives. Scrap preparation/assembly remain workbenchable regardless of options. `ShotgunCrafting` removes only its previous alternative JSON from ModComponent's managed registry before registering the enabled recipes for the next game load.
 
+Alternative registration requires successful embedded-package registration. If assets
+are unavailable, previous owned alternatives are removed and no replacements are
+added; one warning is emitted per process. Other mods' recipes remain untouched.
+ModComponent 7.x minor versions are accepted when their required loader interfaces
+match. The 2026-11-15 regression covered all eight option combinations and repeated
+loads across 7.0/7.1/7.2/7.99 fixtures, with actual 7.0.0/7.1.0 API binding;
+see [the compatibility regression](ASSET-LOADING.md#modcomponent-7x-compatibility-regression)
+for evidence and native acceptance limits. Recipe ingredients, yields, identities,
+settings and existing saves are unchanged.
+
 Material IDs are `GEAR_DoubleBarrelLeadBuckshot`, `GEAR_DoubleBarrelLeadBirdshot`, and `GEAR_DoubleBarrelScrapBuckshot`. Scrapshot appends to the existing ammo order as enum value 4; existing values and ammo IDs are preserved. No wad item or separate small-game scrap load is included.
 
 Spent shotgun casings are reusable. Firing increments the spent-casing count; reload ejection places casings at the player's feet rather than directly into inventory. Reload can eject spent casings even without spare ammunition. Picked-up casings can be used for any compatible shotgun-shell recipe.

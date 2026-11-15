@@ -8,6 +8,7 @@ namespace Shotgun
     internal static class ShotgunCrafting
     {
         private static readonly HashSet<string> OwnedJson = new();
+        private static bool warnedUnavailable;
 
         // ModComponent keeps its managed recipe registry between game loads. Remove only
         // our alternatives before its postfix maps recipes into the new game's manager.
@@ -23,6 +24,15 @@ namespace Shotgun
                     var recipes = (HashSet<string>)AccessTools.Field(registry, "jsonUserBlueprints").GetValue(null);
                     foreach (string previous in OwnedJson) recipes.Remove(previous);
                     OwnedJson.Clear();
+                    if (!EmbeddedAssetPackage.Loaded)
+                    {
+                        if (!warnedUnavailable)
+                        {
+                            MelonLogger.Warning("Shotgun crafting alternatives are unavailable because the embedded asset package has not loaded successfully.");
+                            warnedUnavailable = true;
+                        }
+                        return;
+                    }
                     Settings settings = Settings.Instance;
                     if (settings == null) return;
                     var add = (Action<string>)AccessTools.Method(registry, "AddBlueprintFromJson")

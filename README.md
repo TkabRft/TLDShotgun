@@ -129,7 +129,7 @@ guaranteed finds.
 ## Installation
 
 - MelonLoader 0.7.2
-- [ModComponent](https://github.com/dommrogers/ModComponent/releases/latest/download/ModComponent.dll)
+- [ModComponent](https://github.com/dommrogers/ModComponent/releases/latest/download/ModComponent.dll) 7.x (supports compatible minor updates)
 - [ModSettings](https://github.com/DigitalzombieTLD/ModSettings/releases/latest/download/ModSettings.dll)
 - [ModData](https://github.com/dommrogers/ModData/releases/latest/download/ModData.dll)
 - [MehToolBox](https://github.com/monsieurmeh/MehToolBox/releases/latest/download/MehToolBox.dll)

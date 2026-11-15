@@ -1,0 +1,12 @@
+<Project>
+  <!-- Reuse the existing real-consumer/lifecycle harness without changing shared tooling. -->
+  <PropertyGroup>
+    <StartupObject>ModComponentCompatibilityHarness</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ModComponentCompatibilityHarness.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)../Main/ShotgunCrafting.cs" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)../Crafting/Alternatives/*.json"
+                      LogicalName="Shotgun.Crafting.%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

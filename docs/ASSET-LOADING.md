@@ -1,10 +1,10 @@
 # Embedded asset loading
 
-code-synced: 2026-11-14
+code-synced: 2026-11-15
 
 Status: implemented and tested in an isolated .NET 6 lifecycle harness, including
-the real JsonHandler source, Harmony 2.10.2 and API binding to the official
-ModComponent 7.0.0 DLL. Full Unity/game acceptance remains pending.
+the real JsonHandler source, Harmony 2.10.2 and API binding to the upstream
+ModComponent 7.0.0 and supplied 7.1.0 DLLs. Full Unity/game acceptance remains pending.
 
 ## Package data
 
@@ -40,8 +40,11 @@ the old failure before checking the corrected package.
 
 `EmbeddedAssetPackage` installs three scoped managed Harmony patches during early
 initialization, before ModComponent initializes its assets. `ModComponentPackageBridge`
-checks the required 7.0 loader signatures before installation; it does not require
-a patched ModComponent DLL or add a public API.
+accepts ModComponent 7.x and checks every required loader type, method signature,
+field, property and file-type enum contract before installation. Minor versions
+are unrestricted; another assembly identity or major version is rejected. A
+missing or incompatible member reports its name and the detected assembly/version.
+The bridge does not require a patched ModComponent DLL or add a public API.
 
 1. The standalone-file prefix skips only the exact `Mods/DoubleBarrel.modcomponent`
    path. Other packs keep their normal loading path.
@@ -63,6 +66,33 @@ fallback is used. A changed DLL resource is read on the next process launch even
 when the mod version remains unchanged. FiligranisSkills lookup uses exact assembly
 and type names; absence disables only that optional skill and does not scan every
 interop type or suppress unrelated warnings.
+
+### ModComponent 7.x compatibility regression
+
+A launch with ModComponent 7.1.0 exposed an overly narrow minor-version check:
+Shotgun rejected the loader before registering its embedded assets, then registered
+five enabled alternative recipes whose custom outputs were absent. ModComponent's
+blueprint validator dereferenced those missing prefabs. The loader now accepts
+all 7.x minor versions subject to the member checks above. `EmbeddedAssetPackage.Loaded`
+exposes successful package registration internally; alternatives are withheld until
+it is true, after removing previously owned alternatives. Unavailable assets produce
+one crafting warning per process. No global blueprint-validator patch is installed.
+
+[`Tests/check_modcomponent_compatibility.py`](../Tests/check_modcomponent_compatibility.py)
+reuses the workspace SDK project and existing real-consumer/lifecycle harness.
+With the workspace tooling available, run `python Tests/check_modcomponent_compatibility.py`
+from the mod root; an optional package argument selects an already generated package.
+Generated sandboxes, logs and reports remain outside the mod's source tree.
+
+Validation on 2026-11-15 passed 58 additional checks for each fixture version 7.0,
+7.1, 7.2 and 7.99, alongside the shared production bridge/Harmony lifecycle checks.
+Coverage includes ten incompatible assembly/API fixtures, all eight crafting-option
+combinations, repeated loads, missing settings, failed package registration and
+preservation of another mod's recipe. Required-member binding also passed against
+the upstream 7.0.0 and supplied 7.1.0 binaries without executing their game code.
+The 7.2/7.99 fixtures establish minor-version policy, not compatibility with future
+implementation changes. The full package build and installed-reference/startup-asset
+audits passed; native startup and crafting acceptance remain pending.
 
 ## Weapon initialization and inventory actions
 

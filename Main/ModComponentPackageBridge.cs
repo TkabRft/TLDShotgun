@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace Shotgun;
 
-// Pure managed bridge. All game/resource handling remains in ModComponent 7.0.
+// Pure managed bridge. All game/resource handling remains in ModComponent 7.x.
 internal sealed class ModComponentPackageBridge
 {
     internal const string PackageName = "DoubleBarrel";
@@ -15,6 +15,7 @@ internal sealed class ModComponentPackageBridge
     private readonly Action<string> info;
     private readonly Action<string> warning;
     private readonly string modsDirectory;
+    private readonly string componentIdentity;
     private readonly MethodInfo getFileType;
     private readonly MethodInfo handleFile;
     private readonly MethodInfo addDependency;
@@ -35,9 +36,10 @@ internal sealed class ModComponentPackageBridge
     internal ModComponentPackageBridge(Assembly componentAssembly, string modsPath,
         Func<Stream> resource, Action<string> information, Action<string> warnings)
     {
-        Version? version = componentAssembly.GetName().Version;
-        if (componentAssembly.GetName().Name != "ModComponent" || version?.Major != 7 || version.Minor != 0)
-            throw new NotSupportedException("Embedded shotgun assets require the ModComponent 7.0 loader API.");
+        AssemblyName identity = componentAssembly.GetName();
+        componentIdentity = identity.FullName;
+        if (identity.Name != "ModComponent" || identity.Version?.Major != 7)
+            throw new NotSupportedException($"Embedded shotgun assets require a compatible ModComponent 7.x loader API. Found {componentIdentity}.");
         modsDirectory = Path.GetFullPath(modsPath);
         LegacyArchivePath = Path.Combine(modsDirectory, PackageName + ".modcomponent");
         openResource = resource;
@@ -168,19 +170,19 @@ internal sealed class ModComponentPackageBridge
         try { return method.Invoke(null, arguments); }
         catch (TargetInvocationException error) { throw new InvalidOperationException("ModComponent." + method.Name + " failed.", error.InnerException ?? error); }
     }
-    private static NotSupportedException Missing(string member) => new("Incompatible ModComponent 7.0 loader member: " + member);
-    private static Type RequireType(Assembly assembly, string name) => assembly.GetType(name, false) ?? throw Missing(name);
-    private static MethodInfo RequireMethod(Type type, string name, Type result, params Type[] parameters)
+    private NotSupportedException Missing(string member) => new($"Incompatible ModComponent 7.x loader ({componentIdentity}): missing or incompatible member {member}.");
+    private Type RequireType(Assembly assembly, string name) => assembly.GetType(name, false) ?? throw Missing(name);
+    private MethodInfo RequireMethod(Type type, string name, Type result, params Type[] parameters)
     {
         MethodInfo? method = type.GetMethod(name, StaticMembers, null, parameters, null);
         return method != null && method.ReturnType == result ? method : throw Missing(type.FullName + "." + name);
     }
-    private static FieldInfo RequireField(Type type, string name, Type fieldType)
+    private FieldInfo RequireField(Type type, string name, Type fieldType)
     {
         FieldInfo? field = type.GetField(name, StaticMembers);
         return field != null && field.FieldType == fieldType ? field : throw Missing(type.FullName + "." + name);
     }
-    private static PropertyInfo RequireProperty(Type type, string name, Type propertyType)
+    private PropertyInfo RequireProperty(Type type, string name, Type propertyType)
     {
         PropertyInfo? property = type.GetProperty(name, StaticMembers);
         return property != null && property.PropertyType == propertyType && property.GetMethod != null ? property : throw Missing(type.FullName + "." + name);

@@ -7,6 +7,8 @@ internal static class EmbeddedAssetPackage
 {
     private static ModComponentPackageBridge? bridge;
 
+    internal static bool Loaded => bridge?.Loaded == true;
+
     internal static void Install(string modsDirectory)
     {
         if (bridge != null) return;
